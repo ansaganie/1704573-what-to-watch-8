@@ -1,12 +1,18 @@
-import Main from "../main/main";
-import {FilmCard} from "../../types/film-card";
+import Main from '../main/main';
+import { Film } from '../../types/film';
 
 type AppProps = {
-  smallFilmCards: FilmCard[],
+  smallFilmCards: Film[],
+  promoFilm: Film,
 }
 
-function App({ smallFilmCards }: AppProps): JSX.Element {
-  return <Main smallFilmCards={smallFilmCards} />;
+function App({ smallFilmCards, promoFilm }: AppProps): JSX.Element {
+  return (
+    <Main
+      smallFilmCards={smallFilmCards}
+      promoFilm={promoFilm}
+    />
+  );
 }
 
 export default App;

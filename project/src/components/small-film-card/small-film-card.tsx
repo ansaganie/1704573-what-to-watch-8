@@ -1,12 +1,12 @@
 import React from 'react';
+import { Film } from '../../types/film';
 
 type SmallFilmCardProps = {
-  imgUrl: string,
-  title: string,
-  id: number,
+  film: Film,
 };
 
-const SmallFilmCard = ({imgUrl, title, id}: SmallFilmCardProps): JSX.Element => {
+function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
+  const { imgUrl, title, id } = props.film;
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
@@ -17,6 +17,6 @@ const SmallFilmCard = ({imgUrl, title, id}: SmallFilmCardProps): JSX.Element => 
       </h3>
     </article>
   );
-};
+}
 
 export default SmallFilmCard;
