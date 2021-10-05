@@ -5,6 +5,6 @@ import { films, promoFilm } from './mock/films';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App smallFilmCards={films} promoFilm={promoFilm}/>
+    <App films={films} promoFilm={promoFilm}/>
   </React.StrictMode>,
   document.getElementById('root'));

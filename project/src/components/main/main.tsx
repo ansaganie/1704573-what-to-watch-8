@@ -1,17 +1,18 @@
 import React from 'react';
-import SmallFilmCard from '../small-film-card/small-film-card';
 import { Film } from '../../types/film';
 import FilmCard from '../film-card/film-card';
+import Footer from '../footer/footer';
+import FilmsList from '../films-list/films-list';
 
 type MainProps = {
-  smallFilmCards: Film[],
+  films: Film[],
   promoFilm: Film,
 }
 
-function Main({ smallFilmCards, promoFilm }: MainProps): JSX.Element {
+function Main({ films, promoFilm }: MainProps): JSX.Element {
   return (
     <React.Fragment>
-      <FilmCard promoFilm={promoFilm} />
+      <FilmCard promoFilm={promoFilm}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -49,28 +50,14 @@ function Main({ smallFilmCards, promoFilm }: MainProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {smallFilmCards.map((film) => <SmallFilmCard film={film} key={film.id}/>)}
-          </div>
+          <FilmsList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </React.Fragment>
   );

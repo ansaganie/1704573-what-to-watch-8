@@ -2,14 +2,14 @@ import Main from '../main/main';
 import { Film } from '../../types/film';
 
 type AppProps = {
-  smallFilmCards: Film[],
+  films: Film[],
   promoFilm: Film,
 }
 
-function App({ smallFilmCards, promoFilm }: AppProps): JSX.Element {
+function App({ films, promoFilm }: AppProps): JSX.Element {
   return (
     <Main
-      smallFilmCards={smallFilmCards}
+      films={films}
       promoFilm={promoFilm}
     />
   );

@@ -1,6 +1,11 @@
 import React from 'react';
 
-function Header():JSX.Element {
+type HeaderProps = {
+  title?: string,
+  breadcrumbs?: JSX.Element,
+}
+
+function Header({ title, breadcrumbs }: HeaderProps): JSX.Element {
   return (
     <header className="page-header film-card__head">
       <div className="logo">
@@ -10,6 +15,9 @@ function Header():JSX.Element {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
+
+      {title ? <h1 className="page-title user-page__title">title</h1> : ''}
+      {breadcrumbs ? breadcrumbs : ''}
 
       <ul className="user-block">
         <li className="user-block__item">
