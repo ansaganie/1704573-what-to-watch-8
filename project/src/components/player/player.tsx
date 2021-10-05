@@ -1,5 +1,6 @@
 import React from 'react';
 import { Film } from '../../types/film';
+import Sprite from '../sprite/sprite';
 
 type PlayerPros = {
   film: Film,
@@ -10,6 +11,8 @@ function Player({ film }: PlayerPros): JSX.Element {
 
   return (
     <div className="player">
+      <Sprite/>
+
       <video src={videoLink} className="player__video" poster={posterImage}/>
 
       <button type="button" className="player__exit">Exit</button>

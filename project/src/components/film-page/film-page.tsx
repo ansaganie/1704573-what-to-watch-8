@@ -3,6 +3,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Film } from '../../types/film';
 import FilmsList from '../films-list/films-list';
+import Sprite from '../sprite/sprite';
 
 type MoviePageProps = {
   film: Film,
@@ -12,6 +13,8 @@ type MoviePageProps = {
 function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
   return (
     <React.Fragment>
+      <Sprite/>
+
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">

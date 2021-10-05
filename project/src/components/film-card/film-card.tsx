@@ -1,23 +1,27 @@
 import React from 'react';
 import { Film } from '../../types/film';
 import Header from '../header/header';
+import Sprite from '../sprite/sprite';
 
 type FilmCardProps = {
   promoFilm: Film,
 }
 
 function FilmCard({ promoFilm }: FilmCardProps): JSX.Element {
-  const { previewImage, backgroundImage, name, released, genre  } = promoFilm;
+  const { previewImage, backgroundImage, name, released, genre } = promoFilm;
 
   return (
     <section className="film-card">
+
+      <Sprite/>
+
       <div className="film-card__bg">
         <img src={backgroundImage} alt={name}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header />
+      <Header/>
 
       <div className="film-card__wrap">
         <div className="film-card__info">
