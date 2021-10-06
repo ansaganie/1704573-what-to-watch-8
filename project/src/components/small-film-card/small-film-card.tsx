@@ -1,12 +1,8 @@
 import React from 'react';
 import { Film } from '../../types/film';
 
-type SmallFilmCardProps = {
-  film: Film,
-};
-
-function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
-  const { previewImage, name, id } = props.film;
+function SmallFilmCard(props: Film): JSX.Element {
+  const { previewImage, name, id } = props;
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
