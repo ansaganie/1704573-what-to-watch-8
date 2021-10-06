@@ -12,7 +12,7 @@ type MainProps = {
 function Main({ films, promoFilm }: MainProps): JSX.Element {
   return (
     <React.Fragment>
-      <FilmCard promoFilm={promoFilm}/>
+      <FilmCard {...promoFilm}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
