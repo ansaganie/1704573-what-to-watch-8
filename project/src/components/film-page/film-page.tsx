@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Film } from '../../types/film';
@@ -13,18 +14,14 @@ type MoviePageProps = {
 function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
   return (
     <React.Fragment>
-      <Sprite/>
-
       <section className="film-card film-card--full">
+        <Sprite/>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={film.backgroundImage} alt={film.name}/>
           </div>
-
           <h1 className="visually-hidden">WTW</h1>
-
           <Header/>
-
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{film.name}</h2>
@@ -46,7 +43,7 @@ function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -101,9 +98,7 @@ function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
           </div>
         </div>
       </section>
-
       <div className="page-content">
-
         {
           relatedFilms
             ? (

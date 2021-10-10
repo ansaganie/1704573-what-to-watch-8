@@ -12,7 +12,7 @@ function MyList({ myList }: MyListProps): JSX.Element {
   return (
     <div className="user-page">
 
-      <Header title={'My List'}/>
+      <Header title={'My list'}/>
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>

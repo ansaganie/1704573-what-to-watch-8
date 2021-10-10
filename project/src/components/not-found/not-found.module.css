@@ -1,0 +1,19 @@
+.text {
+  font-size: 30px;
+  line-height: 25px;
+  font-family: "Arial Black", sans-serif;
+}
+
+.title {
+  font-size: 200px;
+  line-height: 200px;
+  font-family: "Arial Black", sans-serif;
+  margin: 0 0 7px;
+}
+
+.wrapper {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 75px;
+}

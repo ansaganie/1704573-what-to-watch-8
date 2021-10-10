@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link} from 'react-router-dom';
 import Header from '../header/header';
 import { Film } from '../../types/film';
 
@@ -7,15 +8,15 @@ type AddReviewProps = {
 }
 
 function AddReview({ film }: AddReviewProps): JSX.Element {
-  const { posterImage, backgroundImage, name } = film;
+  const { id, posterImage, backgroundImage, name } = film;
   const breadcrumbs = (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <a href="film-page.html" className="breadcrumbs__link">{name}</a>
+          <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
+          <span className="breadcrumbs__link" >Add review</span>
         </li>
       </ul>
     </nav>
