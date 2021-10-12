@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Film } from '../../types/film';
@@ -84,10 +84,10 @@ function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
               </div>
 
               <div className="film-card__text">
-                <p>{film.description}</p>
+
+                {film.description.map((desc) => <p key={desc.slice(0, 6)}>{desc}</p>)}
 
                 <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
                 <p className="film-card__starring">
                   <strong>
                     Starring: {film.starring?.join(', ')} and other

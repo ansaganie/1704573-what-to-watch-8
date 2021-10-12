@@ -4,7 +4,7 @@ import Header from '../header/header';
 import Sprite from '../sprite/sprite';
 
 function FilmCard(props: Film): JSX.Element {
-  const { previewImage, backgroundImage, name, released, genre } = props;
+  const { posterImage, backgroundImage, name, released, genre } = props;
 
   return (
     <section className="film-card">
@@ -23,7 +23,8 @@ function FilmCard(props: Film): JSX.Element {
         <div className="film-card__info">
           <div className="film-card__poster">
             <img
-              src={previewImage} alt={name}
+              src={posterImage}
+              alt={name}
               width="218"
               height="327"
             />
