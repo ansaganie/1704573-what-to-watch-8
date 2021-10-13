@@ -3,6 +3,7 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 import Header from '../header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { films } from '../../mock/films';
+import ReviewForm from '../review-form/review-form';
 
 function AddReview(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ function AddReview(): JSX.Element {
     return <Redirect to={'/'}/>;
   }
 
-  const { posterImage, backgroundImage, name, rating } = film;
+  const { posterImage, backgroundImage, name } = film;
   const breadcrumbsElement = (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
@@ -26,19 +27,6 @@ function AddReview(): JSX.Element {
       </ul>
     </nav>
   );
-
-  const ratingElement: JSX.Element[] = [];
-
-  for (let i = 10; i >= 1; i--) {
-    const checked = i === Math.round(rating);
-
-    ratingElement.push(
-      <React.Fragment>
-        <input className="rating__input" id={`star-${i}`} type="radio" name="rating" value={i} checked={checked}/>
-        <label className="rating__label" htmlFor={`star-${i}`}>Rating {i}</label>
-      </React.Fragment>,
-    );
-  }
 
   return (
     <section className="film-card film-card--full">
@@ -62,28 +50,8 @@ function AddReview(): JSX.Element {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
-          <div className="rating">
-            <div className="rating__stars">
-              {ratingElement}
-            </div>
-          </div>
-
-          <div className="add-review__text">
-            <textarea
-              className="add-review__textarea"
-              name="review-text"
-              id="review-text"
-              placeholder="Review text"
-            />
-            <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
-            </div>
-
-          </div>
-        </form>
+        <ReviewForm/>
       </div>
-
     </section>
   );
 }
