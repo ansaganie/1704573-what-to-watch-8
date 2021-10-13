@@ -62,17 +62,26 @@ const GENRES = [
   'Sci-Fi',
   'Thrillers',
 ];
+const MAX_RATING = 10;
+const MIN_RATING = 1;
+const RATING_SCALE = 1;
+const MAX_COUNT = 100;
+const MIN_COUNT = 400;
+const MAX_YEAR = 1950;
+const MIN_YEAR = 2020;
+const MAX_ARRAY_LENGTH = 20;
+const IMG_FOLDER = '/img/';
 
-const films = new Array(20)
+const films = new Array(MAX_ARRAY_LENGTH)
   .fill(null)
   .map(() => ({
     id: nanoid(),
-    posterImage: `/img/${getRandomElement(POSTERS_IMAGES)}`,
-    previewImage: `/img/${getRandomElement(PREVIEW_IMAGES)}`,
-    backgroundImage: `/img/${getRandomElement(BACKGROUND_IMAGES)}`,
+    posterImage: `${IMG_FOLDER}${getRandomElement(POSTERS_IMAGES)}`,
+    previewImage: `${IMG_FOLDER}${getRandomElement(PREVIEW_IMAGES)}`,
+    backgroundImage: `${IMG_FOLDER}${getRandomElement(BACKGROUND_IMAGES)}`,
     name: getRandomElement(FILM_NAMES),
     genre: getRandomElement(GENRES),
-    released: getRandomNumber(1997, 2018),
+    released: getRandomNumber(MIN_YEAR, MAX_YEAR),
     videoLink: getRandomElement(FILM_LINKS),
     description: [
       'In the 1930s the Grand Budapest Hotel is a popular European ski resort presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
@@ -80,8 +89,8 @@ const films = new Array(20)
     ],
     director: 'Wes Anderson',
     starring: [ 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe' ],
-    rating: getRandomFloat(1, 10, 1),
-    scoresCount: getRandomNumber(100, 400),
+    rating: getRandomFloat(MIN_RATING, MAX_RATING, RATING_SCALE),
+    scoresCount: getRandomNumber(MIN_COUNT, MAX_COUNT),
   }));
 
 export { films };

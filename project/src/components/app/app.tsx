@@ -31,16 +31,16 @@ function App({ films }: AppProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.FilmPage} exact>
-          <FilmPage film={films[0]} relatedFilms={films.slice(0, 4)}/>
+          <FilmPage relatedFilms={films.slice(0, 4)}/>
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
-          render={() => <AddReview film={films[0]}/>}
+          render={() => <AddReview/>}
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
-          <Player film={films[0]}/>
+          <Player/>
         </Route>
         <Route>
           <NotFound/>

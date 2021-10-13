@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 
 function SmallFilmCard(props: Film): JSX.Element {
@@ -9,7 +10,7 @@ function SmallFilmCard(props: Film): JSX.Element {
         <img src={previewImage} alt={name} width="280" height="175"/>
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href={`/films/${id}`}>{name}</a>
+        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );
