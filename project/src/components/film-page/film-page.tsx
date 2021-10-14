@@ -1,17 +1,27 @@
-import React from 'react';
-import { Link} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Redirect, useParams } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import { Film } from '../../types/film';
 import FilmsList from '../films-list/films-list';
 import Sprite from '../sprite/sprite';
+import { films } from '../../mock/films';
+import { scrollToFilmTitle } from '../../utils/side-effects';
 
 type MoviePageProps = {
-  film: Film,
   relatedFilms?: Film[],
 }
 
-function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
+function FilmPage(props: MoviePageProps): JSX.Element {
+  const { relatedFilms } = props;
+  const { id } = useParams<{id: string}>();
+  useEffect(scrollToFilmTitle);
+  const film = films.find((elem) => id === elem.id);
+
+  if (!film) {
+    return <Redirect to={'/'}/>;
+  }
+
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
@@ -21,7 +31,7 @@ function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
             <img src={film.backgroundImage} alt={film.name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <Header/>
+          <Header />
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{film.name}</h2>
@@ -84,10 +94,10 @@ function FilmPage({ film, relatedFilms }: MoviePageProps): JSX.Element {
               </div>
 
               <div className="film-card__text">
-                <p>{film.description}</p>
+
+                {film.description.map((desc) => <p key={desc.slice(0, 6)}>{desc}</p>)}
 
                 <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
                 <p className="film-card__starring">
                   <strong>
                     Starring: {film.starring?.join(', ')} and other

@@ -1,12 +1,18 @@
-import React from 'react';
-import { Film } from '../../types/film';
+import React, { useEffect } from 'react';
 import Sprite from '../sprite/sprite';
+import { Redirect, useParams } from 'react-router-dom';
+import { scrollToFilmTitle } from '../../utils/side-effects';
+import { films } from '../../mock/films';
 
-type PlayerPros = {
-  film: Film,
-}
+function Player(): JSX.Element {
+  const { id } = useParams<{ id: string }>();
+  useEffect(scrollToFilmTitle);
+  const film = films.find((elem) => id === elem.id);
 
-function Player({ film }: PlayerPros): JSX.Element {
+  if (!film) {
+    return <Redirect to={'/'}/>;
+  }
+
   const { posterImage, videoLink } = film;
 
   return (

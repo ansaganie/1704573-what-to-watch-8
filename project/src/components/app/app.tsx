@@ -12,15 +12,14 @@ import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   films: Film[],
-  promoFilm: Film,
 }
 
-function App({ films, promoFilm }: AppProps): JSX.Element {
+function App({ films }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <Main films={films} promoFilm={promoFilm}/>
+          <Main films={films}/>
         </Route>
         <Route path={AppRoute.SignIn} exact>
           <SignIn/>
@@ -32,16 +31,16 @@ function App({ films, promoFilm }: AppProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.FilmPage} exact>
-          <FilmPage film={promoFilm} relatedFilms={films.slice(0, 4)}/>
+          <FilmPage relatedFilms={films.slice(0, 4)}/>
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
-          render={() => <AddReview film={promoFilm}/>}
+          render={() => <AddReview/>}
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
-          <Player film={promoFilm}/>
+          <Player/>
         </Route>
         <Route>
           <NotFound/>
