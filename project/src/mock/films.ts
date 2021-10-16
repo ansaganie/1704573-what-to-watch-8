@@ -22,10 +22,6 @@ const FILM_IDS = [
   'akPOBnu2pXWPT5bpXJ29h',
   'K2eQ01kShMfrcldEH0w6r',
 ];
-const FILM_LINKS = [
-  'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-  'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
-];
 const POSTERS_IMAGES = [ 'the-grand-budapest-hotel-poster.jpg' ];
 const BACKGROUND_IMAGES = [ 'bg-the-grand-budapest-hotel.jpg' ];
 const PREVIEW_IMAGES = [
@@ -101,7 +97,7 @@ const films = FILM_IDS
     name: getRandomElement(FILM_NAMES),
     genre: getRandomElement(GENRES),
     released: getRandomNumber(MIN_YEAR, MAX_YEAR),
-    videoLink: getRandomElement(FILM_LINKS),
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: [
       'In the 1930s the Grand Budapest Hotel is a popular European ski resort presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
       'Gustave prides himself on providing first-class service to the hotel\'s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave\'s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.',
