@@ -1,6 +1,27 @@
-import { nanoid } from '@reduxjs/toolkit';
 import { getRandomElement, getRandomFloat, getRandomNumber } from '../utils/random';
 
+const FILM_IDS = [
+  '3ONvSqYtHpzwsAfgg6c8H',
+  'ofM5ukHsak77rDnlrwQU3',
+  'G5gVODHjLkm4U724x62vS',
+  '4n1Aw7Gow1y-dXWcZBG0v',
+  'Xur193M-nenn7-US2ESUz',
+  'LfqnsPb-cqqIFdDLrpFw0',
+  '1O5fNmc0nkvYwrFF6WMQ4',
+  '84k_1WlqXww8OHUj_DlzF',
+  'MZ0vzzzgBgdu8PAdf0vbz',
+  '9ous9lQmdgeqhycuV0vlE',
+  'TywyJDndicgOSg7RPuTky',
+  '5YS8c_q8m52WbPJW0qE5X',
+  'lD1Un4kFOtWS5XF2zqQl8',
+  'B5dBNN6d49y1VH32v44Cf',
+  '10b9Q7LjS8PddF48J6FSO',
+  '8BFvDBff1zQrItFo_Xomd',
+  'fYC7R2drcR-If3lUUA7Jt',
+  'Q1RhCiquxKBvfHXZt1-6u',
+  'akPOBnu2pXWPT5bpXJ29h',
+  'K2eQ01kShMfrcldEH0w6r',
+];
 const FILM_LINKS = [
   'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
   'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
@@ -69,13 +90,11 @@ const MAX_COUNT = 100;
 const MIN_COUNT = 400;
 const MAX_YEAR = 1950;
 const MIN_YEAR = 2020;
-const MAX_ARRAY_LENGTH = 20;
 const IMG_FOLDER = '/img/';
 
-const films = new Array(MAX_ARRAY_LENGTH)
-  .fill(null)
-  .map(() => ({
-    id: nanoid(),
+const films = FILM_IDS
+  .map((id) => ({
+    id,
     posterImage: `${IMG_FOLDER}${getRandomElement(POSTERS_IMAGES)}`,
     previewImage: `${IMG_FOLDER}${getRandomElement(PREVIEW_IMAGES)}`,
     backgroundImage: `${IMG_FOLDER}${getRandomElement(BACKGROUND_IMAGES)}`,
@@ -93,4 +112,4 @@ const films = new Array(MAX_ARRAY_LENGTH)
     scoresCount: getRandomNumber(MIN_COUNT, MAX_COUNT),
   }));
 
-export { films };
+export { films, FILM_IDS };
