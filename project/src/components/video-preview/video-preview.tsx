@@ -19,7 +19,7 @@ function VideoPreview(props: VideoPreviewProps): JSX.Element {
       }, 1000);
     }
 
-    if (videoRef.current && !isPlaying && videoRef.current?.currentTime) {
+    if (videoRef.current && !isPlaying) {
       videoRef.current?.load();
     }
 
