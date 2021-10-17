@@ -31,7 +31,7 @@ function App({ films }: AppProps): JSX.Element {
           authorizationStatus={AuthorizationStatus.NoAuth}
         />
         <Route path={AppRoute.FilmPage} exact>
-          <FilmPage relatedFilms={films.slice(0, 4)}/>
+          <FilmPage/>
         </Route>
         <PrivateRoute
           exact

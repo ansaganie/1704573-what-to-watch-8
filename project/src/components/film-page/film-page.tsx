@@ -2,26 +2,26 @@ import React, { useEffect } from 'react';
 import { Link, Redirect, useParams } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import { Film } from '../../types/film';
 import FilmsList from '../films-list/films-list';
 import Sprite from '../sprite/sprite';
 import { films } from '../../mock/films';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import FilmTabs from '../film-tabs/film-tabs';
 
-type MoviePageProps = {
-  relatedFilms?: Film[],
-}
-
-function FilmPage(props: MoviePageProps): JSX.Element {
-  const { relatedFilms } = props;
-  const { id } = useParams<{id: string}>();
+function FilmPage(): JSX.Element {
+  const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
+
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
     return <Redirect to={'/'}/>;
   }
+
+  const relatedFilms = films.filter(({ genre }) => genre === film.genre).slice(0, 4);
+
+  // eslint-disable-next-line no-console
+  console.log(relatedFilms);
 
   return (
     <React.Fragment>
@@ -32,7 +32,7 @@ function FilmPage(props: MoviePageProps): JSX.Element {
             <img src={film.backgroundImage} alt={film.name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <Header />
+          <Header/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{film.name}</h2>
