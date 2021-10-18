@@ -3,6 +3,7 @@ import Sprite from '../sprite/sprite';
 import { Redirect, useParams } from 'react-router-dom';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { films } from '../../mock/films';
+import { AppRoute } from '../../constants';
 
 function Player(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -10,7 +11,7 @@ function Player(): JSX.Element {
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
-    return <Redirect to={'/'}/>;
+    return <Redirect to={AppRoute.Main}/>;
   }
 
   const { posterImage, videoLink } = film;

@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+
 type VideoPreviewProps = {
   poster: string,
   src: string,
   isPlaying: boolean,
 }
+
+const PREVIEW_DELAY = 1000;
 
 function VideoPreview(props: VideoPreviewProps): JSX.Element {
   const { src, isPlaying, poster } = props;
@@ -16,11 +19,11 @@ function VideoPreview(props: VideoPreviewProps): JSX.Element {
     if (videoRef.current && isPlaying) {
       timeoutId = setTimeout(() => {
         videoRef.current?.play();
-      }, 1000);
+      }, PREVIEW_DELAY);
     }
 
     if (videoRef.current && !isPlaying) {
-      videoRef.current?.load();
+      videoRef.current.load();
     }
 
     return () => {

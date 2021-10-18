@@ -7,6 +7,7 @@ import FilmsList from '../films-list/films-list';
 import Sprite from '../sprite/sprite';
 import { films } from '../../mock/films';
 import { scrollToFilmTitle } from '../../utils/side-effects';
+import { AppRoute } from '../../constants';
 
 type MoviePageProps = {
   relatedFilms?: Film[],
@@ -19,7 +20,7 @@ function FilmPage(props: MoviePageProps): JSX.Element {
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
-    return <Redirect to={'/'}/>;
+    return <Redirect to={AppRoute.Main}/>;
   }
 
   return (

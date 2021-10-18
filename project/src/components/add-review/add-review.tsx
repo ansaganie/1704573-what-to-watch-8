@@ -4,6 +4,7 @@ import Header from '../header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { films } from '../../mock/films';
 import ReviewForm from '../review-form/review-form';
+import { AppRoute } from '../../constants';
 
 function AddReview(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +12,7 @@ function AddReview(): JSX.Element {
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
-    return <Redirect to={'/'}/>;
+    return <Redirect to={AppRoute.Main}/>;
   }
 
   const { posterImage, backgroundImage, name } = film;
