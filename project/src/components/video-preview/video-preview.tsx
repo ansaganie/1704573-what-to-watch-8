@@ -14,7 +14,7 @@ function VideoPreview(props: VideoPreviewProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     if (videoRef.current && isPlaying) {
       timeoutId = setTimeout(() => {
