@@ -4,9 +4,12 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import Sprite from '../sprite/sprite';
+import FilmTabs from '../film-tabs/film-tabs';
 import { films } from '../../mock/films';
 import { scrollToFilmTitle } from '../../utils/side-effects';
-import FilmTabs from '../film-tabs/film-tabs';
+import { AppRoute } from '../../constants';
+
+const MAX_RELATED_FILMS_COUNT = 4;
 
 function FilmPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -15,13 +18,12 @@ function FilmPage(): JSX.Element {
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
-    return <Redirect to={'/'}/>;
+    return <Redirect to={AppRoute.Main}/>;
   }
 
-  const relatedFilms = films.filter(({ genre }) => genre === film.genre).slice(0, 4);
-
-  // eslint-disable-next-line no-console
-  console.log(relatedFilms);
+  const relatedFilms = films
+    .filter(({ genre }) => genre === film.genre)
+    .slice(0, MAX_RELATED_FILMS_COUNT);
 
   return (
     <React.Fragment>
