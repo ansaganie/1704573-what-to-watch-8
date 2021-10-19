@@ -8,10 +8,14 @@ type FilmsListProps = {
 
 function FilmsList({ films }: FilmsListProps): JSX.Element {
 
-  const [ , setActiveFilm ] = useState('');
+  const [ activeFilm, setActiveFilm ] = useState('');
 
   const onSmallFilmCardHover = (evt: React.MouseEvent) => {
     setActiveFilm(evt.currentTarget.id);
+  };
+
+  const onSmallFilmCardLeave = () => {
+    setActiveFilm('');
   };
 
   return (
@@ -19,8 +23,10 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
       {
         films.map((film) => (
           <SmallFilmCard
-            {...film}
+            film={film}
             onMouseOver={onSmallFilmCardHover}
+            onMouseLeave={onSmallFilmCardLeave}
+            isActive={film.id === activeFilm}
             key={film.id}
           />))
       }
