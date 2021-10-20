@@ -2,26 +2,28 @@ import React, { useEffect } from 'react';
 import { Link, Redirect, useParams } from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import { Film } from '../../types/film';
 import FilmsList from '../films-list/films-list';
 import Sprite from '../sprite/sprite';
+import FilmTabs from '../film-tabs/film-tabs';
 import { films } from '../../mock/films';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';
 
-type MoviePageProps = {
-  relatedFilms?: Film[],
-}
+const MAX_RELATED_FILMS_COUNT = 4;
 
-function FilmPage(props: MoviePageProps): JSX.Element {
-  const { relatedFilms } = props;
-  const { id } = useParams<{id: string}>();
+function FilmPage(): JSX.Element {
+  const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
+
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
     return <Redirect to={AppRoute.Main}/>;
   }
+
+  const relatedFilms = films
+    .filter(({ genre }) => genre === film.genre)
+    .slice(0, MAX_RELATED_FILMS_COUNT);
 
   return (
     <React.Fragment>
@@ -32,7 +34,7 @@ function FilmPage(props: MoviePageProps): JSX.Element {
             <img src={film.backgroundImage} alt={film.name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <Header />
+          <Header/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{film.name}</h2>
@@ -72,39 +74,7 @@ function FilmPage(props: MoviePageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{film.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-
-                {film.description.map((desc) => <p key={desc.slice(0, 6)}>{desc}</p>)}
-
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-                <p className="film-card__starring">
-                  <strong>
-                    Starring: {film.starring?.join(', ')} and other
-                  </strong>
-                </p>
-              </div>
+              <FilmTabs film={film}/>
             </div>
           </div>
         </div>

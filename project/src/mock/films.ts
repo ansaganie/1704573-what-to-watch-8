@@ -106,6 +106,7 @@ const films = FILM_IDS
     starring: [ 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe' ],
     rating: getRandomFloat(MIN_RATING, MAX_RATING, RATING_SCALE),
     scoresCount: getRandomNumber(MIN_COUNT, MAX_COUNT),
+    runTime: getRandomNumber(60, 120),
   }));
 
 export { films, FILM_IDS };
