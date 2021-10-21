@@ -1,5 +1,6 @@
 import { getRandomElement, getRandomFloat, getRandomNumber } from '../utils/random';
 import { Film } from '../types/film';
+import { Genres } from '../types/genres';
 
 const FILM_IDS = [
   '3ONvSqYtHpzwsAfgg6c8H',
@@ -69,16 +70,16 @@ const FILM_NAMES = [
   'Mindhunter',
   'Midnight Special',
 ];
-const GENRES = [
-  'Comedies',
-  'Crime',
-  'Documentary',
-  'Dramas',
-  'Horror',
-  'Kids & Family',
-  'Romance',
-  'Sci-Fi',
-  'Thrillers',
+const GENRES: Genres[] = [
+  Genres.Comedies,
+  Genres.Crime,
+  Genres.Documentary,
+  Genres.Dramas,
+  Genres.Horror,
+  Genres.KidsAndFamily,
+  Genres.Romance,
+  Genres.SciFi,
+  Genres.Thrillers,
 ];
 const MAX_RATING = 10;
 const MIN_RATING = 1;

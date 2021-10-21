@@ -1,12 +1,18 @@
 export enum Genres {
-  AllGenres = 'AllGenres',
-  Comedies = 'Comedies',
-  Crime = 'Crime',
-  Documentary = '',
-  Dramas = 'Dramas',
-  Horror = 'Horror',
-  KidsAndFamily = 'KidsAndFamily',
-  Romance = 'Romance',
-  SciFi = 'SciFi',
-  Thrillers = 'Thrillers',
+  AllGenres = 'all-genres',
+  Comedies = 'comedies',
+  Crime = 'crime',
+  Documentary = 'documentary',
+  Dramas = 'dramas',
+  Horror = 'horror',
+  KidsAndFamily = 'kids-and-family',
+  Romance = 'romance',
+  SciFi = 'sci-fi',
+  Thrillers = 'thrillers',
 }
+
+export type Genre = {
+  id: string,
+  title: string,
+  value: Genres,
+};

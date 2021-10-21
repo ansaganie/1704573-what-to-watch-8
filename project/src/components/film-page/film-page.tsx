@@ -22,7 +22,7 @@ function FilmPage(): JSX.Element {
   }
 
   const relatedFilms = films
-    .filter(({ genre }) => genre === film.genre)
+    .filter((item) => item.genre === film.genre && item.id !== film.id)
     .slice(0, MAX_RELATED_FILMS_COUNT);
 
   return (

@@ -4,14 +4,7 @@ import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
-import { createSelector } from 'reselect';
-
-const getFilms = (state:State) => state.films;
-
-const getFavoriteFilms = createSelector(
-  [getFilms],
-  (films) => films.filter((film) => film.isFavorite),
-);
+import { getFavoriteFilms } from '../../selectors/selectors';
 
 const mapStateToProps = (state: State) => ({
   myList: getFavoriteFilms(state),
