@@ -3,15 +3,15 @@ import { createSelector } from 'reselect';
 import { Genres as GenreTypes } from '../types/genres';
 
 const getFilms = (state: State) => state.films;
-
 const getGenre = (state: State) => state.genre;
+const getShownCount = (state: State) => state.shownFilmsCount;
 
-export const getFavoriteFilms = createSelector(
+const getFavoriteFilms = createSelector(
   [ getFilms ],
   (films) => films.filter((film) => film.isFavorite),
 );
 
-export const getFilteredFilms = createSelector(
+const getFilteredFilms = createSelector(
   [ getFilms, getGenre ],
   (films, genre) => {
     if (genre === GenreTypes.AllGenres) {
@@ -21,3 +21,10 @@ export const getFilteredFilms = createSelector(
     return films.filter((film) => film.genre === genre);
   },
 );
+
+const getCountedFilms = createSelector(
+  [ getFilteredFilms, getShownCount ],
+  (films, count) => films.slice(0, count),
+);
+
+export { getCountedFilms, getFavoriteFilms };
