@@ -1,4 +1,6 @@
 import { getRandomElement, getRandomFloat, getRandomNumber } from '../utils/random';
+import { Film } from '../types/film';
+import { Genres } from '../types/genres';
 
 const FILM_IDS = [
   '3ONvSqYtHpzwsAfgg6c8H',
@@ -68,16 +70,16 @@ const FILM_NAMES = [
   'Mindhunter',
   'Midnight Special',
 ];
-const GENRES = [
-  'Comedies',
-  'Crime',
-  'Documentary',
-  'Dramas',
-  'Horror',
-  'Kids & Family',
-  'Romance',
-  'Sci-Fi',
-  'Thrillers',
+const GENRES: Genres[] = [
+  Genres.Comedies,
+  Genres.Crime,
+  Genres.Documentary,
+  Genres.Dramas,
+  Genres.Horror,
+  Genres.KidsAndFamily,
+  Genres.Romance,
+  Genres.SciFi,
+  Genres.Thrillers,
 ];
 const MAX_RATING = 10;
 const MIN_RATING = 1;
@@ -88,7 +90,7 @@ const MAX_YEAR = 1950;
 const MIN_YEAR = 2020;
 const IMG_FOLDER = '/img/';
 
-const films = FILM_IDS
+const films: Film[] = FILM_IDS
   .map((id) => ({
     id,
     posterImage: `${IMG_FOLDER}${getRandomElement(POSTERS_IMAGES)}`,
@@ -107,6 +109,7 @@ const films = FILM_IDS
     rating: getRandomFloat(MIN_RATING, MAX_RATING, RATING_SCALE),
     scoresCount: getRandomNumber(MIN_COUNT, MAX_COUNT),
     runTime: getRandomNumber(60, 120),
+    isFavorite: Math.random() > 0.7,
   }));
 
 export { films, FILM_IDS };

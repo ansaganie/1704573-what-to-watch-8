@@ -4,10 +4,10 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import Sprite from '../sprite/sprite';
-import FilmTabs from '../film-tabs/film-tabs';
 import { films } from '../../mock/films';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';
+import FilmTabs from '../film-tabs/film-tabs';
 
 const MAX_RELATED_FILMS_COUNT = 4;
 
@@ -22,7 +22,7 @@ function FilmPage(): JSX.Element {
   }
 
   const relatedFilms = films
-    .filter(({ genre }) => genre === film.genre)
+    .filter((item) => item.genre === film.genre && item.id !== film.id)
     .slice(0, MAX_RELATED_FILMS_COUNT);
 
   return (
