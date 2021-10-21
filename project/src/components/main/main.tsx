@@ -3,15 +3,27 @@ import { Film } from '../../types/film';
 import FilmCard from '../film-card/film-card';
 import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
 
-type MainProps = {
-  films: Film[],
+
+const mapStateToProps = (state: State) => ({
+  films: state.films,
+  promoFilm: state.promoFilm,
+});
+
+const connector = connect(mapStateToProps);
+
+type MainProps = ConnectedProps<typeof connector> & {
+  promoFilm: Film,
 }
 
-function Main({ films }: MainProps): JSX.Element {
+function Main(props: MainProps): JSX.Element {
+  const { films, promoFilm } = props;
+
   return (
     <React.Fragment>
-      <FilmCard {...films[0]}/>
+      <FilmCard {...promoFilm}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -49,7 +61,7 @@ function Main({ films }: MainProps): JSX.Element {
             </li>
           </ul>
 
-          <FilmsList films={films}/>
+          <FilmsList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -62,4 +74,4 @@ function Main({ films }: MainProps): JSX.Element {
   );
 }
 
-export default Main;
+export default connector(Main);

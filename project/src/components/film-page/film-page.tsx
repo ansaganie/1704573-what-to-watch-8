@@ -9,11 +9,11 @@ import { films } from '../../mock/films';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';
 
-type MoviePageProps = {
+type FilmPageProps = {
   relatedFilms?: Film[],
 }
 
-function FilmPage(props: MoviePageProps): JSX.Element {
+function FilmPage(props: FilmPageProps): JSX.Element {
   const { relatedFilms } = props;
   const { id } = useParams<{id: string}>();
   useEffect(scrollToFilmTitle);
