@@ -13,5 +13,5 @@ export type Film = {
   starring: string[],
   videoLink: string,
   runTime: number,
-  isFavorite?: boolean,
+  isFavorite: boolean,
 }
