@@ -1,40 +1,34 @@
-import React, { Dispatch, useEffect } from 'react';
+import React, { useState } from 'react';
 import FilmCard from '../film-card/film-card';
 import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
 import Genres from '../genres/genres';
-import { getCountedFilms } from '../../selectors/selectors';
-import { Actions } from '../../types/action';
-import { setShownFilmsCount } from '../../store/action';
 import { FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
+import { getFilteredFilms } from '../../selectors/selectors';
 
 const mapStateToProps = (state: State) => ({
-  films: getCountedFilms(state),
+  films: getFilteredFilms(state),
   promoFilm: state.promoFilm,
-  count: state.shownFilmsCount,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  setCount(count: number) {
-    dispatch(setShownFilmsCount(count));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 type MainProps = ConnectedProps<typeof connector>;
 
 function Main(props: MainProps): JSX.Element {
-  const { films, promoFilm, setCount, count } = props;
+  const { films, promoFilm } = props;
+  const [ shownFilmsCount, setShownFilmsCount ] = useState<number>(FILMS_INITIAL_COUNT);
 
-  useEffect(() => {
-    setCount(FILMS_INITIAL_COUNT);
-  }, [ setCount ]);
+  const shownFilms = films.slice(0, shownFilmsCount);
 
   const handleShowMoreClick = () => {
-    setCount(FILMS_STEP + count);
+    setShownFilmsCount((count) => FILMS_STEP + count);
+  };
+
+  const resetShownFilmsCount = () => {
+    setShownFilmsCount(FILMS_INITIAL_COUNT);
   };
 
   return (
@@ -43,10 +37,10 @@ function Main(props: MainProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <Genres/>
-          <FilmsList films={films}/>
+          <Genres resetShownFilmsCount={resetShownFilmsCount}/>
+          <FilmsList films={shownFilms}/>
           {
-            count <= films.length &&
+            shownFilmsCount <= shownFilms.length &&
             <div className="catalog__more">
               <button onClick={handleShowMoreClick} className="catalog__button" type="button">Show more</button>
             </div>

@@ -7,5 +7,4 @@ export type State = {
   films: Film[],
   reviews: Review[],
   promoFilm: Film,
-  shownFilmsCount: number,
 }

@@ -1,10 +1,8 @@
-import { setGenre, setShownFilmsCount } from '../store/action';
+import { setGenre } from '../store/action';
 
 export enum ActionType {
-  SetGenre = 'main/set-genre',
-  SetShownFilmsCount = 'main/set-shown-films-count',
+  SetGenre = 'main/set-genre'
 }
 
 export type Actions =
-  | ReturnType<typeof setGenre>
-  | ReturnType<typeof setShownFilmsCount>;
+  | ReturnType<typeof setGenre>;

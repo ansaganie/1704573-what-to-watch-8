@@ -6,9 +6,4 @@ const setGenre = (genre: Genres) => ({
   payload: { genre },
 } as const);
 
-const setShownFilmsCount = (shownFilmsCount: number) => ({
-  type: ActionType.SetShownFilmsCount,
-  payload: { shownFilmsCount },
-} as const);
-
-export { setGenre, setShownFilmsCount };
+export { setGenre };

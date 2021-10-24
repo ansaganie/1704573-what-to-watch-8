@@ -4,7 +4,6 @@ import { Genres as GenreTypes } from '../types/genres';
 
 const getFilms = (state: State) => state.films;
 const getGenre = (state: State) => state.genre;
-const getShownCount = (state: State) => state.shownFilmsCount;
 
 const getFavoriteFilms = createSelector(
   [ getFilms ],
@@ -22,9 +21,4 @@ const getFilteredFilms = createSelector(
   },
 );
 
-const getCountedFilms = createSelector(
-  [ getFilteredFilms, getShownCount ],
-  (films, count) => films.slice(0, count),
-);
-
-export { getCountedFilms, getFavoriteFilms };
+export { getFilteredFilms, getFavoriteFilms };
