@@ -73,14 +73,16 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type GenreProps = ConnectedProps<typeof connector> & {
   activeGenre: GenreTypes,
+  resetShownFilmsCount: () => void,
 }
 
 function Genres(props: GenreProps): JSX.Element {
-  const { activeGenre, onGenreClick } = props;
+  const { activeGenre, onGenreClick, resetShownFilmsCount } = props;
 
   const handleGenreClick = (genre: GenreTypes) => (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     onGenreClick(genre);
+    resetShownFilmsCount();
   };
 
   return (
