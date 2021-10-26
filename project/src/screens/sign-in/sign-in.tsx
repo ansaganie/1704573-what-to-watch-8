@@ -9,7 +9,7 @@ import {
 } from 'formik';
 import Footer from '../../components/footer/footer';
 import { SignInForm } from '../../types/sign-in-form';
-import { ThunkAppDispatch } from '../../types/action';
+import { AsyncDispatch } from '../../types/action';
 import { State } from '../../types/state';
 import { login } from '../../store/thunks';
 import { AppRoute, AuthStatus } from '../../constants';
@@ -18,7 +18,7 @@ const mapStateToProps = (state: State) => ({
   authStatus: state.authStatus,
 });
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   signIn(data: SignInForm) {
     return dispatch(login(data));
   },
@@ -42,12 +42,9 @@ function SignIn(props: SignInProps): JSX.Element {
     password: '',
   };
 
-  const formSubmitHandler = (values: SignInForm, { setSubmitting }: FormikHelpers<SignInForm>) => {
+  const formSubmitHandler = async (values: SignInForm, { setSubmitting }: FormikHelpers<SignInForm>) => {
     setSubmitting(true);
-    signIn(values)
-      .finally(() => {
-        setSubmitting(false);
-      });
+    await signIn(values);
   };
 
   const validate = (values: SignInForm) => {

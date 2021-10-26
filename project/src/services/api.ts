@@ -1,7 +1,8 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../store/store';
 import { AuthStatus } from '../constants';
 import { setAuthStatus } from '../store/action';
+import { getToken } from './token';
 
 const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -26,6 +27,18 @@ const createAPI = (): AxiosInstance => {
       }
 
       return Promise.reject(error);
+    },
+  );
+
+  api.interceptors.request.use(
+    (request): AxiosRequestConfig => {
+      const token = getToken();
+
+      if (token) {
+        request.headers['x-token'] = token;
+      }
+
+      return request;
     },
   );
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Header from '../header/header';
 import Sprite from '../sprite/sprite';
 import { State } from '../../types/state';
-import { ThunkAppDispatch } from '../../types/action';
+import { AsyncDispatch } from '../../types/action';
 import { fetchPromoFilm } from '../../store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
@@ -13,7 +13,7 @@ const mapStateToProps = (state: State) => ({
   isPromoFilmLoading: state.isPromoFilmLoading,
 });
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   downloadPromoFilm: () => {
     dispatch(fetchPromoFilm())
       .finally(() => dispatch(setPromoFilmLoaded()));

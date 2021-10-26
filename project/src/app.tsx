@@ -8,8 +8,36 @@ import Player from './screens/player/player';
 import NotFound from './screens/not-found/not-found';
 import { AppRoute, AuthStatus } from './constants';
 import PrivateRoute from './components/private-route/private-route';
+import { AsyncDispatch } from './types/action';
+import { checkAuthStatus } from './store/thunks';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from './types/state';
+import { useEffect } from 'react';
 
-function App(): JSX.Element {
+const mapStateToProps = (state: State) => ({
+  authStatus: state.authStatus,
+});
+
+const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
+  checkAuthorization() {
+    return dispatch(checkAuthStatus());
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type AppProps = ConnectedProps<typeof connector>;
+
+
+function App(props: AppProps): JSX.Element {
+  const { authStatus, checkAuthorization } = props;
+
+  useEffect( () => {
+    if (authStatus === AuthStatus.Unknown) {
+      checkAuthorization();
+    }
+  }, [ authStatus, checkAuthorization ]);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -45,4 +73,5 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export { App };
+export default connector(App);

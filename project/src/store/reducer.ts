@@ -10,6 +10,7 @@ const initialState: State = {
   authStatus: AuthStatus.Unknown,
   isFilmsLoading: true,
   isPromoFilmLoading: true,
+  user: null,
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -43,6 +44,11 @@ export const reducer = (state: State = initialState, action: Actions): State => 
       return {
         ...state,
         isPromoFilmLoading: false,
+      };
+    case ActionType.SetUserData:
+      return {
+        ...state,
+        user: action.payload.user,
       };
     default:
       return state;

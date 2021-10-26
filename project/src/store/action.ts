@@ -31,7 +31,7 @@ const setPromoFilmLoaded = () => ({
   type: ActionType.SetPromoFilmLoaded,
 } as const);
 
-const setUserData = (data: User) => ({
+const setUserData = (data: User | null) => ({
   type: ActionType.SetUserData,
   payload: { user: data},
 } as const);

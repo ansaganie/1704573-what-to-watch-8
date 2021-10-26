@@ -31,4 +31,4 @@ export type Actions =
   | ReturnType<typeof setUserData>;
 
 export type AsyncAction<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type AsyncDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
