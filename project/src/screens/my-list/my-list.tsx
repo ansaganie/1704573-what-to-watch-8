@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
-import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
-import { getFavoriteFilms } from '../../selectors/selectors';
+import { AsyncDispatch } from '../../types/action';
+import { Film } from '../../types/film';
+import { fetchFavorites } from '../../store/thunks';
 
-const mapStateToProps = (state: State) => ({
-  myList: getFavoriteFilms(state),
+const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
+  getFavoriteFilms() {
+    return dispatch(fetchFavorites());
+  },
 });
 
-const connector = connect(mapStateToProps);
+const connector = connect(null, mapDispatchToProps);
 
 type MyListProps = ConnectedProps<typeof connector>
 
 function MyList(props: MyListProps): JSX.Element {
-  const { myList } = props;
+  const { getFavoriteFilms } = props;
+
+  const [myList, setMyList] = useState<Film[]>([]);
+
+  useEffect(() => {
+    getFavoriteFilms()
+      .then((films) => setMyList(films));
+  }, [getFavoriteFilms]);
 
   return (
     <div className="user-page">
@@ -29,4 +39,5 @@ function MyList(props: MyListProps): JSX.Element {
   );
 }
 
+export { MyList };
 export default connector(MyList);

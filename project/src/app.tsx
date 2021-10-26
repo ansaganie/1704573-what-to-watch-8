@@ -57,13 +57,11 @@ function App(props: AppProps): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => <MyList/>}
-          authorizationStatus={AuthStatus.NoAuth}
         />
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
           render={() => <AddReview/>}
-          authorizationStatus={AuthStatus.NoAuth}
         />
         <Route>
           <NotFound/>

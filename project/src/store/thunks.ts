@@ -1,10 +1,10 @@
 import { AsyncAction } from '../types/action';
-import { ServerFilm } from '../types/film';
+import { ServerFilm, Film } from '../types/film';
 import { AuthStatus, BackendRoute } from '../constants';
 import { setAuthStatus, setFilms, setPromoFilm, setUserData } from './action';
 import { adaptFilmToClient, adaptUserToClient } from '../services/adaptor';
-import { SignInForm } from '../types/sign-in-form';
 import { dropToken, setToken } from '../services/token';
+import { SignInForm } from '../types/sign-in-form';
 import { ServerUser } from '../types/user';
 
 const fetchFilms = (): AsyncAction =>
@@ -17,6 +17,13 @@ const fetchPromoFilm = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     const { data } = await api.get<ServerFilm>(BackendRoute.PromoFilm);
     dispatch(setPromoFilm(adaptFilmToClient(data)));
+  };
+
+const fetchFavorites = (): AsyncAction<Promise<Film[]>> =>
+  async (dispatch, _getState, api): Promise<Film[]> => {
+    const { data } = await api.get<ServerFilm[]>(BackendRoute.Favorite);
+
+    return data.map(adaptFilmToClient);
   };
 
 const login = (signIn: SignInForm): AsyncAction =>
@@ -50,6 +57,7 @@ const checkAuthStatus = (): AsyncAction =>
 export {
   fetchFilms,
   fetchPromoFilm,
+  fetchFavorites,
   login,
   logout,
   checkAuthStatus
