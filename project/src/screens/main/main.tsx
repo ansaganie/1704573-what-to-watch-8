@@ -1,7 +1,7 @@
 import React from 'react';
 import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
-import Catalog from '../../components/Catalog/catalog';
+import Catalog from '../../components/catalog/catalog';
 
 function Main(): JSX.Element {
   return (

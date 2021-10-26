@@ -1,9 +1,8 @@
 import { ActionType } from '../types/action';
-import { Genres } from '../types/genres';
 import { AuthStatus } from '../constants';
 import { Film } from '../types/film';
 
-const setGenre = (genre: Genres) => ({
+const setGenre = (genre: string) => ({
   type: ActionType.SetGenre,
   payload: { genre },
 } as const);

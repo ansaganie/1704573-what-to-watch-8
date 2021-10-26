@@ -1,12 +1,10 @@
-import { Genres } from './genres';
-
 export type Film = {
   id: string,
   previewImage: string,
   posterImage: string,
   backgroundImage: string,
   name: string,
-  genre: Genres,
+  genre: string,
   released: number,
   rating: number,
   scoresCount: number,
@@ -30,7 +28,7 @@ export type ServerFilm = {
   ['is_favorite']: boolean,
   id: string,
   name: string,
-  genre: Genres,
+  genre: string,
   released: number,
   rating: number,
   description: string[],

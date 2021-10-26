@@ -1,10 +1,9 @@
 import { Actions, ActionType } from '../types/action';
 import { State } from '../types/state';
-import { Genres } from '../types/genres';
 import { AuthStatus } from '../constants';
 
 const initialState: State = {
-  genre: Genres.AllGenres,
+  genre: 'All genres',
   films: [],
   reviews: [],
   promoFilm: null,
