@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link, Redirect, useParams } from 'react-router-dom';
-import Header from '../header/header';
-import Footer from '../footer/footer';
-import FilmsList from '../films-list/films-list';
-import Sprite from '../sprite/sprite';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import FilmsList from '../../components/films-list/films-list';
+import Sprite from '../../components/sprite/sprite';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';
-import FilmTabs from '../film-tabs/film-tabs';
+import FilmTabs from '../../components/film-tabs/film-tabs';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
 

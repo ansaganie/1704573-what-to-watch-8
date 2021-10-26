@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import FilmCard from '../film-card/film-card';
-import Footer from '../footer/footer';
-import FilmsList from '../films-list/films-list';
+import FilmCard from '../../components/film-card/film-card';
+import Footer from '../../components/footer/footer';
+import FilmsList from '../../components/films-list/films-list';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
-import Genres from '../genres/genres';
+import Genres from '../../components/genres/genres';
 import { FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
 import { getFilteredFilms } from '../../selectors/selectors';
 
@@ -46,7 +46,6 @@ function Main(props: MainProps): JSX.Element {
             </div>
           }
         </section>
-
         <Footer/>
       </div>
     </React.Fragment>

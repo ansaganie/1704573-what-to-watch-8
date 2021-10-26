@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link, Redirect, useParams } from 'react-router-dom';
-import Header from '../header/header';
+import Header from '../../components/header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
-import ReviewForm from '../review-form/review-form';
+import ReviewForm from '../../components/review-form/review-form';
 import { AppRoute } from '../../constants';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';

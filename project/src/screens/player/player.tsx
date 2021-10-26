@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Sprite from '../sprite/sprite';
+import Sprite from '../../components/sprite/sprite';
 import { Redirect, useParams } from 'react-router-dom';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';

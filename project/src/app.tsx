@@ -1,20 +1,20 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Main from '../main/main';
-import SignIn from '../sign-in/sign-in';
-import MyList from '../my-list/my-list';
-import FilmPage from '../film-page/film-page';
-import AddReview from '../add-review/add-review';
-import Player from '../player/player';
-import NotFound from '../not-found/not-found';
-import { AppRoute, AuthStatus } from '../../constants';
-import PrivateRoute from '../private-route/private-route';
-import { ThunkAppDispatch } from '../../types/action';
-import { fetchFilms, fetchPromoFilm } from '../../store/thunks';
+import Main from './screens/main/main';
+import SignIn from './screens/sign-in/sign-in';
+import MyList from './screens/my-list/my-list';
+import FilmPage from './screens/film-page/film-page';
+import AddReview from './screens/add-review/add-review';
+import Player from './screens/player/player';
+import NotFound from './screens/not-found/not-found';
+import { AppRoute, AuthStatus } from './constants';
+import PrivateRoute from './components/private-route/private-route';
+import { ThunkAppDispatch } from './types/action';
+import { fetchFilms, fetchPromoFilm } from './store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import { useEffect } from 'react';
-import { setDataLoaded } from '../../store/action';
-import { State } from '../../types/state';
-import Spinner from '../spinner/Spinner';
+import { setDataLoaded } from './store/action';
+import { State } from './types/state';
+import Spinner from './components/spinner/Spinner';
 
 const mapStateToProps = (state: State) => ({
   isDataLoaded: state.isDataLoaded,
@@ -54,24 +54,24 @@ function App(props: AppProps): JSX.Element {
         <Route path={AppRoute.SignIn} exact>
           <SignIn/>
         </Route>
+        <Route path={AppRoute.FilmPage} exact>
+          <FilmPage/>
+        </Route>
+        <Route path={AppRoute.Player} exact>
+          <Player/>
+        </Route>
         <PrivateRoute
           exact
           path={AppRoute.MyList}
           render={() => <MyList/>}
           authorizationStatus={AuthStatus.NoAuth}
         />
-        <Route path={AppRoute.FilmPage} exact>
-          <FilmPage/>
-        </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
           render={() => <AddReview/>}
           authorizationStatus={AuthStatus.NoAuth}
         />
-        <Route path={AppRoute.Player} exact>
-          <Player/>
-        </Route>
         <Route>
           <NotFound/>
         </Route>
