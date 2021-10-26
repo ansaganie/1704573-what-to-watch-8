@@ -1,6 +1,7 @@
 import { ActionType } from '../types/action';
 import { AuthStatus } from '../constants';
 import { Film } from '../types/film';
+import { User } from '../types/user';
 
 const setGenre = (genre: string) => ({
   type: ActionType.SetGenre,
@@ -30,11 +31,17 @@ const setPromoFilmLoaded = () => ({
   type: ActionType.SetPromoFilmLoaded,
 } as const);
 
+const setUserData = (data: User) => ({
+  type: ActionType.SetUserData,
+  payload: { user: data},
+} as const);
+
 export {
   setGenre,
   setAuthStatus,
   setFilms,
   setPromoFilm,
   setFilmsLoaded,
-  setPromoFilmLoaded
+  setPromoFilmLoaded,
+  setUserData
 };
