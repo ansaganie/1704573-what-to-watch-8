@@ -2,11 +2,22 @@ import React, { useEffect } from 'react';
 import { Link, Redirect, useParams } from 'react-router-dom';
 import Header from '../header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
-import { films } from '../../mock/films';
 import ReviewForm from '../review-form/review-form';
 import { AppRoute } from '../../constants';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
 
-function AddReview(): JSX.Element {
+const mapStateToProps = (state: State) => ({
+  films: state.films,
+});
+
+const connector = connect(mapStateToProps);
+
+type AddReviewProps = ConnectedProps<typeof connector>;
+
+function AddReview(props: AddReviewProps): JSX.Element {
+  const { films } = props;
+
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
   const film = films.find((elem) => id === elem.id);
@@ -57,4 +68,5 @@ function AddReview(): JSX.Element {
   );
 }
 
-export default AddReview;
+export { AddReview };
+export default connector(AddReview);

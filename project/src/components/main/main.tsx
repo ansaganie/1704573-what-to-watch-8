@@ -33,7 +33,7 @@ function Main(props: MainProps): JSX.Element {
 
   return (
     <React.Fragment>
-      <FilmCard {...promoFilm}/>
+      <FilmCard film={promoFilm}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

@@ -3,8 +3,17 @@ import { Film } from '../../types/film';
 import Header from '../header/header';
 import Sprite from '../sprite/sprite';
 
-function FilmCard(props: Film): JSX.Element {
-  const { posterImage, backgroundImage, name, released, genre } = props;
+type FilmCardProps = {
+  film: Film | null
+}
+
+function FilmCard(props: FilmCardProps): JSX.Element {
+
+  if (!props.film) {
+    return <div/>;
+  }
+
+  const { posterImage, backgroundImage, name, released, genre } = props.film;
 
   return (
     <section className="film-card">

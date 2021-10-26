@@ -6,10 +6,45 @@ import FilmPage from '../film-page/film-page';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
-import { AppRoute, AuthorizationStatus } from '../../constants';
+import { AppRoute, AuthStatus } from '../../constants';
 import PrivateRoute from '../private-route/private-route';
+import { ThunkAppDispatch } from '../../types/action';
+import { fetchFilms, fetchPromoFilm } from '../../store/thunks';
+import { connect, ConnectedProps } from 'react-redux';
+import { useEffect } from 'react';
+import { setDataLoaded } from '../../store/action';
+import { State } from '../../types/state';
+import Spinner from '../spinner/Spinner';
 
-function App(): JSX.Element {
+const mapStateToProps = (state: State) => ({
+  isDataLoaded: state.isDataLoaded,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  initializeApp: () => {
+    dispatch(fetchFilms());
+    dispatch(fetchPromoFilm());
+    dispatch(setDataLoaded());
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type AppProps = ConnectedProps<typeof connector>;
+
+function App(props: AppProps): JSX.Element {
+  const { initializeApp, isDataLoaded } = props;
+
+  useEffect(() => {
+    initializeApp();
+  }, [ initializeApp ]);
+
+  if (!isDataLoaded) {
+    return (
+      <Spinner/>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -23,7 +58,7 @@ function App(): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => <MyList/>}
-          authorizationStatus={AuthorizationStatus.NoAuth}
+          authorizationStatus={AuthStatus.NoAuth}
         />
         <Route path={AppRoute.FilmPage} exact>
           <FilmPage/>
@@ -32,7 +67,7 @@ function App(): JSX.Element {
           exact
           path={AppRoute.AddReview}
           render={() => <AddReview/>}
-          authorizationStatus={AuthorizationStatus.NoAuth}
+          authorizationStatus={AuthStatus.NoAuth}
         />
         <Route path={AppRoute.Player} exact>
           <Player/>
@@ -45,4 +80,5 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export { App };
+export default connector(App);
