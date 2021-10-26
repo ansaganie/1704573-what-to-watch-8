@@ -8,43 +8,8 @@ import Player from './screens/player/player';
 import NotFound from './screens/not-found/not-found';
 import { AppRoute, AuthStatus } from './constants';
 import PrivateRoute from './components/private-route/private-route';
-import { ThunkAppDispatch } from './types/action';
-import { fetchFilms, fetchPromoFilm } from './store/thunks';
-import { connect, ConnectedProps } from 'react-redux';
-import { useEffect } from 'react';
-import { setDataLoaded } from './store/action';
-import { State } from './types/state';
-import Spinner from './components/spinner/Spinner';
 
-const mapStateToProps = (state: State) => ({
-  isDataLoaded: state.isDataLoaded,
-});
-
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  initializeApp: () => {
-    dispatch(fetchFilms());
-    dispatch(fetchPromoFilm());
-    dispatch(setDataLoaded());
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type AppProps = ConnectedProps<typeof connector>;
-
-function App(props: AppProps): JSX.Element {
-  const { initializeApp, isDataLoaded } = props;
-
-  useEffect(() => {
-    initializeApp();
-  }, [ initializeApp ]);
-
-  if (!isDataLoaded) {
-    return (
-      <Spinner/>
-    );
-  }
-
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -80,5 +45,4 @@ function App(props: AppProps): JSX.Element {
   );
 }
 
-export { App };
-export default connector(App);
+export default App;

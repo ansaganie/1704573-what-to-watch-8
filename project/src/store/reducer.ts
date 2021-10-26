@@ -9,7 +9,8 @@ const initialState: State = {
   reviews: [],
   promoFilm: null,
   authStatus: AuthStatus.Unknown,
-  isDataLoaded: false,
+  isFilmsLoading: true,
+  isPromoFilmLoading: true,
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -34,10 +35,15 @@ export const reducer = (state: State = initialState, action: Actions): State => 
         ...state,
         promoFilm: action.payload.promoFilm,
       };
-    case ActionType.SetDataLoaded:
+    case ActionType.SetFilmsLoaded:
       return {
         ...state,
-        isDataLoaded: true,
+        isFilmsLoading: false,
+      };
+    case ActionType.SetPromoFilmLoaded:
+      return {
+        ...state,
+        isPromoFilmLoading: false,
       };
     default:
       return state;

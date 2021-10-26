@@ -1,19 +1,49 @@
-import React from 'react';
-import { Film } from '../../types/film';
+import React, { useEffect } from 'react';
 import Header from '../header/header';
 import Sprite from '../sprite/sprite';
+import { State } from '../../types/state';
+import { ThunkAppDispatch } from '../../types/action';
+import { fetchPromoFilm } from '../../store/thunks';
+import { connect, ConnectedProps } from 'react-redux';
+import Spinner from '../spinner/Spinner';
+import { setPromoFilmLoaded } from '../../store/action';
 
-type FilmCardProps = {
-  film: Film | null
-}
+const mapStateToProps = (state: State) => ({
+  promoFilm: state.promoFilm,
+  isPromoFilmLoading: state.isPromoFilmLoading,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  downloadPromoFilm: () => {
+    dispatch(fetchPromoFilm())
+      .finally(() => dispatch(setPromoFilmLoaded()));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type FilmCardProps = ConnectedProps<typeof connector>;
 
 function FilmCard(props: FilmCardProps): JSX.Element {
+  const { promoFilm, isPromoFilmLoading, downloadPromoFilm } = props;
 
-  if (!props.film) {
-    return <div/>;
+  useEffect(() => {
+    downloadPromoFilm();
+  }, [ downloadPromoFilm ]);
+
+  if (isPromoFilmLoading) {
+    return (
+      <Spinner/>
+    );
   }
 
-  const { posterImage, backgroundImage, name, released, genre } = props.film;
+  if (!promoFilm) {
+    return (
+      <> </>
+    );
+  }
+
+  const { posterImage, backgroundImage, name, released, genre } = promoFilm;
 
   return (
     <section className="film-card">
@@ -67,4 +97,5 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   );
 }
 
-export default FilmCard;
+export { FilmCard };
+export default connector(FilmCard);

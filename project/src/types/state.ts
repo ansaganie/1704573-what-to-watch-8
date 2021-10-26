@@ -9,5 +9,6 @@ export type State = {
   reviews: Review[],
   promoFilm: Film | null,
   authStatus: AuthStatus,
-  isDataLoaded: boolean,
+  isFilmsLoading: boolean,
+  isPromoFilmLoading: boolean,
 }

@@ -23,8 +23,12 @@ const setPromoFilm = (promoFilm: Film) => ({
   payload: { promoFilm },
 } as const);
 
-const setDataLoaded = () => ({
-  type: ActionType.SetDataLoaded,
+const setFilmsLoaded = () => ({
+  type: ActionType.SetFilmsLoaded,
+} as const);
+
+const setPromoFilmLoaded = () => ({
+  type: ActionType.SetPromoFilmLoaded,
 } as const);
 
 export {
@@ -32,5 +36,6 @@ export {
   setAuthStatus,
   setFilms,
   setPromoFilm,
-  setDataLoaded
+  setFilmsLoaded,
+  setPromoFilmLoaded
 };
