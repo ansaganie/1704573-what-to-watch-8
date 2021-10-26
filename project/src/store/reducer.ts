@@ -11,6 +11,7 @@ const initialState: State = {
   isFilmsLoading: true,
   isPromoFilmLoading: true,
   user: null,
+  appInitialized: false,
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -49,6 +50,11 @@ export const reducer = (state: State = initialState, action: Actions): State => 
       return {
         ...state,
         user: action.payload.user,
+      };
+    case ActionType.SetAppInitialized:
+      return {
+        ...state,
+        appInitialized: true,
       };
     default:
       return state;

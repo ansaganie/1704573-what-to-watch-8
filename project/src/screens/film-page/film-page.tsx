@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
 import Sprite from '../../components/sprite/sprite';
 import { scrollToFilmTitle } from '../../utils/side-effects';
-import { AppRoute } from '../../constants';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
+import NotFound from '../not-found/not-found';
 
 const MAX_RELATED_FILMS_COUNT = 4;
 
@@ -29,7 +29,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
   const film = films.find((elem) => id === elem.id);
 
   if (!film) {
-    return <Redirect to={AppRoute.Main}/>;
+    return <NotFound/>;
   }
 
   const relatedFilms = films

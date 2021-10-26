@@ -1,4 +1,5 @@
 import {
+  setAppInitialized,
   setAuthStatus,
   setFilms,
   setFilmsLoaded,
@@ -19,6 +20,7 @@ export enum ActionType {
   SetPromoFilmLoaded = 'data/set-promoFilm-loaded',
   SetAuthStatus = 'user/set-auth-status',
   SetUserData = 'data/set-user-data',
+  SetAppInitialized = 'app/set-app-initialized',
 }
 
 export type Actions =
@@ -28,7 +30,8 @@ export type Actions =
   | ReturnType<typeof setPromoFilm>
   | ReturnType<typeof setFilmsLoaded>
   | ReturnType<typeof setPromoFilmLoaded>
-  | ReturnType<typeof setUserData>;
+  | ReturnType<typeof setUserData>
+  | ReturnType<typeof setAppInitialized>;
 
 export type AsyncAction<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>
 export type AsyncDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

@@ -12,4 +12,5 @@ export type State = {
   isFilmsLoading: boolean,
   isPromoFilmLoading: boolean,
   user: User | null,
+  appInitialized: boolean,
 }

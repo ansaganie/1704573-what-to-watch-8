@@ -6,21 +6,25 @@ import FilmPage from './screens/film-page/film-page';
 import AddReview from './screens/add-review/add-review';
 import Player from './screens/player/player';
 import NotFound from './screens/not-found/not-found';
-import { AppRoute, AuthStatus } from './constants';
+import { AppRoute } from './constants';
 import PrivateRoute from './components/private-route/private-route';
 import { AsyncDispatch } from './types/action';
 import { checkAuthStatus } from './store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from './types/state';
 import { useEffect } from 'react';
+import { setAppInitialized } from './store/action';
 
 const mapStateToProps = (state: State) => ({
-  authStatus: state.authStatus,
+  appInitialized: state.appInitialized,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   checkAuthorization() {
     return dispatch(checkAuthStatus());
+  },
+  initialize() {
+    dispatch(setAppInitialized());
   },
 });
 
@@ -30,13 +34,16 @@ type AppProps = ConnectedProps<typeof connector>;
 
 
 function App(props: AppProps): JSX.Element {
-  const { authStatus, checkAuthorization } = props;
+  const { appInitialized, checkAuthorization, initialize } = props;
 
-  useEffect( () => {
-    if (authStatus === AuthStatus.Unknown) {
-      checkAuthorization();
-    }
-  }, [ authStatus, checkAuthorization ]);
+  useEffect(() => {
+    checkAuthorization()
+      .then(() => initialize());
+  }, [ checkAuthorization, initialize ]);
+
+  if (!appInitialized) {
+    return <> </>;
+  }
 
   return (
     <BrowserRouter>
