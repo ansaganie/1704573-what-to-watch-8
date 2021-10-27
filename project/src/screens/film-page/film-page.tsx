@@ -30,12 +30,12 @@ type FilmPageProps = ConnectedProps<typeof connector>;
 
 function FilmPage(props: FilmPageProps): JSX.Element {
   const { films, getFilm } = props;
-
   const { id } = useParams<{ id: string }>();
-  useEffect(scrollToFilmTitle, []);
+
   const [ film, setFilm ] = useState<Film>();
   const [ isLoading, setIsLoading ] = useState(true);
 
+  useEffect(scrollToFilmTitle, [ id ]);
   useEffect(() => {
     const result = films.find((item) => +item.id === +id);
 
