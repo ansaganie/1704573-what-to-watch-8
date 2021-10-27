@@ -1,10 +1,13 @@
 import { Review } from './review';
 import { Film } from './film';
-import { Genres } from './genres';
+import { AuthStatus } from '../constants';
 
 export type State = {
-  genre: Genres,
+  genre: string,
   films: Film[],
   reviews: Review[],
-  promoFilm: Film,
+  promoFilm: Film | null,
+  authStatus: AuthStatus,
+  isFilmsLoading: boolean,
+  isPromoFilmLoading: boolean,
 }

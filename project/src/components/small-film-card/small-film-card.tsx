@@ -11,7 +11,7 @@ type SmallFilmCardProps = {
 }
 
 function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
-  const { previewImage, name, id, videoLink } = props.film;
+  const { previewImage, name, id, previewVideoLink } = props.film;
   const { onMouseOver, onMouseLeave, isActive } = props;
 
   return (
@@ -24,7 +24,7 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
       <div className="small-film-card__image">
         <VideoPreview
           poster={previewImage}
-          src={videoLink}
+          src={previewVideoLink}
           isPlaying={isActive}
         />
       </div>

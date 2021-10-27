@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../header/header';
-import Footer from '../footer/footer';
-import FilmsList from '../films-list/films-list';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import FilmsList from '../../components/films-list/films-list';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
 import { getFavoriteFilms } from '../../selectors/selectors';

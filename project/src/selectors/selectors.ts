@@ -1,6 +1,8 @@
 import { State } from '../types/state';
 import { createSelector } from 'reselect';
-import { Genres as GenreTypes } from '../types/genres';
+
+const filterUnique = <T>(value: T, index: number, array: T[]) =>
+  array.findIndex((genre) => genre === value) === index;
 
 const getFilms = (state: State) => state.films;
 const getGenre = (state: State) => state.genre;
@@ -13,7 +15,7 @@ const getFavoriteFilms = createSelector(
 const getFilteredFilms = createSelector(
   [ getFilms, getGenre ],
   (films, genre) => {
-    if (genre === GenreTypes.AllGenres) {
+    if (genre === 'All genres') {
       return films;
     }
 
@@ -21,4 +23,26 @@ const getFilteredFilms = createSelector(
   },
 );
 
-export { getFilteredFilms, getFavoriteFilms };
+const getGenres = createSelector(
+  [ getFilms ],
+  (films) => {
+    const genres: string[] = [
+      'All genres',
+    ];
+
+    films
+      .map(({ genre }) => genre)
+      .filter(filterUnique)
+      .forEach((value) => {
+        genres.push(value);
+      });
+
+    return genres;
+  },
+);
+
+export {
+  getFilteredFilms,
+  getFavoriteFilms,
+  getGenres
+};

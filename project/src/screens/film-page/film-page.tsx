@@ -1,17 +1,28 @@
 import React, { useEffect } from 'react';
 import { Link, Redirect, useParams } from 'react-router-dom';
-import Header from '../header/header';
-import Footer from '../footer/footer';
-import FilmsList from '../films-list/films-list';
-import Sprite from '../sprite/sprite';
-import { films } from '../../mock/films';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import FilmsList from '../../components/films-list/films-list';
+import Sprite from '../../components/sprite/sprite';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';
-import FilmTabs from '../film-tabs/film-tabs';
+import FilmTabs from '../../components/film-tabs/film-tabs';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
 
 const MAX_RELATED_FILMS_COUNT = 4;
 
-function FilmPage(): JSX.Element {
+const mapStateToProps = (state: State) => ({
+  films: state.films,
+});
+
+const connector = connect(mapStateToProps);
+
+type FilmPageProps = ConnectedProps<typeof connector>;
+
+function FilmPage(props: FilmPageProps): JSX.Element {
+  const { films } = props;
+
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
 
@@ -99,4 +110,5 @@ function FilmPage(): JSX.Element {
   );
 }
 
-export default FilmPage;
+export { FilmPage };
+export default connector(FilmPage);

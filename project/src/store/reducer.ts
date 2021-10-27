@@ -1,14 +1,15 @@
-import { films } from '../mock/films';
-import { reviews } from '../mock/reviews';
 import { Actions, ActionType } from '../types/action';
 import { State } from '../types/state';
-import { Genres } from '../types/genres';
+import { AuthStatus } from '../constants';
 
 const initialState: State = {
-  genre: Genres.AllGenres,
-  films: films.slice(1),
-  reviews,
-  promoFilm: films[0],
+  genre: 'All genres',
+  films: [],
+  reviews: [],
+  promoFilm: null,
+  authStatus: AuthStatus.Unknown,
+  isFilmsLoading: true,
+  isPromoFilmLoading: true,
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -17,6 +18,31 @@ export const reducer = (state: State = initialState, action: Actions): State => 
       return {
         ...state,
         genre: action.payload.genre,
+      };
+    case ActionType.SetAuthStatus:
+      return {
+        ...state,
+        authStatus: action.payload.authStatus,
+      };
+    case ActionType.SetFilms:
+      return {
+        ...state,
+        films: action.payload.films,
+      };
+    case ActionType.SetPromoFilm:
+      return {
+        ...state,
+        promoFilm: action.payload.promoFilm,
+      };
+    case ActionType.SetFilmsLoaded:
+      return {
+        ...state,
+        isFilmsLoading: false,
+      };
+    case ActionType.SetPromoFilmLoaded:
+      return {
+        ...state,
+        isPromoFilmLoading: false,
       };
     default:
       return state;

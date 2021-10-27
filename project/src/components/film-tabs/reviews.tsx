@@ -1,13 +1,22 @@
 import React from 'react';
-import { reviews } from '../../mock/reviews';
 import ReviewItem from './review-item';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
 
-type ReviewsProps = {
+const mapStateToProps = (state: State) => ({
+  reviews: state.reviews,
+});
+
+const connector = connect(mapStateToProps);
+
+type ReviewsProps = ConnectedProps<typeof connector> & {
   filmId: string,
 }
 
 function Reviews(props: ReviewsProps): JSX.Element {
-  const filmReviews = reviews.filter(({ filmId }) => filmId === props.filmId);
+  const { filmId, reviews } = props;
+
+  const filmReviews = reviews.filter((review) => review.filmId === filmId);
 
   if (filmReviews.length === 0) {
     return (
@@ -35,4 +44,5 @@ function Reviews(props: ReviewsProps): JSX.Element {
   );
 }
 
-export default Reviews;
+export { Reviews };
+export default connector(Reviews);

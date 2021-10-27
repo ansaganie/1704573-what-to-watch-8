@@ -1,11 +1,22 @@
 import React, { useEffect } from 'react';
-import Sprite from '../sprite/sprite';
+import Sprite from '../../components/sprite/sprite';
 import { Redirect, useParams } from 'react-router-dom';
 import { scrollToFilmTitle } from '../../utils/side-effects';
-import { films } from '../../mock/films';
 import { AppRoute } from '../../constants';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
 
-function Player(): JSX.Element {
+const mapStateToProps = (state: State) => ({
+  films: state.films,
+});
+
+const connector = connect(mapStateToProps);
+
+type PlayerPageProps = ConnectedProps<typeof connector>;
+
+function Player(props: PlayerPageProps): JSX.Element {
+  const { films } = props;
+
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
   const film = films.find((elem) => id === elem.id);
@@ -53,4 +64,5 @@ function Player(): JSX.Element {
   );
 }
 
-export default Player;
+export { Player };
+export default connector(Player);

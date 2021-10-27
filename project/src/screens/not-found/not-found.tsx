@@ -1,6 +1,6 @@
 import React from 'react';
-import Footer from '../footer/footer';
-import Header from '../header/header';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 import styles from './not-found.module.css';
 import cover from '../../assets/img/bg-the-grand-budapest-hotel.jpg';
 
