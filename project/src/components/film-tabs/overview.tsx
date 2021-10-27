@@ -15,9 +15,7 @@ function Overview(props: FilmProps): JSX.Element {
         </p>
       </div>
       <div className="film-card__text">
-
-        {description.map((desc) => <p key={desc.slice(0, 6)}>{desc}</p>)}
-
+        <p>{description}</p>
         <p className="film-card__director"><strong>Director: {director}</strong></p>
         <p className="film-card__starring">
           <strong>

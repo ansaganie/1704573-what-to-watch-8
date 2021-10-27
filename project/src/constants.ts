@@ -16,14 +16,16 @@ enum AppRoute {
   Player = '/player/:id'
 }
 
-enum BackendRoute {
-  Films = '/films',
-  PromoFilm = '/promo',
-  Favorite = '/favorite',
-  Comments = '/comments',
-  Login = '/login',
-  Logout = '/logout',
-}
+const BackendRoute = {
+  Films: '/films',
+  PromoFilm: '/promo',
+  Favorite: '/favorite',
+  Login: '/login',
+  Logout: '/logout',
+  Similar: (id: string): string => `/films/${id}/similar`,
+  Film: (id: string): string => `/films/${id}`,
+  Comments: (id: string): string => `/comments/${id}`,
+};
 
 export {
   AuthStatus,

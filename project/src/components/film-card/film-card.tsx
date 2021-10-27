@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Header from '../header/header';
-import Sprite from '../sprite/sprite';
 import { State } from '../../types/state';
 import { AsyncDispatch } from '../../types/action';
 import { fetchPromoFilm } from '../../store/thunks';
@@ -47,17 +46,11 @@ function FilmCard(props: FilmCardProps): JSX.Element {
 
   return (
     <section className="film-card">
-
-      <Sprite/>
-
       <div className="film-card__bg">
         <img src={backgroundImage} alt={name}/>
       </div>
-
       <h1 className="visually-hidden">WTW</h1>
-
       <Header/>
-
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
@@ -68,14 +61,12 @@ function FilmCard(props: FilmCardProps): JSX.Element {
               height="327"
             />
           </div>
-
           <div className="film-card__desc">
             <h2 className="film-card__title">{name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{genre}</span>
               <span className="film-card__year">{released}</span>
             </p>
-
             <div className="film-card__buttons">
               <button className="btn btn--play film-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">

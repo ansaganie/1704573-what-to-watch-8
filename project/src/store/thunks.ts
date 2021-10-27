@@ -1,11 +1,11 @@
-import { AsyncAction } from '../types/action';
-import { ServerFilm, Film } from '../types/film';
-import { AuthStatus, BackendRoute } from '../constants';
 import { setAuthStatus, setFilms, setPromoFilm, setUserData } from './action';
 import { adaptFilmToClient, adaptUserToClient } from '../services/adaptor';
 import { dropToken, setToken } from '../services/token';
+import { AuthStatus, BackendRoute } from '../constants';
 import { SignInForm } from '../types/sign-in-form';
 import { ServerUser } from '../types/user';
+import { AsyncAction } from '../types/action';
+import { ServerFilm, Film } from '../types/film';
 
 const fetchFilms = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
