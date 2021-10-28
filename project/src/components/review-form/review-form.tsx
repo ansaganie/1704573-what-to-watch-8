@@ -44,7 +44,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
       setSubmitting(true);
       postComments(filmId, { comment, rating })
         .then(() => {
-          history.goBack();
+          history.push(`/films/${filmId}`);
         })
         .finally(() => {
           setSubmitting(false);
