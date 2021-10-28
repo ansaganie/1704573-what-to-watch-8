@@ -71,7 +71,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
       </div>
 
       <div className="add-review">
-        <ReviewForm/>
+        <ReviewForm filmId={id}/>
       </div>
     </section>
   );

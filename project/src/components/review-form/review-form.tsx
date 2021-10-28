@@ -1,62 +1,139 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
+import { postComments } from '../../services/dal';
+import { useHistory } from 'react-router-dom';
+import styles from './review-form.module.css';
 
-function ReviewForm(): JSX.Element {
-  const [ rating, setRating ] = useState(0);
-  const [ text, setText ] = useState('');
+const RATING_VALUES = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ];
+const COMMENT_MIN_LENGTH = 50;
+const COMMENT_MAX_LENGTH = 400;
+
+type ReviewFormProps = {
+  filmId: string,
+}
+
+function ReviewForm(props: ReviewFormProps): JSX.Element {
+  const { filmId } = props;
+
+  const history = useHistory();
+
+  const [ rating, setRating ] = useState(1);
+  const [ comment, setComment ] = useState('');
+  const [ isRatingValid, setIsRatingValid ] = useState(false);
+  const [ isCommentValid, setIsCommentValid ] = useState(false);
+  const [ error, setError ] = useState('');
+
+  const [ isSubmitting, setSubmitting ] = useState(false);
 
   const onRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setRating(+evt.target.value);
+    validateRating();
   };
 
-  const onTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(evt.target.value);
+  const onCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(evt.target.value);
+    validateComment();
   };
 
-  const ratingElement: JSX.Element[] = [];
-  for (let i = 10; i >= 1; i--) {
-    ratingElement.push(
-      <React.Fragment>
-        <input
-          key={`rating-input${i}`}
-          className="rating__input"
-          id={`star-${i}`}
-          type="radio"
-          name="rating"
-          value={i}
-          checked={rating === i}
-        />
-        <label
-          className="rating__label"
-          htmlFor={`star-${i}`}
-          key={`rating-label${i}`}
-        >
-          Rating {i}
-        </label>
-      </React.Fragment>,
-    );
-  }
+  const formSubmitHandler = (evt: React.FormEvent) => {
+    evt.preventDefault();
+
+    validateComment();
+    validateRating();
+
+    if (isCommentValid && isRatingValid) {
+      setSubmitting(true);
+      postComments(filmId, { comment, rating })
+        .then(() => {
+          history.goBack();
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
+    }
+  };
+
+  const validateComment = () => {
+    if (comment.length < COMMENT_MIN_LENGTH) {
+      setError(`Review must be at least 50 characters.
+      Need ${COMMENT_MIN_LENGTH - comment.length} more`);
+      setIsCommentValid(false);
+      return;
+    }
+
+    if (comment.length > COMMENT_MAX_LENGTH) {
+      setError('Review must not be more than 400 characters');
+      setIsCommentValid(false);
+      return;
+    }
+
+    setError('');
+    setIsCommentValid(true);
+  };
+
+  const validateRating = () => {
+    if (rating === 0) {
+      setError('Rating must be at least 1 star');
+      setIsRatingValid(false);
+      return;
+    }
+
+    setError('');
+    setIsRatingValid(true);
+  };
 
   return (
-    <form action="#" className="add-review__form">
+    <form
+      className="add-review__form"
+      onSubmit={formSubmitHandler}
+    >
       <div className="rating">
-        <div className="rating__stars" onChange={onRatingChange}>
-          {ratingElement}
+        <div className="rating__stars">
+          {
+            RATING_VALUES.map((value) => (
+              <Fragment key={`rating-input${value}`}>
+                <input
+                  className="rating__input"
+                  id={`star-${value}`}
+                  type="radio"
+                  name="rating"
+                  value={value}
+                  checked={rating === value}
+                  onChange={onRatingChange}
+                  disabled={isSubmitting}
+                />
+                <label
+                  className="rating__label"
+                  htmlFor={`star-${value}`}
+                >
+                  Rating {value}
+                </label>
+              </Fragment>
+            ))
+          }
         </div>
       </div>
 
       <div className="add-review__text">
         <textarea
           className="add-review__textarea"
-          name="review-text"
+          name="comment"
           id="review-text"
           placeholder="Review text"
-          value={text}
-          onChange={onTextChange}
+          value={comment}
+          onChange={onCommentChange}
         />
-
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button
+            className="add-review__btn"
+            type="submit"
+            disabled={!isCommentValid || !isRatingValid || isSubmitting}
+          >
+            Post
+          </button>
         </div>
+      </div>
+      <div className={styles.errorMessage}>
+        {error || ''}
       </div>
     </form>
   );

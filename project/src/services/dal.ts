@@ -1,4 +1,4 @@
-import { Review } from '../types/review';
+import { Review, ReviewForm } from '../types/review';
 import { Film, ServerFilm } from '../types/film';
 import { BackendRoute } from '../constants';
 import { adaptFilmToClient } from './adaptor';
@@ -16,10 +16,19 @@ const fetchComments = async (filmId: string): Promise<Review[]> => {
   return data;
 };
 
+const postComments = async (filmId: string, comment: ReviewForm): Promise<void> => {
+  await api.post<Review[]>(BackendRoute.Comments(filmId), comment);
+};
+
 const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
   const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
 
   return data.map(adaptFilmToClient);
 };
 
-export { fetchFilm, fetchRelatedFilms, fetchComments };
+export {
+  fetchFilm,
+  fetchRelatedFilms,
+  fetchComments,
+  postComments
+};
