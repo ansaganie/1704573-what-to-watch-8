@@ -7,15 +7,28 @@ import { applyMiddleware, createStore } from '@reduxjs/toolkit';
 import { reducer } from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { setAuthStatus } from './store/action';
-import { AuthStatus } from './constants';
 import { createAPI } from './services/api';
+import { AxiosError, AxiosResponse } from 'axios';
+import { AuthStatus, HttpCode } from './constants';
+import { setAuthStatus } from './store/action';
 
-export const api = createAPI(
-  () => store.dispatch(setAuthStatus(AuthStatus.NoAuth)),
-);
+export const api = createAPI();
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
+    const { response } = error;
+
+    if (response && response.status === HttpCode.Unauthorized) {
+      store.dispatch(setAuthStatus(AuthStatus.NoAuth));
+      return;
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 ReactDOM.render(
   <React.StrictMode>

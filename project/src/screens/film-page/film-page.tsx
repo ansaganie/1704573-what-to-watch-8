@@ -3,14 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
 import { Film } from '../../types/film';
-import { AsyncDispatch } from '../../types/action';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { fetchFilm } from '../../services/dal';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import NotFound from '../not-found/not-found';
-import RelatedFilms from '../../components/related-films';
+import RelatedFilms from '../../components/related-films/related-films';
 import Spinner from '../../components/spinner/Spinner';
 import { AuthStatus } from '../../constants';
 
@@ -20,18 +19,12 @@ const mapStateToProps = (state: State) => ({
   authStatus: state.authStatus,
 });
 
-const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
-  getFilm(id: string) {
-    return dispatch(fetchFilm(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 type FilmPageProps = ConnectedProps<typeof connector>;
 
 function FilmPage(props: FilmPageProps): JSX.Element {
-  const { films, getFilm, authStatus } = props;
+  const { films, authStatus } = props;
   const isAuthorized = authStatus === AuthStatus.Auth;
 
   const { id } = useParams<{ id: string }>();
@@ -49,12 +42,12 @@ function FilmPage(props: FilmPageProps): JSX.Element {
       return;
     }
 
-    getFilm(id)
+    fetchFilm(id)
       .then((data) => {
         setFilm(data);
         setIsLoading(false);
       });
-  }, [ film, films, getFilm, id ]);
+  }, [ films, id ]);
 
   if (isLoading) {
     return (

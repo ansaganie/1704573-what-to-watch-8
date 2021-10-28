@@ -27,10 +27,15 @@ const BackendRoute = {
   Comments: (id: string): string => `/comments/${id}`,
 };
 
+enum HttpCode {
+  Unauthorized = 401,
+}
+
 export {
   AuthStatus,
   AppRoute,
   BackendRoute,
+  HttpCode,
   FILMS_INITIAL_COUNT,
   FILMS_STEP
 };

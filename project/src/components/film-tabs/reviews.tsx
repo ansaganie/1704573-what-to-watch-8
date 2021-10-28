@@ -1,34 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReviewItem from './review-item';
-import { State } from '../../types/state';
-import { connect, ConnectedProps } from 'react-redux';
+import { Review } from '../../types/review';
+import { fetchComments } from '../../services/dal';
+import Spinner from '../spinner/Spinner';
 
-const mapStateToProps = (state: State) => ({
-  reviews: state.reviews,
-});
-
-const connector = connect(mapStateToProps);
-
-type ReviewsProps = ConnectedProps<typeof connector> & {
+type ReviewsProps = {
   filmId: string,
 }
 
 function Reviews(props: ReviewsProps): JSX.Element {
-  const { filmId, reviews } = props;
+  const { filmId } = props;
+  const [ isLoading, setIsLoading ] = useState(true);
+  const [ reviews, setReviews ] = useState<Review[]>([]);
 
-  const filmReviews = reviews.filter((review) => review.filmId === filmId);
+  useEffect(() => {
+    fetchComments(filmId)
+      .then((data) => {
+        setReviews(data);
+        setIsLoading(false);
+      });
+  }, [filmId]);
 
-  if (filmReviews.length === 0) {
+  if (isLoading) {
     return (
       <div className="film-card__reviews film-card__row">
-        <div className="film-card__reviews-col">
-          <h1 className="film-card__title">There is no review on this film yet</h1>
-        </div>
+        <Spinner/>
       </div>
     );
   }
 
-  const reviewElements = filmReviews
+  const reviewElements = reviews
     .map((review) => <ReviewItem key={review.date.toLocaleString()} review={review}/>);
   const countOfItemsInColumn = Math.ceil(reviewElements.length / 2);
 
@@ -44,5 +45,4 @@ function Reviews(props: ReviewsProps): JSX.Element {
   );
 }
 
-export { Reviews };
-export default connector(Reviews);
+export default Reviews;
