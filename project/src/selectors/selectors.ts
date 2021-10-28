@@ -7,11 +7,6 @@ const filterUnique = <T>(value: T, index: number, array: T[]) =>
 const getFilms = (state: State) => state.films;
 const getGenre = (state: State) => state.genre;
 
-const getFavoriteFilms = createSelector(
-  [ getFilms ],
-  (films) => films.filter((film) => film.isFavorite),
-);
-
 const getFilteredFilms = createSelector(
   [ getFilms, getGenre ],
   (films, genre) => {
@@ -43,6 +38,5 @@ const getGenres = createSelector(
 
 export {
   getFilteredFilms,
-  getFavoriteFilms,
   getGenres
 };

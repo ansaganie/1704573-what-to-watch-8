@@ -1,4 +1,5 @@
 import { Film, ServerFilm } from '../types/film';
+import { ServerUser, User } from '../types/user';
 
 const adaptFilmToClient = (film: ServerFilm): Film => {
   const {
@@ -32,4 +33,16 @@ const adaptFilmToClient = (film: ServerFilm): Film => {
   } as Film;
 };
 
-export { adaptFilmToClient };
+const adaptUserToClient = (user: ServerUser): User => {
+  const { 'avatar_url': avatarUrl } = user;
+
+  return {
+    email: user.email,
+    id: user.id,
+    name: user.name,
+    token: user.token,
+    avatarUrl,
+  };
+};
+
+export { adaptFilmToClient, adaptUserToClient };

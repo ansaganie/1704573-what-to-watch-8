@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link} from 'react-router-dom';
+import User from '../user/user';
 
 type HeaderProps = {
   title?: string,
@@ -20,16 +21,7 @@ function Header({ title, breadcrumbs }: HeaderProps): JSX.Element {
       {title ? <h1 className="page-title user-page__title">{title}</h1> : ''}
       {breadcrumbs ? breadcrumbs : ''}
 
-      <ul className="user-block">
-        <li className="user-block__item">
-          <div className="user-block__avatar">
-            <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </li>
-        <li className="user-block__item">
-          <Link to="/sign-out" className="user-block__link">Sign out</Link>
-        </li>
-      </ul>
+      <User/>
     </header>
   );
 }

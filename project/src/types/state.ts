@@ -1,6 +1,7 @@
 import { Review } from './review';
 import { Film } from './film';
 import { AuthStatus } from '../constants';
+import { User } from './user';
 
 export type State = {
   genre: string,
@@ -10,4 +11,6 @@ export type State = {
   authStatus: AuthStatus,
   isFilmsLoading: boolean,
   isPromoFilmLoading: boolean,
+  user: User | null,
+  appInitialized: boolean,
 }

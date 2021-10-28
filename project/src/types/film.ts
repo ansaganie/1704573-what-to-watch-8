@@ -18,14 +18,14 @@ export type Film = {
 }
 
 export type ServerFilm = {
-  ['preview_image']: string,
-  ['poster_image']: string,
-  ['background_image']: string,
-  ['scores_count']: number,
-  ['video_link']: string,
-  ['preview_video_link']: string,
-  ['run_time']: number,
-  ['is_favorite']: boolean,
+  'preview_image': string,
+  'poster_image': string,
+  'background_image': string,
+  'scores_count': number,
+  'video_link': string,
+  'preview_video_link': string,
+  'run_time': number,
+  'is_favorite': boolean,
   id: string,
   name: string,
   genre: string,

@@ -4,7 +4,7 @@ import FilmsList from '../films-list/films-list';
 import { FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
 import { State } from '../../types/state';
 import { getFilteredFilms } from '../../selectors/selectors';
-import { ThunkAppDispatch } from '../../types/action';
+import { AsyncDispatch } from '../../types/action';
 import { fetchFilms } from '../../store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
@@ -15,7 +15,7 @@ const mapStateToProps = (state: State) => ({
   isFilmsLoading: state.isFilmsLoading,
 });
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   downloadFilms: () => {
     dispatch(fetchFilms())
       .finally(() => dispatch(setFilmsLoaded()));
