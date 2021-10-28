@@ -21,9 +21,8 @@ api.interceptors.response.use(
   (error: AxiosError) => {
     const { response } = error;
 
-    if (response && response.status === HttpCode.Unauthorized) {
-      store.dispatch(setAuthStatus(AuthStatus.NoAuth));
-      return;
+    if (response?.status === HttpCode.Unauthorized) {
+      return store.dispatch(setAuthStatus(AuthStatus.NoAuth));
     }
 
     return Promise.reject(error);

@@ -28,11 +28,11 @@ const fetchFavorites = (): AsyncAction<Promise<Film[]>> =>
 
 const login = (signIn: SignInForm): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    const response = await api.post<ServerUser>(BackendRoute.Login, signIn);
-    if (response && response.data) {
+    const { data } = await api.post<ServerUser>(BackendRoute.Login, signIn);
+    if (data) {
       dispatch(setAuthStatus(AuthStatus.Auth));
-      dispatch(setUserData(adaptUserToClient(response.data)));
-      setToken(response.data.token);
+      dispatch(setUserData(adaptUserToClient(data)));
+      setToken(data.token);
     }
   };
 
@@ -46,11 +46,11 @@ const logout = (): AsyncAction =>
 
 const checkAuthStatus = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
-    const response = await api.get<ServerUser>(BackendRoute.Login);
+    const { data } = await api.get<ServerUser>(BackendRoute.Login);
 
-    if (response && response.data) {
+    if (data) {
       dispatch(setAuthStatus(AuthStatus.Auth));
-      dispatch(setUserData(adaptUserToClient(response.data)));
+      dispatch(setUserData(adaptUserToClient(data)));
     }
   };
 
