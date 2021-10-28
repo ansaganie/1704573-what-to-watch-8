@@ -1,7 +1,4 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import store from '../store/store';
-import { AuthStatus } from '../constants';
-import { setAuthStatus } from '../store/action';
 import { getToken } from './token';
 
 const BACKEND_URL = 'https://8.react.pages.academy/wtw';
@@ -11,7 +8,9 @@ enum HttpCode {
   Unauthorized = 401,
 }
 
-const createAPI = (): AxiosInstance => {
+type UnauthorizedCallback = () => void;
+
+const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -23,7 +22,7 @@ const createAPI = (): AxiosInstance => {
       const { response } = error;
 
       if (response && response.status === HttpCode.Unauthorized) {
-        return store.dispatch(setAuthStatus(AuthStatus.NoAuth));
+        onUnauthorized();
       }
 
       return Promise.reject(error);
