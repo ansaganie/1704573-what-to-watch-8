@@ -1,5 +1,6 @@
 const FILMS_INITIAL_COUNT = 8;
 const FILMS_STEP = 8;
+const ALL_GENRE = 'All genres';
 
 enum AuthStatus {
   Auth = 'AUTH',
@@ -37,5 +38,6 @@ export {
   BackendRoute,
   HttpCode,
   FILMS_INITIAL_COUNT,
-  FILMS_STEP
+  FILMS_STEP,
+  ALL_GENRE
 };

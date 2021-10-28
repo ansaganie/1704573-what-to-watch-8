@@ -1,5 +1,6 @@
 import { State } from '../types/state';
 import { createSelector } from 'reselect';
+import { ALL_GENRE } from '../constants';
 
 const filterUnique = <T>(value: T, index: number, array: T[]) =>
   array.findIndex((genre) => genre === value) === index;
@@ -10,7 +11,7 @@ const getGenre = (state: State) => state.genre;
 const getFilteredFilms = createSelector(
   [ getFilms, getGenre ],
   (films, genre) => {
-    if (genre === 'All genres') {
+    if (genre === ALL_GENRE) {
       return films;
     }
 
@@ -22,7 +23,7 @@ const getGenres = createSelector(
   [ getFilms ],
   (films) => {
     const genres: string[] = [
-      'All genres',
+      ALL_GENRE,
     ];
 
     films

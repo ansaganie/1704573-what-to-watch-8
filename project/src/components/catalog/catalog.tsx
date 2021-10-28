@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Genres from '../genres/genres';
 import FilmsList from '../films-list/films-list';
-import { FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
+import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
 import { State } from '../../types/state';
 import { getFilteredFilms } from '../../selectors/selectors';
 import { AsyncDispatch } from '../../types/action';
 import { fetchFilms } from '../../store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
-import { setFilmsLoaded } from '../../store/action';
+import { setFilmsLoaded, setGenre } from '../../store/action';
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),
@@ -16,9 +16,12 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
-  downloadFilms: () => {
+  downloadFilms() {
     dispatch(fetchFilms())
       .finally(() => dispatch(setFilmsLoaded()));
+  },
+  resetGenre() {
+    dispatch(setGenre(ALL_GENRE));
   },
 });
 
@@ -27,13 +30,14 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type CatalogProps = ConnectedProps<typeof connector>;
 
 function Catalog(props: CatalogProps): JSX.Element {
-  const { films, isFilmsLoading, downloadFilms } = props;
+  const { films, isFilmsLoading, downloadFilms, resetGenre } = props;
 
   const [ shownFilmsCount, setShownFilmsCount ] = useState<number>(FILMS_INITIAL_COUNT);
 
   useEffect(() => {
     downloadFilms();
-  }, [ downloadFilms ]);
+    resetGenre();
+  }, [downloadFilms, resetGenre]);
 
   const shownFilms = films.slice(0, shownFilmsCount);
 
