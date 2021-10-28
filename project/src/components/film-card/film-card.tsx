@@ -6,10 +6,12 @@ import { fetchPromoFilm } from '../../store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
 import { setPromoFilmLoaded } from '../../store/action';
+import { AuthStatus } from '../../constants';
 
 const mapStateToProps = (state: State) => ({
   promoFilm: state.promoFilm,
   isPromoFilmLoading: state.isPromoFilmLoading,
+  authStatus: state.authStatus,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
@@ -24,7 +26,14 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type FilmCardProps = ConnectedProps<typeof connector>;
 
 function FilmCard(props: FilmCardProps): JSX.Element {
-  const { promoFilm, isPromoFilmLoading, downloadPromoFilm } = props;
+  const {
+    promoFilm,
+    isPromoFilmLoading,
+    downloadPromoFilm,
+    authStatus,
+  } = props;
+
+  const isAuthorized = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
     downloadPromoFilm();
@@ -74,12 +83,15 @@ function FilmCard(props: FilmCardProps): JSX.Element {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"/>
-                </svg>
-                <span>My list</span>
-              </button>
+              {
+                isAuthorized &&
+                <button className="btn btn--list film-card__button" type="button">
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"/>
+                  </svg>
+                  <span>My list</span>
+                </button>
+              }
             </div>
           </div>
         </div>

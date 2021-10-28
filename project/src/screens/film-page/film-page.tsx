@@ -12,10 +12,12 @@ import FilmTabs from '../../components/film-tabs/film-tabs';
 import NotFound from '../not-found/not-found';
 import RelatedFilms from '../../components/related-films';
 import Spinner from '../../components/spinner/Spinner';
+import { AuthStatus } from '../../constants';
 
 
 const mapStateToProps = (state: State) => ({
   films: state.films,
+  authStatus: state.authStatus,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
@@ -29,7 +31,9 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type FilmPageProps = ConnectedProps<typeof connector>;
 
 function FilmPage(props: FilmPageProps): JSX.Element {
-  const { films, getFilm } = props;
+  const { films, getFilm, authStatus } = props;
+  const isAuthorized = authStatus === AuthStatus.Auth;
+
   const { id } = useParams<{ id: string }>();
 
   const [ film, setFilm ] = useState<Film>();
@@ -96,13 +100,16 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"/>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                {
+                  isAuthorized &&
+                  <button className="btn btn--list film-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"/>
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                }
+                { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
