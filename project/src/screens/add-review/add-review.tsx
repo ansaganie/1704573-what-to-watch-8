@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { Link, Redirect, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import ReviewForm from '../../components/review-form/review-form';
-import { AppRoute } from '../../constants';
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
+import NotFound from '../not-found/not-found';
+import Spinner from '../../components/spinner/Spinner';
+import { useLoadFilm } from '../../hooks/films';
 
 const mapStateToProps = (state: State) => ({
   films: state.films,
@@ -20,10 +22,17 @@ function AddReview(props: AddReviewProps): JSX.Element {
 
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
-  const film = films.find((elem) => id === elem.id);
+
+  const { isLoading, film } = useLoadFilm(id, films);
+
+  if (isLoading) {
+    return (
+      <Spinner/>
+    );
+  }
 
   if (!film) {
-    return <Redirect to={AppRoute.Main}/>;
+    return <NotFound/>;
   }
 
   const { posterImage, backgroundImage, name } = film;
@@ -62,7 +71,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
       </div>
 
       <div className="add-review">
-        <ReviewForm/>
+        <ReviewForm filmId={id}/>
       </div>
     </section>
   );

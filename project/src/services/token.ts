@@ -3,7 +3,7 @@ const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 const getToken = (): string => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
 
-  return token ? token : '';
+  return token || '';
 };
 
 const setToken = (token: string): void => {

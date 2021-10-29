@@ -1,5 +1,6 @@
 const FILMS_INITIAL_COUNT = 8;
 const FILMS_STEP = 8;
+const ALL_GENRE = 'All genres';
 
 enum AuthStatus {
   Auth = 'AUTH',
@@ -16,19 +17,27 @@ enum AppRoute {
   Player = '/player/:id'
 }
 
-enum BackendRoute {
-  Films = '/films',
-  PromoFilm = '/promo',
-  Favorite = '/favorite',
-  Comments = '/comments',
-  Login = '/login',
-  Logout = '/logout',
+const BackendRoute = {
+  Films: '/films',
+  PromoFilm: '/promo',
+  Favorite: '/favorite',
+  Login: '/login',
+  Logout: '/logout',
+  Similar: (id: string): string => `/films/${id}/similar`,
+  Film: (id: string): string => `/films/${id}`,
+  Comments: (id: string): string => `/comments/${id}`,
+};
+
+enum HttpCode {
+  Unauthorized = 401,
 }
 
 export {
   AuthStatus,
   AppRoute,
   BackendRoute,
+  HttpCode,
   FILMS_INITIAL_COUNT,
-  FILMS_STEP
+  FILMS_STEP,
+  ALL_GENRE
 };

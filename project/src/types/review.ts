@@ -1,7 +1,15 @@
-export type Review = {
-  filmId: string,
-  text: string,
-  author: string,
-  date: Date,
+export type ReviewForm = {
   rating: number,
+  comment: string,
+}
+
+export type Review = ReviewForm & {
+  id: string,
+  user: User,
+  date: Date,
+}
+
+type User = {
+  id: string,
+  name: string,
 }

@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
+import { scrollToFilmTitle } from '../../utils/side-effects';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import FilmsList from '../../components/films-list/films-list';
-import Sprite from '../../components/sprite/sprite';
-import { scrollToFilmTitle } from '../../utils/side-effects';
 import FilmTabs from '../../components/film-tabs/film-tabs';
-import { State } from '../../types/state';
-import { connect, ConnectedProps } from 'react-redux';
 import NotFound from '../not-found/not-found';
+import RelatedFilms from '../../components/related-films/related-films';
+import Spinner from '../../components/spinner/Spinner';
+import { AuthStatus } from '../../constants';
+import { useLoadFilm } from '../../hooks/films';
 
-const MAX_RELATED_FILMS_COUNT = 4;
 
 const mapStateToProps = (state: State) => ({
   films: state.films,
+  authStatus: state.authStatus,
 });
 
 const connector = connect(mapStateToProps);
@@ -21,37 +23,49 @@ const connector = connect(mapStateToProps);
 type FilmPageProps = ConnectedProps<typeof connector>;
 
 function FilmPage(props: FilmPageProps): JSX.Element {
-  const { films } = props;
+  const { films, authStatus } = props;
+  const isAuthorized = authStatus === AuthStatus.Auth;
 
   const { id } = useParams<{ id: string }>();
-  useEffect(scrollToFilmTitle);
+  const { isLoading, film  } = useLoadFilm(id, films);
 
-  const film = films.find((elem) => id === elem.id);
+  useEffect(scrollToFilmTitle, [ id ]);
 
-  if (!film) {
-    return <NotFound/>;
+  if (isLoading) {
+    return (
+      <Spinner/>
+    );
   }
 
-  const relatedFilms = films
-    .filter((item) => item.genre === film.genre && item.id !== film.id)
-    .slice(0, MAX_RELATED_FILMS_COUNT);
+  if (!film) {
+    return (
+      <NotFound/>
+    );
+  }
+
+  const {
+    backgroundImage,
+    name,
+    genre,
+    released,
+    posterImage,
+  } = film;
 
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
-        <Sprite/>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name}/>
+            <img src={backgroundImage} alt={name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <Header/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -61,24 +75,26 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"/>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                {
+                  isAuthorized &&
+                  <button className="btn btn--list film-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"/>
+                    </svg>
+                    <span>My list</span>
+                  </button>
+                }
+                { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
         </div>
-
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src={film.posterImage}
-                alt={`${film.name} poster`}
+                src={posterImage}
+                alt={`${name} poster`}
                 width="218"
                 height="327"
               />
@@ -91,20 +107,8 @@ function FilmPage(props: FilmPageProps): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        {
-          relatedFilms
-            ? (
-              <section className="catalog catalog--like-this">
-                <h2 className="catalog__title">More like this</h2>
-
-                <FilmsList films={relatedFilms}/>
-              </section>
-            )
-            : ''
-        }
-
+        <RelatedFilms filmId={id}/>
         <Footer/>
-
       </div>
     </React.Fragment>
   );

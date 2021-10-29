@@ -12,8 +12,9 @@ import { AsyncDispatch } from './types/action';
 import { checkAuthStatus } from './store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from './types/state';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { setAppInitialized } from './store/action';
+import Sprite from './components/sprite/sprite';
 
 const mapStateToProps = (state: State) => ({
   appInitialized: state.appInitialized,
@@ -33,7 +34,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type AppProps = ConnectedProps<typeof connector>;
 
 
-function App(props: AppProps): JSX.Element {
+function App(props: AppProps): JSX.Element | null {
   const { appInitialized, checkAuthorization, initialize } = props;
 
   useEffect(() => {
@@ -42,11 +43,12 @@ function App(props: AppProps): JSX.Element {
   }, [ checkAuthorization, initialize ]);
 
   if (!appInitialized) {
-    return <> </>;
+    return null;
   }
 
   return (
     <BrowserRouter>
+      <Sprite/>
       <Switch>
         <Route path={AppRoute.Main} exact>
           <Main/>
