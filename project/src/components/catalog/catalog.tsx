@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Genres from '../genres/genres';
 import FilmsList from '../films-list/films-list';
 import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
-import { State } from '../../types/state';
+import { State } from '../../store/reducer';
 import { getFilteredFilms, getGenres } from '../../selectors/selectors';
 import { AsyncDispatch } from '../../types/action';
 import { fetchFilms } from '../../store/thunks';
@@ -12,9 +12,9 @@ import { setFilmsLoaded, setGenre } from '../../store/action';
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),
-  isFilmsLoading: state.isFilmsLoading,
+  isFilmsLoading: state.data.isFilmsLoading,
   genres: getGenres(state),
-  activeGenre: state.genre,
+  activeGenre: state.app.genre,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({

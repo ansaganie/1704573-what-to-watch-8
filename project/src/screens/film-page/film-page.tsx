@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../types/state';
+import { State } from '../../store/reducer';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
@@ -14,8 +14,8 @@ import { useLoadFilm } from '../../hooks/films';
 
 
 const mapStateToProps = (state: State) => ({
-  films: state.films,
-  authStatus: state.authStatus,
+  films: state.data.films,
+  authStatus: state.user.authStatus,
 });
 
 const connector = connect(mapStateToProps);

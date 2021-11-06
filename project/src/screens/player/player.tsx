@@ -3,11 +3,11 @@ import Sprite from '../../components/sprite/sprite';
 import { Redirect, useParams } from 'react-router-dom';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute } from '../../constants';
-import { State } from '../../types/state';
+import { State } from '../../store/reducer';
 import { connect, ConnectedProps } from 'react-redux';
 
 const mapStateToProps = (state: State) => ({
-  films: state.films,
+  films: state.data.films,
 });
 
 const connector = connect(mapStateToProps);

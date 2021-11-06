@@ -11,13 +11,13 @@ import PrivateRoute from './components/private-route/private-route';
 import { AsyncDispatch } from './types/action';
 import { checkAuthStatus } from './store/thunks';
 import { connect, ConnectedProps } from 'react-redux';
-import { State } from './types/state';
+import { State } from './store/reducer';
 import React, { useEffect } from 'react';
 import { setAppInitialized } from './store/action';
 import Sprite from './components/sprite/sprite';
 
 const mapStateToProps = (state: State) => ({
-  appInitialized: state.appInitialized,
+  appInitialized: state.app.appInitialized,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({

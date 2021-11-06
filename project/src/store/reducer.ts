@@ -1,62 +1,18 @@
-import { Actions, ActionType } from '../types/action';
-import { State } from '../types/state';
-import { AuthStatus } from '../constants';
+import { combineReducers } from '@reduxjs/toolkit';
+import { appReducer } from './app/app-reducer';
+import { dataReducer } from './data/data-reducer';
+import { userReducer } from './user/user-reducer';
 
-const initialState: State = {
-  genre: 'All genres',
-  films: [],
-  reviews: [],
-  promoFilm: null,
-  authStatus: AuthStatus.Unknown,
-  isFilmsLoading: true,
-  isPromoFilmLoading: true,
-  user: null,
-  appInitialized: false,
-};
+export enum NameSpace {
+  data = 'data',
+  app = 'app',
+  user = 'user',
+}
 
-export const reducer = (state: State = initialState, action: Actions): State => {
-  switch (action.type) {
-    case ActionType.SetGenre:
-      return {
-        ...state,
-        genre: action.payload.genre,
-      };
-    case ActionType.SetAuthStatus:
-      return {
-        ...state,
-        authStatus: action.payload.authStatus,
-      };
-    case ActionType.SetFilms:
-      return {
-        ...state,
-        films: action.payload.films,
-      };
-    case ActionType.SetPromoFilm:
-      return {
-        ...state,
-        promoFilm: action.payload.promoFilm,
-      };
-    case ActionType.SetFilmsLoaded:
-      return {
-        ...state,
-        isFilmsLoading: false,
-      };
-    case ActionType.SetPromoFilmLoaded:
-      return {
-        ...state,
-        isPromoFilmLoading: false,
-      };
-    case ActionType.SetUserData:
-      return {
-        ...state,
-        user: action.payload.user,
-      };
-    case ActionType.SetAppInitialized:
-      return {
-        ...state,
-        appInitialized: true,
-      };
-    default:
-      return state;
-  }
-};
+export const rootReducer = combineReducers({
+  [NameSpace.data]: dataReducer,
+  [NameSpace.app]: appReducer,
+  [NameSpace.user]: userReducer,
+});
+
+export type State = ReturnType<typeof rootReducer>;

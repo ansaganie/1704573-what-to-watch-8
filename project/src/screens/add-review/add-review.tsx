@@ -3,14 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import ReviewForm from '../../components/review-form/review-form';
-import { State } from '../../types/state';
+import { State } from '../../store/reducer';
 import { connect, ConnectedProps } from 'react-redux';
 import NotFound from '../not-found/not-found';
 import Spinner from '../../components/spinner/Spinner';
 import { useLoadFilm } from '../../hooks/films';
 
 const mapStateToProps = (state: State) => ({
-  films: state.films,
+  films: state.data.films,
 });
 
 const connector = connect(mapStateToProps);

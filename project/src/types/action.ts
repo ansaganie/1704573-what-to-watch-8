@@ -9,8 +9,8 @@ import {
   setUserData
 } from '../store/action';
 import { ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { State } from './state';
 import { AxiosInstance } from 'axios';
+import { State } from '../store/reducer';
 
 export enum ActionType {
   SetGenre = 'main/set-genre',
