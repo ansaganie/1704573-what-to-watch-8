@@ -36,8 +36,10 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
-    downloadPromoFilm();
-  }, [ downloadPromoFilm ]);
+    if (!promoFilm) {
+      downloadPromoFilm();
+    }
+  }, [ downloadPromoFilm, promoFilm ]);
 
   if (isPromoFilmLoading) {
     return (
