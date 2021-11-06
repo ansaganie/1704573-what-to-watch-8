@@ -9,7 +9,7 @@ import NotFound from './screens/not-found/not-found';
 import { AppRoute } from './constants';
 import PrivateRoute from './components/private-route/private-route';
 import { AsyncDispatch } from './types/action';
-import { checkAuthStatus } from './store/thunks';
+import { checkAuthStatus } from './store/user/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from './store/reducer';
 import React, { useEffect } from 'react';

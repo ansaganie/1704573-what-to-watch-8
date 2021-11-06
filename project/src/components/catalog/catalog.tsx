@@ -3,9 +3,9 @@ import Genres from '../genres/genres';
 import FilmsList from '../films-list/films-list';
 import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
 import { State } from '../../store/reducer';
-import { getFilteredFilms, getGenres } from '../../selectors/selectors';
+import { getFilteredFilms, getGenres } from '../../store/data/selectors';
 import { AsyncDispatch } from '../../types/action';
-import { fetchFilms } from '../../store/thunks';
+import { fetchFilms } from '../../store/data/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
 import { setFilmsLoaded, setGenre } from '../../store/action';
@@ -47,9 +47,11 @@ function Catalog(props: CatalogProps): JSX.Element {
     if (films.length === 0) {
       downloadFilms();
     }
+  }, [ downloadFilms, films ]);
 
+  useEffect(() => {
     updateGenre(ALL_GENRE);
-  }, [downloadFilms, updateGenre, films]);
+  }, [ updateGenre ]);
 
   const shownFilms = films.slice(0, shownFilmsCount);
 

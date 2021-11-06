@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Header from '../header/header';
 import { State } from '../../store/reducer';
 import { AsyncDispatch } from '../../types/action';
-import { fetchPromoFilm } from '../../store/thunks';
+import { fetchPromoFilm } from '../../store/data/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
 import { setPromoFilmLoaded } from '../../store/action';

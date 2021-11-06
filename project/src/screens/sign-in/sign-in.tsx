@@ -11,7 +11,7 @@ import Footer from '../../components/footer/footer';
 import { SignInForm } from '../../types/sign-in-form';
 import { AsyncDispatch } from '../../types/action';
 import { State } from '../../store/reducer';
-import { login } from '../../store/thunks';
+import { login } from '../../store/user/thunks';
 import { AppRoute, AuthStatus } from '../../constants';
 
 const mapStateToProps = (state: State) => ({

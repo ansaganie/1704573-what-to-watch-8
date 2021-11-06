@@ -1,9 +1,7 @@
-import { State } from '../store/reducer';
+import { State } from '../reducer';
 import { createSelector } from 'reselect';
-import { ALL_GENRE } from '../constants';
-
-const filterUnique = <T>(value: T, index: number, array: T[]) =>
-  array.findIndex((genre) => genre === value) === index;
+import { ALL_GENRE } from '../../constants';
+import { filterUnique } from '../../utils/film';
 
 const getFilms = (state: State) => state.data.films;
 const getGenre = (state: State) => state.app.genre;
