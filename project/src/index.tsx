@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './app';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from '@reduxjs/toolkit';
-import { reducer } from './store/reducer';
+import { rootReducer } from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { createAPI } from './services/api';
@@ -14,7 +14,7 @@ import { setAuthStatus } from './store/action';
 
 export const api = createAPI();
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
 
 api.interceptors.response.use(
   (response: AxiosResponse) => response,

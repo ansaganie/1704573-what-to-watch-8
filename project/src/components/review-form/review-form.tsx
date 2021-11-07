@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { postComments } from '../../services/dal';
 import { useHistory } from 'react-router-dom';
 import styles from './review-form.module.css';
+import { AppRoute } from '../../constants';
 
 const RATING_VALUES = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ];
 const COMMENT_MIN_LENGTH = 50;
@@ -44,24 +45,22 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
       setSubmitting(true);
       postComments(filmId, { comment, rating })
         .then(() => {
-          history.push(`/films/${filmId}`);
-        })
-        .finally(() => {
           setSubmitting(false);
+          history.push(`${AppRoute.Films}/${filmId}`);
         });
     }
   };
 
   const validateComment = () => {
     if (comment.length < COMMENT_MIN_LENGTH) {
-      setError(`Review must be at least 50 characters.
+      setError(`Review must be at least ${COMMENT_MIN_LENGTH} characters.
       Need ${COMMENT_MIN_LENGTH - comment.length} more`);
       setIsCommentValid(false);
       return;
     }
 
     if (comment.length > COMMENT_MAX_LENGTH) {
-      setError('Review must not be more than 400 characters');
+      setError(`Review must not be more than ${COMMENT_MAX_LENGTH} characters`);
       setIsCommentValid(false);
       return;
     }

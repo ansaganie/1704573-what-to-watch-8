@@ -14,7 +14,8 @@ enum AppRoute {
   MyList = '/mylist',
   FilmPage = '/films/:id',
   AddReview = '/films/:id/review',
-  Player = '/player/:id'
+  Player = '/player/:id',
+  Films = '/films',
 }
 
 const BackendRoute = {
@@ -23,8 +24,12 @@ const BackendRoute = {
   Favorite: '/favorite',
   Login: '/login',
   Logout: '/logout',
-  Similar: (id: string): string => `/films/${id}/similar`,
-  Film: (id: string): string => `/films/${id}`,
+  Similar(id: string): string {
+    return `${this.Films}/${id}/similar`;
+  },
+  Film(id: string): string {
+    return `${this.Films}/${id}`;
+  },
   Comments: (id: string): string => `/comments/${id}`,
 };
 

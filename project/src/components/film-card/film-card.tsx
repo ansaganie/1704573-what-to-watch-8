@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import Header from '../header/header';
-import { State } from '../../types/state';
+import { State } from '../../store/reducer';
 import { AsyncDispatch } from '../../types/action';
-import { fetchPromoFilm } from '../../store/thunks';
+import { fetchPromoFilm } from '../../store/data/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
 import { setPromoFilmLoaded } from '../../store/action';
 import { AuthStatus } from '../../constants';
 
 const mapStateToProps = (state: State) => ({
-  promoFilm: state.promoFilm,
-  isPromoFilmLoading: state.isPromoFilmLoading,
-  authStatus: state.authStatus,
+  promoFilm: state.data.promoFilm,
+  isPromoFilmLoading: state.data.isPromoFilmLoading,
+  authStatus: state.user.authStatus,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
@@ -36,8 +36,10 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
 
   useEffect(() => {
-    downloadPromoFilm();
-  }, [ downloadPromoFilm ]);
+    if (!promoFilm) {
+      downloadPromoFilm();
+    }
+  }, [ downloadPromoFilm, promoFilm ]);
 
   if (isPromoFilmLoading) {
     return (

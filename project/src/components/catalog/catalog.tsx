@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Genres from '../genres/genres';
 import FilmsList from '../films-list/films-list';
 import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
-import { State } from '../../types/state';
-import { getFilteredFilms } from '../../selectors/selectors';
+import { State } from '../../store/reducer';
+import { getFilteredFilms, getGenres } from '../../store/data/selectors';
 import { AsyncDispatch } from '../../types/action';
-import { fetchFilms } from '../../store/thunks';
+import { fetchFilms } from '../../store/data/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
 import { setFilmsLoaded, setGenre } from '../../store/action';
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),
-  isFilmsLoading: state.isFilmsLoading,
+  isFilmsLoading: state.data.isFilmsLoading,
+  genres: getGenres(state),
+  activeGenre: state.app.genre,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
@@ -20,8 +22,8 @@ const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
     dispatch(fetchFilms())
       .finally(() => dispatch(setFilmsLoaded()));
   },
-  resetGenre() {
-    dispatch(setGenre(ALL_GENRE));
+  updateGenre(genre: string) {
+    dispatch(setGenre(genre));
   },
 });
 
@@ -30,14 +32,26 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type CatalogProps = ConnectedProps<typeof connector>;
 
 function Catalog(props: CatalogProps): JSX.Element {
-  const { films, isFilmsLoading, downloadFilms, resetGenre } = props;
+  const {
+    films,
+    isFilmsLoading,
+    activeGenre,
+    genres,
+    downloadFilms,
+    updateGenre,
+  } = props;
 
   const [ shownFilmsCount, setShownFilmsCount ] = useState<number>(FILMS_INITIAL_COUNT);
 
   useEffect(() => {
-    downloadFilms();
-    resetGenre();
-  }, [downloadFilms, resetGenre]);
+    if (films.length === 0) {
+      downloadFilms();
+    }
+  }, [ downloadFilms, films ]);
+
+  useEffect(() => {
+    updateGenre(ALL_GENRE);
+  }, [ updateGenre ]);
 
   const shownFilms = films.slice(0, shownFilmsCount);
 
@@ -45,9 +59,10 @@ function Catalog(props: CatalogProps): JSX.Element {
     setShownFilmsCount((count) => FILMS_STEP + count);
   };
 
-  const resetShownFilmsCount = () => {
+  const onGenreClick = useCallback((genre) => {
+    updateGenre(genre);
     setShownFilmsCount(FILMS_INITIAL_COUNT);
-  };
+  }, [updateGenre]);
 
   if (isFilmsLoading) {
     return (
@@ -58,7 +73,7 @@ function Catalog(props: CatalogProps): JSX.Element {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <Genres resetShownFilmsCount={resetShownFilmsCount}/>
+      <Genres activeGenre={activeGenre} genres={genres} onGenreClick={onGenreClick}/>
       <FilmsList films={shownFilms}/>
       {
         shownFilmsCount <= shownFilms.length &&

@@ -5,7 +5,7 @@ import FilmsList from '../../components/films-list/films-list';
 import { connect, ConnectedProps } from 'react-redux';
 import { AsyncDispatch } from '../../types/action';
 import { Film } from '../../types/film';
-import { fetchFavorites } from '../../store/thunks';
+import { fetchFavorites } from '../../store/data/thunks';
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   getFavoriteFilms() {

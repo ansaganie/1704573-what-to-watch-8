@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import VideoPreview from '../video-preview/video-preview';
@@ -35,4 +35,4 @@ function SmallFilmCard(props: SmallFilmCardProps): JSX.Element {
   );
 }
 
-export default SmallFilmCard;
+export default memo(SmallFilmCard);
