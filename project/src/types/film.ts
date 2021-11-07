@@ -29,5 +29,4 @@ export type ServerFilm = Common & {
   'preview_video_link': string,
   'run_time': number,
   'is_favorite': boolean,
-
 }
