@@ -11,6 +11,7 @@ import RelatedFilms from '../../components/related-films/related-films';
 import Spinner from '../../components/spinner/Spinner';
 import { AuthStatus } from '../../constants';
 import { useLoadFilm } from '../../hooks/films';
+import PlayButton from '../../components/play-button/play-button';
 
 
 const mapStateToProps = (state: State) => ({
@@ -69,12 +70,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"/>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <PlayButton filmId={id}/>
                 {
                   isAuthorized &&
                   <button className="btn btn--list film-card__button" type="button">

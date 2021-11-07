@@ -7,7 +7,7 @@ type UseFilmLoad = {
   film: Film | undefined,
 }
 
-const useLoadFilm = (id: string, films: Film[]): UseFilmLoad=> {
+const useLoadFilm = (id: string, films: Film[]): UseFilmLoad => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ film, setFilm ] = useState<Film>();
 
@@ -15,16 +15,17 @@ const useLoadFilm = (id: string, films: Film[]): UseFilmLoad=> {
     const result = films.find((item) => +item.id === +id);
 
     if (result) {
-      setFilm(result);
+      setFilm(() => result);
       setIsLoading(false);
-      return;
+    } else {
+      fetchFilm(id)
+        .then((data) => {
+          setFilm(data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
-
-    fetchFilm(id)
-      .then((data) => {
-        setFilm(data);
-        setIsLoading(false);
-      });
   }, [ films, id ]);
 
   return { isLoading, film };

@@ -7,6 +7,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
 import { setPromoFilmLoaded } from '../../store/action';
 import { AuthStatus } from '../../constants';
+import PlayButton from '../play-button/play-button';
 
 const mapStateToProps = (state: State) => ({
   promoFilm: state.data.promoFilm,
@@ -53,7 +54,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     );
   }
 
-  const { posterImage, backgroundImage, name, released, genre } = promoFilm;
+  const { posterImage, backgroundImage, name, released, genre, id } = promoFilm;
 
   return (
     <section className="film-card">
@@ -79,12 +80,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
               <span className="film-card__year">{released}</span>
             </p>
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"/>
-                </svg>
-                <span>Play</span>
-              </button>
+              <PlayButton filmId={id}/>
               {
                 isAuthorized &&
                 <button className="btn btn--list film-card__button" type="button">

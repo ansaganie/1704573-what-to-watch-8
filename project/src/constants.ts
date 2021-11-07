@@ -15,7 +15,6 @@ enum AppRoute {
   FilmPage = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  Films = '/films',
 }
 
 const BackendRoute = {

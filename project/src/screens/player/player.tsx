@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import Sprite from '../../components/sprite/sprite';
-import { Redirect, useParams } from 'react-router-dom';
-import { scrollToFilmTitle } from '../../utils/side-effects';
-import { AppRoute } from '../../constants';
-import { State } from '../../store/reducer';
+import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { State } from '../../store/reducer';
+import { useLoadFilm } from '../../hooks/films';
+import Spinner from '../../components/spinner/Spinner';
 
 const mapStateToProps = (state: State) => ({
   films: state.data.films,
@@ -16,24 +15,22 @@ type PlayerPageProps = ConnectedProps<typeof connector>;
 
 function Player(props: PlayerPageProps): JSX.Element {
   const { films } = props;
-
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
-  useEffect(scrollToFilmTitle);
-  const film = films.find((elem) => id === elem.id);
+  const { isLoading, film } = useLoadFilm(id, films);
 
-  if (!film) {
-    return <Redirect to={AppRoute.Main}/>;
-  }
-
-  const { posterImage, videoLink } = film;
+  const onExitClick = () => {
+    history.goBack();
+  };
 
   return (
     <div className="player">
-      <Sprite/>
+      {
+        !film && isLoading ? <Spinner/> :
+          <video src={film?.videoLink} className="player__video" poster={film?.backgroundImage}/>
+      }
 
-      <video src={videoLink} className="player__video" poster={posterImage}/>
-
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={onExitClick}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
