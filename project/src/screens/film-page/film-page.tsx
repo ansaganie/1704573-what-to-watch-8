@@ -12,6 +12,7 @@ import Spinner from '../../components/spinner/Spinner';
 import { AuthStatus } from '../../constants';
 import { useLoadFilm } from '../../hooks/films';
 import PlayButton from '../../components/play-button/play-button';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 
 const mapStateToProps = (state: State) => ({
@@ -28,7 +29,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
 
   const { id } = useParams<{ id: string }>();
-  const { isLoading, film  } = useLoadFilm(id, films);
+  const { isLoading, film, setFilm  } = useLoadFilm(id, films);
 
   useEffect(scrollToFilmTitle, [ id ]);
 
@@ -50,6 +51,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
     genre,
     released,
     posterImage,
+    isFavorite,
   } = film;
 
   return (
@@ -73,12 +75,11 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                 <PlayButton filmId={id}/>
                 {
                   isAuthorized &&
-                  <button className="btn btn--list film-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"/>
-                    </svg>
-                    <span>My list</span>
-                  </button>
+                  <MyListButton
+                    setFilm={setFilm}
+                    isFavorite={isFavorite}
+                    filmId={id}
+                  />
                 }
                 { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
               </div>

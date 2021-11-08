@@ -21,6 +21,7 @@ const BackendRoute = {
   Films: '/films',
   PromoFilm: '/promo',
   Favorite: '/favorite',
+  FavoritePost: (id: string, status: Favorite): string => `/favorite/${id}/${status}`,
   Login: '/login',
   Logout: '/logout',
   Similar(id: string): string {
@@ -36,6 +37,11 @@ enum HttpCode {
   Unauthorized = 401,
 }
 
+enum Favorite {
+  SET = 1,
+  UNSET = 0,
+}
+
 export {
   AuthStatus,
   AppRoute,
@@ -43,5 +49,6 @@ export {
   HttpCode,
   FILMS_INITIAL_COUNT,
   FILMS_STEP,
-  ALL_GENRE
+  ALL_GENRE,
+  Favorite
 };

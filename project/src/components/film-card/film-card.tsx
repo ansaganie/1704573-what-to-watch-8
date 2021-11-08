@@ -5,9 +5,10 @@ import { AsyncDispatch } from '../../types/action';
 import { fetchPromoFilm } from '../../store/data/thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
-import { setPromoFilmLoaded } from '../../store/action';
+import { setPromoFilm, setPromoFilmLoaded } from '../../store/action';
 import { AuthStatus } from '../../constants';
 import PlayButton from '../play-button/play-button';
+import MyListButton from '../my-list-button/my-list-button';
 
 const mapStateToProps = (state: State) => ({
   promoFilm: state.data.promoFilm,
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
     dispatch(fetchPromoFilm())
       .finally(() => dispatch(setPromoFilmLoaded()));
   },
+  setFilm: setPromoFilm,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -32,6 +34,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     isPromoFilmLoading,
     downloadPromoFilm,
     authStatus,
+    setFilm,
   } = props;
 
   const isAuthorized = authStatus === AuthStatus.Auth;
@@ -54,7 +57,15 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     );
   }
 
-  const { posterImage, backgroundImage, name, released, genre, id } = promoFilm;
+  const {
+    posterImage,
+    backgroundImage,
+    name,
+    released,
+    genre,
+    id,
+    isFavorite,
+  } = promoFilm;
 
   return (
     <section className="film-card">
@@ -83,12 +94,11 @@ function FilmCard(props: FilmCardProps): JSX.Element {
               <PlayButton filmId={id}/>
               {
                 isAuthorized &&
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"/>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <MyListButton
+                  setFilm={setFilm}
+                  filmId={id}
+                  isFavorite={isFavorite}
+                />
               }
             </div>
           </div>

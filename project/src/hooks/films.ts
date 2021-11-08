@@ -5,6 +5,7 @@ import { Film } from '../types/film';
 type UseFilmLoad = {
   isLoading: boolean,
   film: Film | undefined,
+  setFilm: (film: Film) => void,
 }
 
 const useLoadFilm = (id: string, films: Film[]): UseFilmLoad => {
@@ -28,7 +29,7 @@ const useLoadFilm = (id: string, films: Film[]): UseFilmLoad => {
     }
   }, [ films, id ]);
 
-  return { isLoading, film };
+  return { isLoading, film, setFilm };
 };
 
 export { useLoadFilm };
