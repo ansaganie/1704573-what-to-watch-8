@@ -1,19 +1,23 @@
-import { Actions, ActionType } from '../../types/action';
-import { AppState } from './type';
+import { AppActions, AppActionType } from './app-actions';
+
+export type AppState = {
+  genre: string;
+  appInitialized: boolean;
+};
 
 const initialState: AppState = {
   genre: 'All genres',
   appInitialized: false,
 };
 
-export const appReducer = (state: AppState = initialState, action: Actions): AppState => {
+export const appReducer = (state: AppState = initialState, action: AppActions): AppState => {
   switch (action.type) {
-    case ActionType.SetGenre:
+    case AppActionType.SetGenre:
       return {
         ...state,
         genre: action.payload.genre,
       };
-    case ActionType.SetAppInitialized:
+    case AppActionType.SetAppInitialized:
       return {
         ...state,
         appInitialized: true,

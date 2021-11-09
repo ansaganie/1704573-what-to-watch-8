@@ -8,7 +8,7 @@ import { AsyncDispatch } from '../../types/action';
 import { fetchFilms } from '../../store/data/data-thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
-import { setGenre } from '../../store/action';
+import { setGenre } from '../../store/app/app-actions';
 import { setFilmsLoaded } from '../../store/data/data-actions';
 
 const mapStateToProps = (state: State) => ({

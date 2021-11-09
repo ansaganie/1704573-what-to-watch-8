@@ -1,20 +1,25 @@
 import { AuthStatus } from '../../constants';
-import { Actions, ActionType } from '../../types/action';
-import { UserState } from './type';
+import { User } from '../../types/user';
+import { UserActions, UserActionType } from './user-actions';
+
+export type UserState = {
+  authStatus: AuthStatus,
+  user: User | null,
+};
 
 const initialState: UserState = {
   authStatus: AuthStatus.Unknown,
   user: null,
 };
 
-export const userReducer = (state: UserState = initialState, action: Actions): UserState => {
+export const userReducer = (state: UserState = initialState, action: UserActions): UserState => {
   switch (action.type) {
-    case ActionType.SetAuthStatus:
+    case UserActionType.SetAuthStatus:
       return {
         ...state,
         authStatus: action.payload.authStatus,
       };
-    case ActionType.SetUserData:
+    case UserActionType.SetUserData:
       return {
         ...state,
         user: action.payload.user,
