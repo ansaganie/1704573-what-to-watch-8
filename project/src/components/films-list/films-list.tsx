@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import SmallFilmCard from '../small-film-card/small-film-card';
+import FilmCard from '../film-card/film-card';
 import { Film } from '../../types/film';
 
 type FilmsListProps = {
@@ -22,7 +22,7 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
     <div className="catalog__films-list">
       {
         films.map((film) => (
-          <SmallFilmCard
+          <FilmCard
             film={film}
             onMouseOver={onSmallFilmCardHover}
             onMouseLeave={onSmallFilmCardLeave}

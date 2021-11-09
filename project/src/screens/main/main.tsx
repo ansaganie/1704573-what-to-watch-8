@@ -1,12 +1,12 @@
 import React from 'react';
-import FilmCard from '../../components/film-card/film-card';
+import PromoFilm from '../../components/promo-film/promo-film';
 import Footer from '../../components/footer/footer';
 import Catalog from '../../components/catalog/catalog';
 
 function Main(): JSX.Element {
   return (
     <React.Fragment>
-      <FilmCard/>
+      <PromoFilm/>
       <div className="page-content">
         <Catalog/>
         <Footer/>
