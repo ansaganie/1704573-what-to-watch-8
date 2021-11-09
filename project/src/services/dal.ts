@@ -21,9 +21,9 @@ const postComments = async (filmId: string, comment: ReviewForm): Promise<void> 
 };
 
 const toggleFavorite = async (filmId: string, status: Favorite): Promise<Film> => {
-  const { data } = await api.post<Film>(BackendRoute.FavoritePost(filmId, status));
+  const { data } = await api.post<ServerFilm>(BackendRoute.FavoritePost(filmId, status));
 
-  return data;
+  return adaptFilmToClient(data);
 };
 
 const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
