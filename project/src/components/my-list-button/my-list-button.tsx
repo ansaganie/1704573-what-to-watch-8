@@ -1,42 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Favorite } from '../../constants';
-import { toggleFavorite } from '../../services/dal';
-import { Film } from '../../types/film';
+import { postToggleFavorite } from '../../store/data/data-thunks';
+import { State } from '../../store/reducer';
+import { AsyncDispatch } from '../../types/action';
 
-type MyListButtonProps = {
+const mapStateToProps = (state: State) => ({
+  myListButtonDisabled: state.data.myListButtonDisabled,
+});
+
+const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
+  toggleFavorite(filmId: number, status: Favorite) {
+    dispatch(postToggleFavorite(filmId, status));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type MyListButtonProps = ConnectedProps<typeof connector> & {
   isFavorite: boolean,
-  filmId: string,
-  setFilm: (film: Film) => void;
+  filmId: number,
 };
 
 function MyListButton(props: MyListButtonProps): JSX.Element {
-  const { isFavorite, filmId, setFilm } = props;
-
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [favorite, setFavorite] = useState(isFavorite);
+  const {
+    isFavorite,
+    myListButtonDisabled,
+    filmId,
+    toggleFavorite,
+  } = props;
 
   const favoriteClickHandler = () => {
-    setIsDisabled(true);
-    toggleFavorite(filmId, favorite ? Favorite.UNSET : Favorite.SET)
-      .then((data) => {
-        setFilm(data);
-        setFavorite((prev) => !prev);
-      })
-      .finally(() => {
-        setIsDisabled(false);
-      });
+    toggleFavorite(filmId, isFavorite ? Favorite.UNSET : Favorite.SET);
   };
 
   return (
     <button
       className="btn btn--list film-card__button"
       type="button"
-      disabled={isDisabled}
+      disabled={myListButtonDisabled}
       onClick={favoriteClickHandler}
     >
       <svg viewBox="0 0 19 20" width="19" height="20">
         {
-          favorite ? <use xlinkHref="#in-list"/> : <use xlinkHref="#add"/>
+          isFavorite ? <use xlinkHref="#in-list"/> : <use xlinkHref="#add"/>
         }
       </svg>
       <span>My list</span>
@@ -44,4 +51,5 @@ function MyListButton(props: MyListButtonProps): JSX.Element {
   );
 }
 
-export default MyListButton;
+export default connector(MyListButton);
+export { MyListButton };

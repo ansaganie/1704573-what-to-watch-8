@@ -5,7 +5,7 @@ import { fetchComments } from '../../services/dal';
 import Spinner from '../spinner/Spinner';
 
 type ReviewsProps = {
-  filmId: string,
+  filmId: number,
 }
 
 function Reviews(props: ReviewsProps): JSX.Element {

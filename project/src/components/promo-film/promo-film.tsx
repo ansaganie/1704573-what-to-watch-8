@@ -2,26 +2,25 @@ import React, { useEffect } from 'react';
 import Header from '../header/header';
 import { State } from '../../store/reducer';
 import { AsyncDispatch } from '../../types/action';
-import { fetchPromoFilm } from '../../store/data/thunks';
+import { fetchPromoFilm } from '../../store/data/data-thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../spinner/Spinner';
-import { setPromoFilm, setPromoFilmLoaded } from '../../store/action';
 import { AuthStatus } from '../../constants';
 import PlayButton from '../play-button/play-button';
 import MyListButton from '../my-list-button/my-list-button';
+import { useLoadFilm } from '../../hooks/films';
 
 const mapStateToProps = (state: State) => ({
-  promoFilm: state.data.promoFilm,
+  promoFilmId: state.data.promoFilmId,
+  films: state.data.films,
   isPromoFilmLoading: state.data.isPromoFilmLoading,
   authStatus: state.user.authStatus,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
-  downloadPromoFilm: () => {
-    dispatch(fetchPromoFilm())
-      .finally(() => dispatch(setPromoFilmLoaded()));
+  loadPromoFilm() {
+    dispatch(fetchPromoFilm());
   },
-  setFilm: setPromoFilm,
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -30,28 +29,29 @@ type PromoFilmProps = ConnectedProps<typeof connector>;
 
 function PromoFilm(props: PromoFilmProps): JSX.Element {
   const {
-    promoFilm,
+    promoFilmId,
+    films,
     isPromoFilmLoading,
-    downloadPromoFilm,
+    loadPromoFilm,
     authStatus,
-    setFilm,
   } = props;
 
-  const isAuthorized = authStatus === AuthStatus.Auth;
-
   useEffect(() => {
-    if (!promoFilm) {
-      downloadPromoFilm();
+    if (promoFilmId === -1) {
+      loadPromoFilm();
     }
-  }, [ downloadPromoFilm, promoFilm ]);
+  }, [loadPromoFilm, promoFilmId]);
 
-  if (isPromoFilmLoading) {
+  const isAuthorized = authStatus === AuthStatus.Auth;
+  const { isFilmLoading, film } = useLoadFilm(promoFilmId, films);
+
+  if (isPromoFilmLoading || isFilmLoading) {
     return (
       <Spinner/>
     );
   }
 
-  if (!promoFilm) {
+  if (!film) {
     return (
       <> </>
     );
@@ -65,7 +65,7 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
     genre,
     id,
     isFavorite,
-  } = promoFilm;
+  } = film;
 
   return (
     <section className="film-card">
@@ -95,7 +95,6 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
               {
                 isAuthorized &&
                 <MyListButton
-                  setFilm={setFilm}
                   filmId={id}
                   isFavorite={isFavorite}
                 />

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { AppRoute } from '../../constants';
 
 type PlayButtonProps = {
-  filmId: string;
+  filmId: number;
 }
 
 function PlayButton(props: PlayButtonProps): JSX.Element {
@@ -11,7 +11,7 @@ function PlayButton(props: PlayButtonProps): JSX.Element {
   const history = useHistory();
 
   const onPlayButtonClick = () => {
-    history.push(AppRoute.Player.replace(':id', filmId));
+    history.push(AppRoute.Player.replace(':id', filmId.toString()));
   };
 
   return (

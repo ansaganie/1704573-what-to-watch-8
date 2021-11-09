@@ -1,33 +1,33 @@
 import { Review, ReviewForm } from '../types/review';
 import { Film, ServerFilm } from '../types/film';
-import { BackendRoute, Favorite } from '../constants';
+import { BackendRoute } from '../constants';
 import { adaptFilmToClient } from './adaptor';
 import { api } from '../index';
 
-const fetchFilm = async (filmId: string): Promise<Film> => {
+const fetchFilm = async (filmId: number): Promise<Film> => {
   const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
 
   return adaptFilmToClient(data);
 };
 
-const fetchComments = async (filmId: string): Promise<Review[]> => {
+const fetchComments = async (filmId: number): Promise<Review[]> => {
   const { data } = await api.get<Review[]>(BackendRoute.Comments(filmId));
 
   return data;
 };
 
-const postComments = async (filmId: string, comment: ReviewForm): Promise<void> => {
+const postComments = async (filmId: number, comment: ReviewForm): Promise<void> => {
   await api.post<Review[]>(BackendRoute.Comments(filmId), comment);
 };
 
-const toggleFavorite = async (filmId: string, status: Favorite): Promise<Film> => {
-  const { data } = await api.post<ServerFilm>(BackendRoute.FavoritePost(filmId, status));
+const fetchRelatedFilms = async (filmId: number): Promise<Film[]> => {
+  const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
 
-  return adaptFilmToClient(data);
+  return data.map(adaptFilmToClient);
 };
 
-const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
-  const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
+const fetchFavorites = async (): Promise<Film[]> => {
+  const { data } = await api.get<ServerFilm[]>(BackendRoute.Favorite);
 
   return data.map(adaptFilmToClient);
 };
@@ -36,6 +36,6 @@ export {
   fetchFilm,
   fetchRelatedFilms,
   fetchComments,
-  postComments,
-  toggleFavorite
+  fetchFavorites,
+  postComments
 };

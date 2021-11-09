@@ -1,5 +1,5 @@
 type Common = {
-  id: string,
+  id: number,
   name: string,
   genre: string,
   released: number,

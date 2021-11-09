@@ -1,6 +1,5 @@
 import { ActionType } from '../types/action';
 import { AuthStatus } from '../constants';
-import { Film } from '../types/film';
 import { User } from '../types/user';
 
 const setGenre = (genre: string) => ({
@@ -11,24 +10,6 @@ const setGenre = (genre: string) => ({
 const setAuthStatus = (authStatus: AuthStatus) => ({
   type: ActionType.SetAuthStatus,
   payload: { authStatus },
-} as const);
-
-const setFilms = (films: Film[]) => ({
-  type: ActionType.SetFilms,
-  payload: { films },
-} as const);
-
-const setPromoFilm = (promoFilm: Film) => ({
-  type: ActionType.SetPromoFilm,
-  payload: { promoFilm },
-} as const);
-
-const setFilmsLoaded = () => ({
-  type: ActionType.SetFilmsLoaded,
-} as const);
-
-const setPromoFilmLoaded = () => ({
-  type: ActionType.SetPromoFilmLoaded,
 } as const);
 
 const setAppInitialized = () => ({
@@ -43,10 +24,6 @@ const setUserData = (data: User | null) => ({
 export {
   setGenre,
   setAuthStatus,
-  setFilms,
-  setPromoFilm,
-  setFilmsLoaded,
-  setPromoFilmLoaded,
   setUserData,
   setAppInitialized
 };

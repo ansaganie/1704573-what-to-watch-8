@@ -21,16 +21,16 @@ const BackendRoute = {
   Films: '/films',
   PromoFilm: '/promo',
   Favorite: '/favorite',
-  FavoritePost: (id: string, status: Favorite): string => `/favorite/${id}/${status}`,
+  FavoritePost: (filmId: number, status: Favorite): string => `/favorite/${filmId}/${status}`,
   Login: '/login',
   Logout: '/logout',
-  Similar(id: string): string {
-    return `${this.Films}/${id}/similar`;
+  Similar(filmId: number): string {
+    return `${this.Films}/${filmId}/similar`;
   },
-  Film(id: string): string {
-    return `${this.Films}/${id}`;
+  Film(filmId: number): string {
+    return `${this.Films}/${filmId}`;
   },
-  Comments: (id: string): string => `/comments/${id}`,
+  Comments: (filmId: number): string => `/comments/${filmId}`,
 };
 
 enum HttpCode {

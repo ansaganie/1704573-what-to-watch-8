@@ -19,7 +19,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
       className="small-film-card catalog__films-card"
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
-      id={id}
+      id={id.toString()}
     >
       <div className="small-film-card__image">
         <VideoPreview

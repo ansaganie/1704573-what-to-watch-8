@@ -9,7 +9,7 @@ const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
 type ReviewFormProps = {
-  filmId: string,
+  filmId: number,
 }
 
 function ReviewForm(props: ReviewFormProps): JSX.Element {
@@ -46,7 +46,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
       postComments(filmId, { comment, rating })
         .then(() => {
           setSubmitting(false);
-          history.push(AppRoute.FilmPage.replace(':id', filmId));
+          history.push(AppRoute.FilmPage.replace(':id', filmId.toString()));
         });
     }
   };
