@@ -44,12 +44,6 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
     loadPromoFilm();
   }, [loadPromoFilm]);
 
-  if (isPromoFilmLoading || isFilmLoading) {
-    return (
-      <Spinner/>
-    );
-  }
-
   if (film) {
     const {
       posterImage,
@@ -108,6 +102,7 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
       {background}
       <h1 className="visually-hidden">WTW</h1>
       <Header/>
+      { (isPromoFilmLoading || isFilmLoading) && <Spinner/> }
       {promoCard}
     </section>
   );
