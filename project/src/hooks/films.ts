@@ -8,17 +8,18 @@ type UseFilmLoad = {
 }
 
 const useLoadFilm = (filmId: string, films: Film[]): UseFilmLoad => {
-  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
+  const [ isFilmLoading, setIsFilmLoading ] = useState(false);
   const [ film, setFilm ] = useState<Film | null>(null);
 
   useEffect(() => {
     if (filmId) {
+      // eslint-disable-next-line no-debugger
+      debugger;
       const result = films.find((item) => item.id === filmId);
-
       if (result) {
         setFilm(result);
-        setIsFilmLoading(false);
       } else {
+        setIsFilmLoading(true);
         fetchFilm(filmId)
           .then((data) => {
             setFilm(data);

@@ -11,10 +11,19 @@ const fetchFilms = (): AsyncAction =>
   };
 
 const fetchPromoFilm = (): AsyncAction =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const { data } = await api.get<ServerFilm>(BackendRoute.PromoFilm);
-    dispatch(setPromoFilm(data.id));
-    dispatch(setPromoFilmLoaded());
+  async (dispatch, getState, api): Promise<void> => {
+    try {
+      const { data } = await api.get<ServerFilm>(BackendRoute.PromoFilm);
+      const dataId = data.id.toString();
+      if (getState().data.promoFilmId !== dataId) {
+        dispatch(setPromoFilm(dataId));
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      dispatch(setPromoFilmLoaded());
+    }
   };
 
 const postToggleFavorite = (filmId: string, status: Favorite): AsyncAction =>
