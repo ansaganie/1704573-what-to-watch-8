@@ -21,7 +21,8 @@ function Player(props: PlayerPageProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
-  const { isFilmLoading, film } = useLoadFilm(id, films);
+  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
+  const { film } = useLoadFilm(id, films, setIsFilmLoading);
 
   const [ isPlaying, setIsPlaying ] = useState(false);
   const [ isVideoLoading, setIsVideoLoading ] = useState(true);
@@ -83,7 +84,7 @@ function Player(props: PlayerPageProps): JSX.Element {
 
   return (
     <div className="player">
-      { (isFilmLoading || isVideoLoading) && <Spinner isFullScreen/>}
+      { (isFilmLoading || isVideoLoading) && <Spinner centered/>}
 
       {
         film &&

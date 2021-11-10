@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useLoadFilm } from '../../hooks/films';
 import { fetchPromoFilm } from '../../store/data/data-thunks';
@@ -38,7 +38,8 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
   let background: JSX.Element = <> </>;
   let promoCard: JSX.Element = <> </>;
-  const { isFilmLoading, film } = useLoadFilm(promoFilmId, films);
+  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
+  const { film } = useLoadFilm(promoFilmId, films, setIsFilmLoading);
 
   useEffect(() => {
     loadPromoFilm();

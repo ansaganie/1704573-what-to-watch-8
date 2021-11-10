@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
@@ -19,15 +19,15 @@ type AddReviewProps = ConnectedProps<typeof connector>;
 
 function AddReview(props: AddReviewProps): JSX.Element {
   const { films } = props;
-
+  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
 
-  const { isFilmLoading, film } = useLoadFilm(id, films);
+  const { film } = useLoadFilm(id, films, setIsFilmLoading);
 
-  if (isFilmLoading) {
+  if (!film && isFilmLoading) {
     return (
-      <Spinner/>
+      <Spinner fullScreen/>
     );
   }
 

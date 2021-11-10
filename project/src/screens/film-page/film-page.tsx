@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../store/reducer';
@@ -27,87 +27,86 @@ type FilmPageProps = ConnectedProps<typeof connector>;
 function FilmPage(props: FilmPageProps): JSX.Element {
   const { films, authStatus } = props;
   const isAuthorized = authStatus === AuthStatus.Auth;
+  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
 
   const { id } = useParams<{ id: string }>();
-  const { isFilmLoading, film  } = useLoadFilm(id, films);
+  const { film  } = useLoadFilm(id, films, setIsFilmLoading);
 
   useEffect(scrollToFilmTitle, [ id ]);
 
-  if (isFilmLoading) {
+  if (!film && isFilmLoading) {
     return (
-      <Spinner/>
+      <Spinner fullScreen/>
     );
   }
 
-  if (!film) {
+  if (film) {
+    const {
+      backgroundImage,
+      name,
+      genre,
+      released,
+      posterImage,
+      isFavorite,
+    } = film;
+
     return (
-      <NotFound/>
-    );
-  }
+      <React.Fragment>
+        <section className="film-card film-card--full">
+          <div className="film-card__hero">
+            <div className="film-card__bg">
+              <img src={backgroundImage} alt={name}/>
+            </div>
+            <h1 className="visually-hidden">WTW</h1>
+            <Header/>
+            <div className="film-card__wrap">
+              <div className="film-card__desc">
+                <h2 className="film-card__title">{name}</h2>
+                <p className="film-card__meta">
+                  <span className="film-card__genre">{genre}</span>
+                  <span className="film-card__year">{released}</span>
+                </p>
 
-  const {
-    backgroundImage,
-    name,
-    genre,
-    released,
-    posterImage,
-    isFavorite,
-  } = film;
-
-  return (
-    <React.Fragment>
-      <section className="film-card film-card--full">
-        <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src={backgroundImage} alt={name}/>
-          </div>
-          <h1 className="visually-hidden">WTW</h1>
-          <Header/>
-          <div className="film-card__wrap">
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{name}</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{released}</span>
-              </p>
-
-              <div className="film-card__buttons">
-                <PlayButton filmId={id}/>
-                {
-                  isAuthorized &&
+                <div className="film-card__buttons">
+                  <PlayButton filmId={id}/>
+                  {
+                    isAuthorized &&
                   <MyListButton
                     isFavorite={isFavorite}
                     filmId={id}
                   />
-                }
-                { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
+                  }
+                  { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img
-                src={posterImage}
-                alt={`${name} poster`}
-                width="218"
-                height="327"
-              />
-            </div>
+          <div className="film-card__wrap film-card__translate-top">
+            <div className="film-card__info">
+              <div className="film-card__poster film-card__poster--big">
+                <img
+                  src={posterImage}
+                  alt={`${name} poster`}
+                  width="218"
+                  height="327"
+                />
+              </div>
 
-            <div className="film-card__desc">
-              <FilmTabs film={film}/>
+              <div className="film-card__desc">
+                <FilmTabs film={film}/>
+              </div>
             </div>
           </div>
+        </section>
+        <div className="page-content">
+          <RelatedFilms filmId={id}/>
+          <Footer/>
         </div>
-      </section>
-      <div className="page-content">
-        <RelatedFilms filmId={id}/>
-        <Footer/>
-      </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  }
+
+  return <NotFound/>;
 }
 
 export { FilmPage };

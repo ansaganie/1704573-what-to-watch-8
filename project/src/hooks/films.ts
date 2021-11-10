@@ -3,21 +3,23 @@ import { fetchFilm } from '../services/dal';
 import { Film } from '../types/film';
 
 type UseFilmLoad = {
-  isFilmLoading: boolean,
   film: Film | null,
 }
 
-const useLoadFilm = (filmId: string, films: Film[]): UseFilmLoad => {
-  const [ isFilmLoading, setIsFilmLoading ] = useState(false);
+const useLoadFilm = (
+  filmId: string,
+  films: Film[],
+  setIsFilmLoading: (value: boolean) => void,
+): UseFilmLoad => {
   const [ film, setFilm ] = useState<Film | null>(null);
 
   useEffect(() => {
     if (filmId) {
-      // eslint-disable-next-line no-debugger
-      debugger;
+      setIsFilmLoading(true);
       const result = films.find((item) => item.id === filmId);
       if (result) {
         setFilm(result);
+        setIsFilmLoading(false);
       } else {
         setIsFilmLoading(true);
         fetchFilm(filmId)
@@ -29,9 +31,9 @@ const useLoadFilm = (filmId: string, films: Film[]): UseFilmLoad => {
           });
       }
     }
-  }, [ films, filmId ]);
+  }, [ films, filmId, setIsFilmLoading ]);
 
-  return { isFilmLoading, film };
+  return { film };
 };
 
 export { useLoadFilm };

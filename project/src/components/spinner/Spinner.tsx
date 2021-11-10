@@ -2,14 +2,24 @@ import React from 'react';
 import styles from './spinner.module.css';
 
 type SpinnerProps = {
-  isFullScreen?: boolean,
+  centered?: boolean,
+  fullScreen?: boolean,
 }
 
 function Spinner(props: SpinnerProps):JSX.Element {
-  const { isFullScreen } = props;
+  const { centered, fullScreen } = props;
+  let className = styles.wrapper;
+
+  if (centered) {
+    className = styles.centered;
+  }
+
+  if (fullScreen) {
+    className = styles.fullScreen;
+  }
 
   return (
-    <div className={isFullScreen ? styles.fullScreen : styles.wrapper}>
+    <div className={className}>
       <div className={styles.spinner}>
         <div/>
         <div/>
