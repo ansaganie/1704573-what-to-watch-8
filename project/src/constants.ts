@@ -15,26 +15,31 @@ enum AppRoute {
   FilmPage = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  Films = '/films',
 }
 
 const BackendRoute = {
   Films: '/films',
   PromoFilm: '/promo',
   Favorite: '/favorite',
+  FavoritePost: (filmId: string, status: Favorite): string => `/favorite/${filmId}/${status}`,
   Login: '/login',
   Logout: '/logout',
-  Similar(id: string): string {
-    return `${this.Films}/${id}/similar`;
+  Similar(filmId: string): string {
+    return `${this.Films}/${filmId}/similar`;
   },
-  Film(id: string): string {
-    return `${this.Films}/${id}`;
+  Film(filmId: string): string {
+    return `${this.Films}/${filmId}`;
   },
-  Comments: (id: string): string => `/comments/${id}`,
+  Comments: (filmId: string): string => `/comments/${filmId}`,
 };
 
 enum HttpCode {
   Unauthorized = 401,
+}
+
+enum Favorite {
+  SET = 1,
+  UNSET = 0,
 }
 
 export {
@@ -44,5 +49,6 @@ export {
   HttpCode,
   FILMS_INITIAL_COUNT,
   FILMS_STEP,
-  ALL_GENRE
+  ALL_GENRE,
+  Favorite
 };

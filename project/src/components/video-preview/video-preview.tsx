@@ -16,14 +16,18 @@ function VideoPreview(props: VideoPreviewProps): JSX.Element {
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
-    if (videoRef.current && isPlaying) {
-      timeoutId = setTimeout(() => {
-        videoRef.current?.play();
-      }, PREVIEW_DELAY);
-    }
+    if (videoRef && videoRef.current) {
+      const player = videoRef.current;
 
-    if (videoRef.current && !isPlaying) {
-      videoRef.current.load();
+      if (isPlaying) {
+        timeoutId = setTimeout(() => {
+          player.play();
+        }, PREVIEW_DELAY);
+      } else {
+        player.load();
+      }
+    } else {
+      return;
     }
 
     return () => {

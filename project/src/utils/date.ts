@@ -11,15 +11,19 @@ const convertMinutesToHours = (period: number): string => {
     return '00m';
   }
 
-  const [hours, minutes] = dayjs
+  return dayjs
     .duration(period, 'minutes')
-    .format('HH-mm')
-    .split('-');
-
-  const hoursOutput = parseInt(hours, 10) > 0 ? `${hours}h` : '';
-  const minutesOutput = parseInt(minutes, 10) > 0 ? `${minutes}m` : '';
-
-  return `${hoursOutput} ${minutesOutput}`;
+    .format('HH[h] mm[m]');
 };
 
-export { convertMinutesToHours, formatDate };
+const convertSecondsToHours = (period: number): string =>
+  dayjs
+    .duration(period, 'seconds')
+    .format('HH:mm:ss')
+    .replace('00:', '');
+
+export {
+  convertMinutesToHours,
+  convertSecondsToHours,
+  formatDate
+};

@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import { createAPI } from './services/api';
 import { AxiosError, AxiosResponse } from 'axios';
 import { AuthStatus, HttpCode } from './constants';
-import { setAuthStatus } from './store/action';
+import { setAuthStatus } from './store/user/user-actions';
 
 export const api = createAPI();
 

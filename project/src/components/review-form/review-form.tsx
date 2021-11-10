@@ -46,7 +46,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
       postComments(filmId, { comment, rating })
         .then(() => {
           setSubmitting(false);
-          history.push(`${AppRoute.Films}/${filmId}`);
+          history.push(AppRoute.FilmPage.replace(':id', filmId.toString()));
         });
     }
   };

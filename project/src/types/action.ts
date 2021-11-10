@@ -1,37 +1,14 @@
-import {
-  setAppInitialized,
-  setAuthStatus,
-  setFilms,
-  setFilmsLoaded,
-  setGenre,
-  setPromoFilm,
-  setPromoFilmLoaded,
-  setUserData
-} from '../store/action';
 import { ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { AppActions } from '../store/app/app-actions';
+import { DataActions } from '../store/data/data-actions';
 import { State } from '../store/reducer';
-
-export enum ActionType {
-  SetGenre = 'main/set-genre',
-  SetFilms = 'data/set-films',
-  SetPromoFilm = 'data/set-promoFilm',
-  SetFilmsLoaded = 'data/set-films-loaded',
-  SetPromoFilmLoaded = 'data/set-promoFilm-loaded',
-  SetAuthStatus = 'user/set-auth-status',
-  SetUserData = 'data/set-user-data',
-  SetAppInitialized = 'app/set-app-initialized',
-}
+import { UserActions } from '../store/user/user-actions';
 
 export type Actions =
-  | ReturnType<typeof setGenre>
-  | ReturnType<typeof setAuthStatus>
-  | ReturnType<typeof setFilms>
-  | ReturnType<typeof setPromoFilm>
-  | ReturnType<typeof setFilmsLoaded>
-  | ReturnType<typeof setPromoFilmLoaded>
-  | ReturnType<typeof setUserData>
-  | ReturnType<typeof setAppInitialized>;
+  | DataActions
+  | UserActions
+  | AppActions;
 
 export type AsyncAction<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>
 export type AsyncDispatch = ThunkDispatch<State, AxiosInstance, Actions>;

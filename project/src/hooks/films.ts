@@ -3,31 +3,37 @@ import { fetchFilm } from '../services/dal';
 import { Film } from '../types/film';
 
 type UseFilmLoad = {
-  isLoading: boolean,
-  film: Film | undefined,
+  film: Film | null,
 }
 
-const useLoadFilm = (id: string, films: Film[]): UseFilmLoad=> {
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ film, setFilm ] = useState<Film>();
+const useLoadFilm = (
+  filmId: string,
+  films: Film[],
+  setIsFilmLoading: (value: boolean) => void,
+): UseFilmLoad => {
+  const [ film, setFilm ] = useState<Film | null>(null);
 
   useEffect(() => {
-    const result = films.find((item) => +item.id === +id);
-
-    if (result) {
-      setFilm(result);
-      setIsLoading(false);
-      return;
+    if (filmId) {
+      setIsFilmLoading(true);
+      const result = films.find((item) => item.id === filmId);
+      if (result) {
+        setFilm(result);
+        setIsFilmLoading(false);
+      } else {
+        setIsFilmLoading(true);
+        fetchFilm(filmId)
+          .then((data) => {
+            setFilm(data);
+          })
+          .finally(() => {
+            setIsFilmLoading(false);
+          });
+      }
     }
+  }, [ films, filmId, setIsFilmLoading ]);
 
-    fetchFilm(id)
-      .then((data) => {
-        setFilm(data);
-        setIsLoading(false);
-      });
-  }, [ films, id ]);
-
-  return { isLoading, film };
+  return { film };
 };
 
 export { useLoadFilm };

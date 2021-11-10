@@ -4,7 +4,7 @@ import { AppRoute } from '../../constants';
 import { State } from '../../store/reducer';
 import { connect, ConnectedProps } from 'react-redux';
 import { AsyncDispatch } from '../../types/action';
-import { logout } from '../../store/user/thunks';
+import { logout } from '../../store/user/user-thunks';
 
 const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,
