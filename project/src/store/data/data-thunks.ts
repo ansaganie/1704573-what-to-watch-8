@@ -17,7 +17,7 @@ const fetchPromoFilm = (): AsyncAction =>
     dispatch(setPromoFilmLoaded());
   };
 
-const postToggleFavorite = (filmId: number, status: Favorite): AsyncAction =>
+const postToggleFavorite = (filmId: string, status: Favorite): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setMyListButtonDisabled(true));
     const { data } = await api.post<ServerFilm>(BackendRoute.FavoritePost(filmId, status));

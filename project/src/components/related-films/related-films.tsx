@@ -7,7 +7,7 @@ import { fetchRelatedFilms } from '../../services/dal';
 const MAX_RELATED_FILMS_COUNT = 4;
 
 type RelatedFilmsProps = {
-  filmId: number,
+  filmId: string,
 }
 
 function RelatedFilms(props: RelatedFilmsProps): JSX.Element {

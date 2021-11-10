@@ -23,7 +23,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
 
-  const { isFilmLoading, film } = useLoadFilm(+id, films);
+  const { isFilmLoading, film } = useLoadFilm(id, films);
 
   if (isFilmLoading) {
     return (
@@ -71,7 +71,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
       </div>
 
       <div className="add-review">
-        <ReviewForm filmId={+id}/>
+        <ReviewForm filmId={id}/>
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
-  toggleFavorite(filmId: number, status: Favorite) {
+  toggleFavorite(filmId: string, status: Favorite) {
     dispatch(postToggleFavorite(filmId, status));
   },
 });
@@ -19,7 +19,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type MyListButtonProps = ConnectedProps<typeof connector> & {
   isFavorite: boolean,
-  filmId: number,
+  filmId: string,
 };
 
 function MyListButton(props: MyListButtonProps): JSX.Element {

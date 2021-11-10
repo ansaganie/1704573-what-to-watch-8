@@ -14,7 +14,7 @@ const adaptFilmToClient = (film: ServerFilm): Film => {
   } = film;
 
   return {
-    id: film.id,
+    id: film.id.toString(),
     name: film.name,
     genre: film.genre,
     released: film.released,

@@ -9,7 +9,7 @@ const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
 type ReviewFormProps = {
-  filmId: number,
+  filmId: string,
 }
 
 function ReviewForm(props: ReviewFormProps): JSX.Element {

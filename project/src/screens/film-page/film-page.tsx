@@ -29,7 +29,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
 
   const { id } = useParams<{ id: string }>();
-  const { isFilmLoading, film  } = useLoadFilm(+id, films);
+  const { isFilmLoading, film  } = useLoadFilm(id, films);
 
   useEffect(scrollToFilmTitle, [ id ]);
 
@@ -72,12 +72,12 @@ function FilmPage(props: FilmPageProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayButton filmId={+id}/>
+                <PlayButton filmId={id}/>
                 {
                   isAuthorized &&
                   <MyListButton
                     isFavorite={isFavorite}
-                    filmId={+id}
+                    filmId={id}
                   />
                 }
                 { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
@@ -103,7 +103,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <RelatedFilms filmId={+id}/>
+        <RelatedFilms filmId={id}/>
         <Footer/>
       </div>
     </React.Fragment>

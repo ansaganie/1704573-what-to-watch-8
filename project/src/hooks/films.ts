@@ -7,12 +7,12 @@ type UseFilmLoad = {
   film: Film | null,
 }
 
-const useLoadFilm = (filmId: number, films: Film[]): UseFilmLoad => {
+const useLoadFilm = (filmId: string, films: Film[]): UseFilmLoad => {
   const [ isFilmLoading, setIsFilmLoading ] = useState(true);
   const [ film, setFilm ] = useState<Film | null>(null);
 
   useEffect(() => {
-    if (filmId !== -1) {
+    if (filmId) {
       const result = films.find((item) => item.id === filmId);
 
       if (result) {

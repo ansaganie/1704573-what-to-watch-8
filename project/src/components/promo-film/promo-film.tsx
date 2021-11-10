@@ -37,10 +37,8 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
   } = props;
 
   useEffect(() => {
-    if (promoFilmId === -1) {
-      loadPromoFilm();
-    }
-  }, [loadPromoFilm, promoFilmId]);
+    loadPromoFilm();
+  }, [loadPromoFilm]);
 
   const isAuthorized = authStatus === AuthStatus.Auth;
   const { isFilmLoading, film } = useLoadFilm(promoFilmId, films);

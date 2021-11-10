@@ -3,7 +3,7 @@ import { DataActions, DataActionType } from './data-actions';
 
 export type DataState = {
   films: Film[];
-  promoFilmId: number;
+  promoFilmId: string;
   isFilmsLoading: boolean;
   isPromoFilmLoading: boolean;
   myListButtonDisabled: boolean,
@@ -11,7 +11,7 @@ export type DataState = {
 
 const initialState: DataState = {
   films: [],
-  promoFilmId: -1,
+  promoFilmId: '',
   isFilmsLoading: true,
   isPromoFilmLoading: true,
   myListButtonDisabled: false,
