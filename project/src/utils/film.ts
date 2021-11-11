@@ -19,13 +19,13 @@ const getFilmRatingDescription = (rating: number): string => {
     return 'Awesome';
   }
 
-  return 'Unknown';
+  return '';
 };
 
 const formatRating = (rating: number): string =>
   rating.toFixed(1).replace('.', ',');
 
-const filterUnique = <T>(value: T, index: number, array: T[]): boolean =>
+const distinctFilter = <T>(value: T, index: number, array: T[]): boolean =>
   array.findIndex((genre) => genre === value) === index;
 
-export { getFilmRatingDescription, formatRating, filterUnique };
+export { getFilmRatingDescription, formatRating, distinctFilter };

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { convertMinutesToHours } from '../../../../utils/date';
+import { formatFilmDuration } from '../../../../utils/date';
 import { FilmProps } from '../../../../types/film-props';
 
 function Details(props: FilmProps):JSX.Element {
@@ -23,7 +23,7 @@ function Details(props: FilmProps):JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{convertMinutesToHours(runTime)}</span>
+          <span className="film-card__details-value">{formatFilmDuration(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
