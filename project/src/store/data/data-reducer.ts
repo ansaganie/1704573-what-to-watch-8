@@ -7,7 +7,6 @@ export type DataState = {
   promoFilmId: string;
   isFilmsLoading: boolean;
   isPromoFilmLoading: boolean;
-  myListButtonDisabled: boolean,
 };
 
 const initialState: DataState = {
@@ -15,7 +14,6 @@ const initialState: DataState = {
   promoFilmId: '',
   isFilmsLoading: true,
   isPromoFilmLoading: true,
-  myListButtonDisabled: false,
 };
 
 export const dataReducer = (state: DataState = initialState, action: Actions): DataState => {
@@ -51,11 +49,6 @@ export const dataReducer = (state: DataState = initialState, action: Actions): D
           action.payload.film,
           ...state.films.slice(index + 1),
         ],
-      };
-    case DataActionType.SetMyListButtonDisabled:
-      return {
-        ...state,
-        myListButtonDisabled: action.payload.status,
       };
     default:
       return state;

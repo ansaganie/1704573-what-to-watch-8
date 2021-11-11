@@ -1,8 +1,13 @@
 import { getFakeFilm, getFakeFilms } from '../../utils/mock';
 import { unknownAction } from '../unknown';
-import { setFilms, setFilmsLoaded, setMyListButtonDisabled, setPromoFilm, setPromoFilmLoaded, updateFilm } from './data-actions';
 import { dataReducer } from './data-reducer';
-
+import {
+  setFilms,
+  setFilmsLoaded,
+  setPromoFilm,
+  setPromoFilmLoaded,
+  updateFilm
+} from './data-actions';
 
 describe('Data reducer', () => {
   it('should return state unchanged with unknown action', () => {
@@ -11,7 +16,6 @@ describe('Data reducer', () => {
       promoFilmId: '',
       isFilmsLoading: true,
       isPromoFilmLoading: true,
-      myListButtonDisabled: false,
     });
   });
 
@@ -23,7 +27,6 @@ describe('Data reducer', () => {
       promoFilmId: '',
       isFilmsLoading: true,
       isPromoFilmLoading: true,
-      myListButtonDisabled: false,
     });
   });
   it('should set films loaded', () => {
@@ -32,7 +35,6 @@ describe('Data reducer', () => {
       promoFilmId: '',
       isFilmsLoading: false,
       isPromoFilmLoading: true,
-      myListButtonDisabled: false,
     });
   });
 
@@ -44,7 +46,6 @@ describe('Data reducer', () => {
       promoFilmId: film.id,
       isFilmsLoading: true,
       isPromoFilmLoading: true,
-      myListButtonDisabled: false,
     });
   });
 
@@ -54,7 +55,6 @@ describe('Data reducer', () => {
       promoFilmId: '',
       isFilmsLoading: true,
       isPromoFilmLoading: false,
-      myListButtonDisabled: false,
     });
   });
 
@@ -66,17 +66,6 @@ describe('Data reducer', () => {
       promoFilmId: '',
       isFilmsLoading: true,
       isPromoFilmLoading: true,
-      myListButtonDisabled: false,
-    });
-  });
-
-  it('should set mylist button disabled', () => {
-    expect( dataReducer( undefined, setMyListButtonDisabled(true))).toEqual({
-      films: [],
-      promoFilmId: '',
-      isFilmsLoading: true,
-      isPromoFilmLoading: true,
-      myListButtonDisabled: true,
     });
   });
 });
