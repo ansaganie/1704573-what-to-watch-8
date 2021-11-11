@@ -16,7 +16,7 @@ const MIN_RUN_TIME = 10000;
 const FILMS_COUNT = 18;
 
 
-const getFakeFilm = () => ({
+const getFakeFilm = (): Film => ({
   name: name.title(),
   id: datatype.uuid(),
   genre: music.genre(),

@@ -6,7 +6,8 @@ enum DataActionType {
   SetFilmsLoaded = 'data/set-films-loaded',
   SetPromoFilmLoaded = 'data/set-promo-film-loaded',
   UpdateFilm = 'data/update-film',
-  SetMyListButtonDisabled = 'data/set-my-list-button-disabled,',
+  SetMyListButtonDisabled = 'data/set-my-list-button-disabled',
+  Unknown = 'data/unknown',
 }
 
 const setFilms = (films: Film[]) => ({

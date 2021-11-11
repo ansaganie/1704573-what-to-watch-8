@@ -3,9 +3,11 @@ import { AxiosInstance } from 'axios';
 import { AppActions } from '../store/app/app-actions';
 import { DataActions } from '../store/data/data-actions';
 import { State } from '../store/reducer';
+import { unknownAction } from '../store/unknown';
 import { UserActions } from '../store/user/user-actions';
 
 export type Actions =
+  | ReturnType<typeof unknownAction>
   | DataActions
   | UserActions
   | AppActions;

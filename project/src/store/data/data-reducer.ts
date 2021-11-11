@@ -1,5 +1,6 @@
+import { Actions } from '../../types/action';
 import { Film } from '../../types/film';
-import { DataActions, DataActionType } from './data-actions';
+import { DataActionType } from './data-actions';
 
 export type DataState = {
   films: Film[];
@@ -17,7 +18,7 @@ const initialState: DataState = {
   myListButtonDisabled: false,
 };
 
-export const dataReducer = (state: DataState = initialState, action: DataActions): DataState => {
+export const dataReducer = (state: DataState = initialState, action: Actions): DataState => {
   switch (action.type) {
     case DataActionType.SetFilms:
       return {
