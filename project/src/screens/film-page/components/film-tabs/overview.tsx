@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { formatRating, getFilmRatingDescription } from '../../utils/film';
-import { FilmProps } from '../../types/film-props';
+import { formatRating, getFilmRatingDescription } from '../../../../utils/film';
+import { FilmProps } from '../../../../types/film-props';
 
 function Overview(props: FilmProps): JSX.Element {
   const { rating, scoresCount, description, director, starring } = props.film;

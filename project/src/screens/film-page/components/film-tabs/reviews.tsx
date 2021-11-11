@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ReviewItem from './review-item';
-import { Review } from '../../types/review';
-import { fetchComments } from '../../services/dal';
-import Spinner from '../spinner/Spinner';
+import { Review } from '../../../../types/review';
+import { fetchComments } from '../../../../services/dal';
+import Spinner from '../../../../components/spinner/Spinner';
 
 type ReviewsProps = {
   filmId: string,

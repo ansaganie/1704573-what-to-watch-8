@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { convertMinutesToHours } from '../../utils/date';
-import { FilmProps } from '../../types/film-props';
+import { convertMinutesToHours } from '../../../../utils/date';
+import { FilmProps } from '../../../../types/film-props';
 
 function Details(props: FilmProps):JSX.Element {
   const { director, starring, runTime, genre, released } = props.film;

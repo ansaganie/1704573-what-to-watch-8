@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Film } from '../../types/film';
+import { Film } from '../../../types/film';
 import VideoPreview from '../video-preview/video-preview';
 
 type FilmCardProps = {

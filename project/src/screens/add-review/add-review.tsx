@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
-import ReviewForm from '../../components/review-form/review-form';
+import ReviewForm from './components/review-form/review-form';
 import { State } from '../../store/reducer';
 import { connect, ConnectedProps } from 'react-redux';
 import NotFound from '../not-found/not-found';

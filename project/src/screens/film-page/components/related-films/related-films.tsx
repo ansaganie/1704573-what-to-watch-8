@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import FilmsList from '../films-list/films-list';
-import { Film } from '../../types/film';
-import Spinner from '../spinner/Spinner';
-import { fetchRelatedFilms } from '../../services/dal';
+import FilmsList from '../../../../components/films-list/films-list';
+import { Film } from '../../../../types/film';
+import Spinner from '../../../../components/spinner/Spinner';
+import { fetchRelatedFilms } from '../../../../services/dal';
 
 const MAX_RELATED_FILMS_COUNT = 4;
 

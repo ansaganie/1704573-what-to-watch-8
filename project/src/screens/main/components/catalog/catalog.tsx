@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Genres from '../genres/genres';
-import FilmsList from '../films-list/films-list';
-import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../constants';
-import { State } from '../../store/reducer';
-import { getFilteredFilms, getGenres } from '../../store/data/selectors';
-import { AsyncDispatch } from '../../types/action';
-import { fetchFilms } from '../../store/data/data-thunks';
+import FilmsList from '../../../../components/films-list/films-list';
+import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../../../constants';
+import { State } from '../../../../store/reducer';
+import { getFilteredFilms, getGenres } from '../../../../store/data/selectors';
+import { AsyncDispatch } from '../../../../types/action';
+import { fetchFilms } from '../../../../store/data/data-thunks';
 import { connect, ConnectedProps } from 'react-redux';
-import Spinner from '../spinner/Spinner';
-import { setGenre } from '../../store/app/app-actions';
-import { setFilmsLoaded } from '../../store/data/data-actions';
+import Spinner from '../../../../components/spinner/Spinner';
+import { setGenre } from '../../../../store/app/app-actions';
+import { setFilmsLoaded } from '../../../../store/data/data-actions';
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),

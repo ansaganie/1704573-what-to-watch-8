@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useLoadFilm } from '../../hooks/films';
-import { fetchPromoFilm } from '../../store/data/data-thunks';
-import { State } from '../../store/reducer';
-import { AsyncDispatch } from '../../types/action';
-import { AuthStatus } from '../../constants';
-import Header from '../header/header';
-import Spinner from '../spinner/Spinner';
-import PlayButton from '../play-button/play-button';
-import MyListButton from '../my-list-button/my-list-button';
+import { useLoadFilm } from '../../../../hooks/films';
+import { fetchPromoFilm } from '../../../../store/data/data-thunks';
+import { State } from '../../../../store/reducer';
+import { AsyncDispatch } from '../../../../types/action';
+import { AuthStatus } from '../../../../constants';
+import Header from '../../../../components/header/header';
+import Spinner from '../../../../components/spinner/Spinner';
+import PlayButton from '../../../../components/play-button/play-button';
+import MyListButton from '../../../../components/my-list-button/my-list-button';
 
 const mapStateToProps = (state: State) => ({
   promoFilmId: state.data.promoFilmId,
