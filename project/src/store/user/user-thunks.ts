@@ -3,7 +3,7 @@ import { AuthStatus, BackendRoute } from '../../constants';
 import { SignInForm } from '../../types/sign-in-form';
 import { ServerUser } from '../../types/user';
 import { AsyncAction } from '../../types/action';
-import { adaptUserToClient } from '../../services/adaptor';
+import { adaptUserToClient } from '../../services/adapter';
 import { setAuthStatus, setUserData } from './user-actions';
 
 const login = (signIn: SignInForm): AsyncAction =>

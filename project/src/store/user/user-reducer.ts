@@ -1,6 +1,7 @@
 import { AuthStatus } from '../../constants';
+import { Actions } from '../../types/action';
 import { User } from '../../types/user';
-import { UserActions, UserActionType } from './user-actions';
+import { UserActionType } from './user-actions';
 
 export type UserState = {
   authStatus: AuthStatus,
@@ -12,7 +13,7 @@ const initialState: UserState = {
   user: null,
 };
 
-export const userReducer = (state: UserState = initialState, action: UserActions): UserState => {
+export const userReducer = (state: UserState = initialState, action: Actions): UserState => {
   switch (action.type) {
     case UserActionType.SetAuthStatus:
       return {

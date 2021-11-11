@@ -38,7 +38,7 @@ const adaptUserToClient = (user: ServerUser): User => {
 
   return {
     email: user.email,
-    id: user.id,
+    id: user.id.toString(),
     name: user.name,
     token: user.token,
     avatarUrl,

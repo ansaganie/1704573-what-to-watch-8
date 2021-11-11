@@ -1,7 +1,7 @@
 import { Review, ReviewForm } from '../types/review';
 import { Film, ServerFilm } from '../types/film';
 import { BackendRoute } from '../constants';
-import { adaptFilmToClient } from './adaptor';
+import { adaptFilmToClient } from './adapter';
 import { api } from '../index';
 
 const fetchFilm = async (filmId: string): Promise<Film> => {

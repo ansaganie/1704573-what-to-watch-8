@@ -1,5 +1,6 @@
 import { name, datatype, music, lorem, image, internet  } from 'faker';
 import { Film } from '../types/film';
+import { User } from '../types/user';
 
 const MAX_YEAR = 1930;
 const MIN_YEAR = 2021;
@@ -56,7 +57,16 @@ const getFakeFilms = (): Film[] =>
     .fill(null)
     .map(() => getFakeFilm());
 
+const getFakeUser = (): User => ({
+  avatarUrl: image.avatar(),
+  email: internet.email(),
+  id: datatype.uuid(),
+  name: name.firstName(),
+  token: datatype.uuid(),
+} as User);
+
 export {
   getFakeFilm,
-  getFakeFilms
+  getFakeFilms,
+  getFakeUser
 };

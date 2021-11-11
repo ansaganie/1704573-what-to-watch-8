@@ -1,8 +1,9 @@
 import { BackendRoute, Favorite } from '../../constants';
-import { adaptFilmToClient } from '../../services/adaptor';
+import { adaptFilmToClient } from '../../services/adapter';
 import { AsyncAction } from '../../types/action';
 import { ServerFilm } from '../../types/film';
-import { setFilms, setMyListButtonDisabled, setPromoFilm, setPromoFilmLoaded, updateFilm } from './data-actions';
+import { setMyListButtonDisabled } from '../film/film-actions';
+import { setFilms, setPromoFilm, setPromoFilmLoaded, updateFilm } from './data-actions';
 
 const fetchFilms = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
