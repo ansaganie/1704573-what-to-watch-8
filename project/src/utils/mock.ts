@@ -1,6 +1,6 @@
 import { name, datatype, music, lorem, image, internet  } from 'faker';
 import { Film } from '../types/film';
-import { User } from '../types/user';
+import { ServerUser, User } from '../types/user';
 
 const MAX_YEAR = 1930;
 const MIN_YEAR = 2021;
@@ -65,8 +65,17 @@ const getFakeUser = (): User => ({
   token: datatype.uuid(),
 } as User);
 
+const getFakeServerUser = (): ServerUser => ({
+  'avatar_url': image.avatar(),
+  email: internet.email(),
+  id: datatype.uuid(),
+  name: name.firstName(),
+  token: datatype.uuid(),
+} as ServerUser);
+
 export {
   getFakeFilm,
   getFakeFilms,
-  getFakeUser
+  getFakeUser,
+  getFakeServerUser
 };
