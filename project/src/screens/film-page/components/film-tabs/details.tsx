@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react';
+import { Film } from '../../../../types/film';
 import { formatFilmDuration } from '../../../../utils/date';
-import { FilmProps } from '../../../../types/film-props';
 
-function Details(props: FilmProps):JSX.Element {
+type DetailsProps = {
+  film: Film,
+}
+
+function Details(props: DetailsProps):JSX.Element {
   const { director, starring, runTime, genre, released } = props.film;
 
   return (

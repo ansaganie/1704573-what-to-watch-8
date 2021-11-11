@@ -1,4 +1,5 @@
-import { AppActions, AppActionType } from './app-actions';
+import { Actions } from '../../types/action';
+import { AppActionType } from './app-actions';
 
 export type AppState = {
   genre: string;
@@ -10,7 +11,7 @@ const initialState: AppState = {
   appInitialized: false,
 };
 
-export const appReducer = (state: AppState = initialState, action: AppActions): AppState => {
+export const appReducer = (state: AppState = initialState, action: Actions): AppState => {
   switch (action.type) {
     case AppActionType.SetGenre:
       return {

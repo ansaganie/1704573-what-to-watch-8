@@ -6,7 +6,7 @@ import { State } from '../../store/reducer';
 import { AsyncDispatch } from '../../types/action';
 
 const mapStateToProps = (state: State) => ({
-  myListButtonDisabled: state.data.myListButtonDisabled,
+  myListButtonDisabled: state.film.myListButtonDisabled,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
