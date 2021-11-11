@@ -9,7 +9,6 @@ import { fetchFilms } from '../../../../store/data/data-thunks';
 import { connect, ConnectedProps } from 'react-redux';
 import Spinner from '../../../../components/spinner/Spinner';
 import { setGenre } from '../../../../store/app/app-actions';
-import { setFilmsLoaded } from '../../../../store/data/data-actions';
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),
@@ -20,8 +19,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   downloadFilms() {
-    dispatch(fetchFilms())
-      .finally(() => dispatch(setFilmsLoaded()));
+    dispatch(fetchFilms());
   },
   updateGenre(genre: string) {
     dispatch(setGenre(genre));

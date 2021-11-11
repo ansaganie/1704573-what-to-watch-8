@@ -15,9 +15,9 @@ describe('User thunks', () => {
   const mockApi = new MockAdapter(api);
   const middleware = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<
-  State,
-  Action,
-  ThunkDispatch<State, typeof api, Action>
+    State,
+    Action,
+    ThunkDispatch<State, typeof api, Action>
   >(middleware);
 
   it('should set authStatus to "auth", when server return 200', async () => {

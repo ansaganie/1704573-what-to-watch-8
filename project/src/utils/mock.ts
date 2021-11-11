@@ -1,5 +1,5 @@
 import { name, datatype, music, lorem, image, internet  } from 'faker';
-import { Film } from '../types/film';
+import { Film, ServerFilm } from '../types/film';
 import { ServerUser, User } from '../types/user';
 
 const MAX_YEAR = 1930;
@@ -52,10 +52,50 @@ const getFakeFilm = (): Film => ({
   isFavorite: datatype.boolean(),
 } as Film);
 
+const getFakeServerFilm = (): ServerFilm => ({
+  name: name.title(),
+  id: datatype.uuid(),
+  genre: music.genre(),
+  released: datatype.number({
+    min: MIN_YEAR,
+    max: MAX_YEAR,
+  }),
+  rating: datatype.number({
+    min: MIN_RATING,
+    max: MAX_RATING,
+    precision: RATING_PRECISION,
+  }),
+  description: [lorem.paragraph(FILM_DESC_COUNT)],
+  director: name.title(),
+  starring: new Array(datatype.number({
+    min: MIN_STARRING,
+    max: MAX_STARRING,
+  })).fill('').map(() => name.title()),
+  'preview_image': image.imageUrl(),
+  'poster_image': image.imageUrl(),
+  'background_image': image.imageUrl(),
+  'scores_count': datatype.number({
+    min: MIN_SCORE_COUNT,
+    max: MAX_SCORE_COUNT,
+  }),
+  'video_link': internet.url(),
+  'preview_video_link': internet.url(),
+  'run_time': datatype.number({
+    min: MIN_RUN_TIME,
+    max: MAX_RUN_TIME,
+  }),
+  'is_favorite': datatype.boolean(),
+} as ServerFilm);
+
 const getFakeFilms = (): Film[] =>
   new Array(FILMS_COUNT)
     .fill(null)
     .map(() => getFakeFilm());
+
+const getFakeServerFilms = (): ServerFilm[] =>
+  new Array(FILMS_COUNT)
+    .fill(null)
+    .map(() => getFakeServerFilm());
 
 const getFakeUser = (): User => ({
   avatarUrl: image.avatar(),
@@ -77,5 +117,7 @@ export {
   getFakeFilm,
   getFakeFilms,
   getFakeUser,
-  getFakeServerUser
+  getFakeServerUser,
+  getFakeServerFilm,
+  getFakeServerFilms
 };

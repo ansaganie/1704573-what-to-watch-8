@@ -9,7 +9,7 @@ import FilmTabs from './components/film-tabs/film-tabs';
 import NotFound from '../not-found/not-found';
 import RelatedFilms from './components/related-films/related-films';
 import Spinner from '../../components/spinner/Spinner';
-import { AuthStatus } from '../../constants';
+import { AppRoute, AuthStatus } from '../../constants';
 import { useLoadFilm } from '../../hooks/films';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
@@ -71,12 +71,19 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                   <PlayButton filmId={id}/>
                   {
                     isAuthorized &&
-                  <MyListButton
-                    isFavorite={isFavorite}
-                    filmId={id}
-                  />
+                    <>
+                      <MyListButton
+                        isFavorite={isFavorite}
+                        filmId={id}
+                      />
+                      <Link
+                        to={AppRoute.AddReview.replace(':id', id)}
+                        className="btn film-card__button"
+                      >
+                        Add review
+                      </Link>
+                    </>
                   }
-                  { isAuthorized && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
                 </div>
               </div>
             </div>
