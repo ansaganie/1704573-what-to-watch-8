@@ -37,23 +37,7 @@ const logout = (): AsyncAction =>
 
   };
 
-const checkAuthStatus = (): AsyncAction =>
-  async (dispatch, _getState, api): Promise<void> => {
-    try {
-      const { data } = await api.get<ServerUser>(BackendRoute.Login);
-
-      if (data) {
-        dispatch(setAuthStatus(AuthStatus.Auth));
-        dispatch(setUserData(adaptUserToClient(data)));
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
-  };
-
 export {
   login,
-  logout,
-  checkAuthStatus
+  logout
 };

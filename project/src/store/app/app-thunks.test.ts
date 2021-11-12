@@ -5,10 +5,11 @@ import { api } from '../../store/store';
 import { State } from '../root-reducer';
 import { Action } from 'redux';
 import { AuthStatus, BackendRoute } from '../../constants';
-import { checkAuthStatus } from './user-thunks';
-import { setAuthStatus, setUserData } from './user-actions';
 import { getFakeServerUser } from '../../utils/mock';
 import { adaptUserToClient } from '../../services/adapter';
+import { initializeApp } from './app-thunks';
+import { setAuthStatus, setUserData } from '../user/user-actions';
+import { setAppInitialized } from './app-actions';
 
 describe('User thunks', () => {
   const mockApi = new MockAdapter(api);
@@ -26,12 +27,27 @@ describe('User thunks', () => {
 
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(checkAuthStatus());
+    await store.dispatch(initializeApp());
 
     expect(store.getActions()).toEqual([
       setAuthStatus(AuthStatus.Auth),
       setUserData(adaptUserToClient(user)),
+      setAppInitialized(),
+    ]);
+  });
+
+  it('should set authStatus to "noAuth", when server return 401', async () => {
+    const store = mockStore();
+    mockApi.onGet(BackendRoute.Login).reply(401, {
+      message: 'Forbidden',
+    });
+
+    expect(store.getActions()).toEqual([]);
+
+    await store.dispatch(initializeApp());
+
+    expect(store.getActions()).toEqual([
+      setAppInitialized(),
     ]);
   });
 });
-
