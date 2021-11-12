@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { createAPI } from '../../services/api';
-import { State } from '../reducer';
+import { api } from '../../store/store';
+import { State } from '../root-reducer';
 import { Action } from 'redux';
 import { AuthStatus, BackendRoute } from '../../constants';
 import { checkAuthStatus } from './user-thunks';
@@ -11,7 +11,6 @@ import { getFakeServerUser } from '../../utils/mock';
 import { adaptUserToClient } from '../../services/adapter';
 
 describe('User thunks', () => {
-  const api = createAPI();
   const mockApi = new MockAdapter(api);
   const middleware = [thunk.withExtraArgument(api)];
   const mockStore = configureMockStore<

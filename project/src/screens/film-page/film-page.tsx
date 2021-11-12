@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';

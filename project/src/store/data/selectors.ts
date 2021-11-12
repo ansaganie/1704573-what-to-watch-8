@@ -1,4 +1,4 @@
-import { State } from '../reducer';
+import { State } from '../root-reducer';
 import { createSelector } from 'reselect';
 import { ALL_GENRE } from '../../constants';
 import { distinctFilter } from '../../utils/film';

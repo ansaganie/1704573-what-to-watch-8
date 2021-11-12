@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Genres from '../genres/genres';
 import FilmsList from '../../../../components/films-list/films-list';
 import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../../../constants';
-import { State } from '../../../../store/reducer';
+import { State } from '../../../../store/root-reducer';
 import { getFilteredFilms, getGenres } from '../../../../store/data/selectors';
 import { AsyncDispatch } from '../../../../types/action';
 import { fetchFilms } from '../../../../store/data/data-thunks';

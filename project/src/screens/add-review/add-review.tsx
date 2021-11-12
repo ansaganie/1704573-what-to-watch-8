@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import ReviewForm from './components/review-form/review-form';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { connect, ConnectedProps } from 'react-redux';
 import NotFound from '../not-found/not-found';
 import Spinner from '../../components/spinner/Spinner';

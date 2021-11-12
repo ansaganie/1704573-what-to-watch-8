@@ -1,7 +1,7 @@
 import { Route, Redirect } from 'react-router-dom';
 import { RouteProps } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../constants';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { connect, ConnectedProps } from 'react-redux';
 
 const mapStateToProps = (state: State) => ({

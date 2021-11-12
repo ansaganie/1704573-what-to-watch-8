@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useLoadFilm } from '../../../../hooks/films';
 import { fetchPromoFilm } from '../../../../store/data/data-thunks';
-import { State } from '../../../../store/reducer';
+import { State } from '../../../../store/root-reducer';
 import { AsyncDispatch } from '../../../../types/action';
 import { AuthStatus } from '../../../../constants';
 import Header from '../../../../components/header/header';

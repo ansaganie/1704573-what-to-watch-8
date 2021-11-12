@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Favorite } from '../../constants';
 import { postToggleFavorite } from '../../store/data/data-thunks';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { AsyncDispatch } from '../../types/action';
 
 const mapStateToProps = (state: State) => ({

@@ -10,7 +10,7 @@ import {
 import Footer from '../../components/footer/footer';
 import { SignInForm } from '../../types/sign-in-form';
 import { AsyncDispatch } from '../../types/action';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { login } from '../../store/user/user-thunks';
 import { AppRoute, AuthStatus } from '../../constants';
 

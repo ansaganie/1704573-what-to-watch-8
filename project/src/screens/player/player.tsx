@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { useLoadFilm } from '../../hooks/films';
 import Spinner from '../../components/spinner/Spinner';
 import { formatTimeElapsed } from '../../utils/date';

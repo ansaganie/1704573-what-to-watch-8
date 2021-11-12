@@ -2,7 +2,7 @@ import { Review, ReviewForm } from '../types/review';
 import { Film, ServerFilm } from '../types/film';
 import { BackendRoute } from '../constants';
 import { adaptFilmToClient } from './adapter';
-import { api } from '../index';
+import { api } from '../store/store';
 
 const fetchFilm = async (filmId: string): Promise<Film> => {
   const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
@@ -17,7 +17,12 @@ const fetchComments = async (filmId: string): Promise<Review[]> => {
 };
 
 const postComments = async (filmId: string, comment: ReviewForm): Promise<void> => {
-  await api.post<Review[]>(BackendRoute.Comments(filmId), comment);
+  try {
+    await api.post<Review[]>(BackendRoute.Comments(filmId), comment);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
 };
 
 const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {

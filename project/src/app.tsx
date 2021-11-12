@@ -11,7 +11,7 @@ import PrivateRoute from './components/private-route/private-route';
 import { AsyncDispatch } from './types/action';
 import { checkAuthStatus } from './store/user/user-thunks';
 import { connect, ConnectedProps } from 'react-redux';
-import { State } from './store/reducer';
+import { State } from './store/root-reducer';
 import React, { useEffect } from 'react';
 import { setAppInitialized } from './store/app/app-actions';
 import Sprite from './components/sprite/sprite';
