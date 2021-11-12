@@ -14,6 +14,7 @@ import Player from './screens/player/player';
 import NotFound from './screens/not-found/not-found';
 import PrivateRoute from './components/private-route/private-route';
 import Sprite from './components/sprite/sprite';
+import Spinner from './components/spinner/Spinner';
 
 const mapStateToProps = (state: State) => ({
   appInitialized: state.app.appInitialized,
@@ -38,38 +39,41 @@ function App(props: AppProps): JSX.Element | null {
   }, [ initialize ]);
 
   if (!appInitialized) {
-    return null;
+    return <Spinner fullScreen/>;
   }
 
   return (
-    <Switch>
+    <>
       <Sprite/>
-      <Route path={AppRoute.Main} exact>
-        <Main/>
-      </Route>
-      <Route path={AppRoute.SignIn} exact>
-        <SignIn/>
-      </Route>
-      <Route path={AppRoute.FilmPage} exact>
-        <FilmPage/>
-      </Route>
-      <Route path={AppRoute.Player} exact>
-        <Player/>
-      </Route>
-      <PrivateRoute
-        exact
-        path={AppRoute.MyList}
-        render={() => <MyList/>}
-      />
-      <PrivateRoute
-        exact
-        path={AppRoute.AddReview}
-        render={() => <AddReview/>}
-      />
-      <Route>
-        <NotFound/>
-      </Route>
-    </Switch>
+      <Switch>
+        <Route path={AppRoute.Main} exact>
+          <Main/>
+        </Route>
+        <Route path={AppRoute.SignIn} exact>
+          <SignIn/>
+        </Route>
+        <Route path={AppRoute.FilmPage} exact>
+          <FilmPage/>
+        </Route>
+        <Route path={AppRoute.Player} exact>
+          <Player/>
+        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.MyList}
+          render={() => <MyList/>}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.AddReview}
+          render={() => <AddReview/>}
+        />
+        <Route>
+          <NotFound/>
+        </Route>
+      </Switch>
+    </>
+
   );
 }
 

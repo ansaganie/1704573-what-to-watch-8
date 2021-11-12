@@ -81,8 +81,8 @@ const getFakeServerFilm = (): ServerFilm => ({
     min: MIN_SCORE_COUNT,
     max: MAX_SCORE_COUNT,
   }),
-  'video_link': internet.url(),
-  'preview_video_link': internet.url(),
+  'video_link': 'https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-down-a-mountain-41576-large.mp4',
+  'preview_video_link': 'https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-down-a-mountain-41576-large.mp4',
   'run_time': datatype.number({
     min: MIN_RUN_TIME,
     max: MAX_RUN_TIME,

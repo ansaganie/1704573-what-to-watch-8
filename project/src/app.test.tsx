@@ -1,38 +1,22 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import MockAdapter from 'axios-mock-adapter';
 import { App } from './app';
-import { AppRoute, AuthStatus } from './constants';
+import { AppRoute, BackendRoute } from './constants';
+import { api, store } from './store/store';
+import { getFakeServerFilms } from './utils/mock';
 
-const mockStore = configureMockStore();
-const store = mockStore({
-  app: {
-    genre: 'All genres',
-    appInitialized: false,
-  },
-  user: {
-    authStatus: AuthStatus.Unknown,
-    user: null,
-  },
-  film: {
-    myListButtonDisabled: false,
-  },
-  data: {
-    films: [],
-    promoFilmId: '',
-    isFilmsLoading: true,
-    isPromoFilmLoading: true,
-  },
-});
+const mockApi = new MockAdapter(api);
+
 const history = createMemoryHistory();
 const fakeApp = (
   <Provider store={store}>
     <Router history={history}>
-      <App initialize={jest.fn()} appInitialized={false}/>
+      <App initialize={jest.fn()} appInitialized/>
     </Router>
   </Provider>
 );
@@ -40,9 +24,18 @@ const fakeApp = (
 describe('App component', () => {
   it('should render Main screen when navigate to "/"', () => {
     history.push(AppRoute.SignIn);
+    const films = getFakeServerFilms();
+
+    mockApi
+      .onGet(BackendRoute.Films)
+      .reply(200, films);
+
+    mockApi
+      .onGet(BackendRoute.PromoFilm)
+      .reply(200, films[0]);
 
     render(fakeApp);
 
-    expect(screen.getByText(/Sign in/)).toBeInTheDocument();
+    expect(screen.getByText('© 2021 What to watch Ltd.')).toBeInTheDocument();
   });
 });
