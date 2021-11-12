@@ -7,7 +7,7 @@ import { State } from '../../store/root-reducer';
 import { connect, ConnectedProps } from 'react-redux';
 import NotFound from '../not-found/not-found';
 import Spinner from '../../components/spinner/Spinner';
-import { useLoadFilm } from '../../hooks/films';
+import { useLoadFilm } from '../../hooks/use-load-film';
 
 const mapStateToProps = (state: State) => ({
   films: state.data.films,

@@ -10,7 +10,7 @@ import NotFound from '../not-found/not-found';
 import RelatedFilms from './components/related-films/related-films';
 import Spinner from '../../components/spinner/Spinner';
 import { AppRoute, AuthStatus } from '../../constants';
-import { useLoadFilm } from '../../hooks/films';
+import { useLoadFilm } from '../../hooks/use-load-film';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
 

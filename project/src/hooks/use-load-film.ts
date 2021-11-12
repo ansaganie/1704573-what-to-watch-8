@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchFilm } from '../services/dal';
 import { Film } from '../types/film';
 
-type UseFilmLoad = {
+export type UseFilmLoad = {
   film: Film | null,
 }
 
@@ -21,7 +21,6 @@ const useLoadFilm = (
         setFilm(result);
         setIsFilmLoading(false);
       } else {
-        setIsFilmLoading(true);
         fetchFilm(filmId)
           .then((data) => {
             setFilm(data);

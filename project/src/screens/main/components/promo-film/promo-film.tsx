@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useLoadFilm } from '../../../../hooks/films';
+import { useLoadFilm } from '../../../../hooks/use-load-film';
 import { fetchPromoFilm } from '../../../../store/data/data-thunks';
 import { State } from '../../../../store/root-reducer';
 import { AsyncDispatch } from '../../../../types/action';
