@@ -9,10 +9,9 @@ import {
 } from 'formik';
 import Footer from '../../components/footer/footer';
 import { SignInForm } from '../../types/sign-in-form';
-import { AsyncDispatch } from '../../types/action';
-import { State } from '../../store/root-reducer';
 import { login } from '../../store/user/user-thunks';
 import { AppRoute, AuthStatus } from '../../constants';
+import { AsyncDispatch, State } from '../../store/store';
 
 const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,

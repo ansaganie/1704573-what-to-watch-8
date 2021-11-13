@@ -1,5 +1,8 @@
 import React, { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { AppRoute } from '../../../constants';
+import { setFilmInFocus } from '../../../store/film/film-actions';
 import { Film } from '../../../types/film';
 import VideoPreview from '../video-preview/video-preview';
 
@@ -13,6 +16,14 @@ type FilmCardProps = {
 function FilmCard(props: FilmCardProps): JSX.Element {
   const { previewImage, name, id, previewVideoLink } = props.film;
   const { onMouseOver, onMouseLeave, isActive } = props;
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const filmTitleClickHandler = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    dispatch(setFilmInFocus(props.film));
+    history.push(AppRoute.FilmPage.replace(':id', id));
+  };
 
   return (
     <article
@@ -29,7 +40,13 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <a
+          href={'/'}
+          className="small-film-card__link"
+          onClick={filmTitleClickHandler}
+        >
+          {name}
+        </a>
       </h3>
     </article>
   );

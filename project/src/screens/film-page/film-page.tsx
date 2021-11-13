@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../store/root-reducer';
+import { State } from '../../store/store';
 import { scrollToFilmTitle } from '../../utils/side-effects';
+import { AppRoute, AuthStatus } from '../../constants';
+import { useLoadFilm } from '../../hooks/use-load-film';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmTabs from './components/film-tabs/film-tabs';
 import NotFound from '../not-found/not-found';
 import RelatedFilms from './components/related-films/related-films';
 import Spinner from '../../components/spinner/Spinner';
-import { AppRoute, AuthStatus } from '../../constants';
-import { useLoadFilm } from '../../hooks/use-load-film';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
 
 
 const mapStateToProps = (state: State) => ({
-  films: state.data.films,
   authStatus: state.user.authStatus,
 });
 
@@ -25,12 +24,12 @@ const connector = connect(mapStateToProps);
 type FilmPageProps = ConnectedProps<typeof connector>;
 
 function FilmPage(props: FilmPageProps): JSX.Element {
-  const { films, authStatus } = props;
+  const { authStatus } = props;
   const isAuthorized = authStatus === AuthStatus.Auth;
-  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
 
   const { id } = useParams<{ id: string }>();
-  const { film  } = useLoadFilm(id, films, setIsFilmLoading);
+
+  const [ film, isFilmLoading ] = useLoadFilm(id);
 
   useEffect(scrollToFilmTitle, [ id ]);
 

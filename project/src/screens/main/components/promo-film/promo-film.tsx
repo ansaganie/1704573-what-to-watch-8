@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useLoadFilm } from '../../../../hooks/use-load-film';
 import { fetchPromoFilm } from '../../../../store/data/data-thunks';
-import { State } from '../../../../store/root-reducer';
-import { AsyncDispatch } from '../../../../types/action';
+import { State } from '../../../../store/store';
+import { AsyncDispatch } from '../../../../store/store';
 import { AuthStatus } from '../../../../constants';
 import Header from '../../../../components/header/header';
 import Spinner from '../../../../components/spinner/Spinner';
@@ -11,7 +10,7 @@ import PlayButton from '../../../../components/play-button/play-button';
 import MyListButton from '../../../../components/my-list-button/my-list-button';
 
 const mapStateToProps = (state: State) => ({
-  promoFilmId: state.data.promoFilmId,
+  promoFilm: state.data.promoFilm,
   films: state.data.films,
   isPromoFilmLoading: state.data.isPromoFilmLoading,
   authStatus: state.user.authStatus,
@@ -29,7 +28,7 @@ type PromoFilmProps = ConnectedProps<typeof connector>;
 
 function PromoFilm(props: PromoFilmProps): JSX.Element {
   const {
-    promoFilmId,
+    promoFilm,
     films,
     isPromoFilmLoading,
     loadPromoFilm,
@@ -38,14 +37,12 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
   let background: JSX.Element = <> </>;
   let promoCard: JSX.Element = <> </>;
-  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
-  const { film } = useLoadFilm(promoFilmId, films, setIsFilmLoading);
 
   useEffect(() => {
     loadPromoFilm();
-  }, [loadPromoFilm]);
+  }, [loadPromoFilm, films]);
 
-  if (film) {
+  if (promoFilm) {
     const {
       posterImage,
       backgroundImage,
@@ -54,7 +51,7 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
       genre,
       id,
       isFavorite,
-    } = film;
+    } = promoFilm;
 
     background = (
       <div className="film-card__bg">
@@ -103,7 +100,7 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
       {background}
       <h1 className="visually-hidden">WTW</h1>
       <Header/>
-      { (isPromoFilmLoading || isFilmLoading) && <Spinner/> }
+      { isPromoFilmLoading && <Spinner/> }
       {promoCard}
     </section>
   );

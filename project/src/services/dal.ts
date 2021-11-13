@@ -4,12 +4,6 @@ import { BackendRoute } from '../constants';
 import { adaptFilmToClient, adaptReviewToClient } from './adapter';
 import { api } from '../store/store';
 
-const fetchFilm = async (filmId: string): Promise<Film> => {
-  const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
-
-  return adaptFilmToClient(data);
-};
-
 const fetchComments = async (filmId: string): Promise<Review[]> => {
   const { data } = await api.get<Review[]>(BackendRoute.Comments(filmId));
 
@@ -40,7 +34,6 @@ const fetchFavorites = async (): Promise<Film[]> => {
 };
 
 export {
-  fetchFilm,
   fetchRelatedFilms,
   fetchComments,
   fetchFavorites,

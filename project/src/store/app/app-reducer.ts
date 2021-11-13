@@ -1,4 +1,4 @@
-import { Actions } from '../../types/action';
+import { Actions } from '../store';
 import { AppActionType } from './app-actions';
 
 export type AppState = {

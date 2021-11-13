@@ -1,38 +1,31 @@
-import { useEffect, useState } from 'react';
-import { fetchFilm } from '../services/dal';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Film } from '../types/film';
+import { getFilms } from '../store/data/data-selectors';
+import { setFilmInFocus } from '../store/film/film-actions';
+import { getFilmInFocus, getIsFilmLoading } from '../store/film/film-selectors';
+import { fetchFilm } from '../store/film/film-thunks';
 
-export type UseFilmLoad = {
-  film: Film | null,
-}
+type UseFilmLoad = [ film: Film | null, isFilmLoading: boolean];
 
 const useLoadFilm = (
   filmId: string,
-  films: Film[],
-  setIsFilmLoading: (value: boolean) => void,
 ): UseFilmLoad => {
-  const [ film, setFilm ] = useState<Film | null>(null);
+  const dispatch = useDispatch();
+  const film = useSelector(getFilmInFocus);
+  const isFilmLoading = useSelector(getIsFilmLoading);
+  const films = useSelector(getFilms);
 
   useEffect(() => {
-    if (filmId) {
-      setIsFilmLoading(true);
-      const result = films.find((item) => item.id === filmId);
-      if (result) {
-        setFilm(result);
-        setIsFilmLoading(false);
-      } else {
-        fetchFilm(filmId)
-          .then((data) => {
-            setFilm(data);
-          })
-          .finally(() => {
-            setIsFilmLoading(false);
-          });
-      }
+    const result = films.find((item) => item.id === filmId);
+    if (result) {
+      dispatch(setFilmInFocus(result));
+    } else {
+      dispatch(fetchFilm(filmId));
     }
-  }, [ films, filmId, setIsFilmLoading ]);
+  }, [dispatch, film, filmId, films]);
 
-  return { film };
+  return [ film, isFilmLoading ];
 };
 
 export { useLoadFilm };

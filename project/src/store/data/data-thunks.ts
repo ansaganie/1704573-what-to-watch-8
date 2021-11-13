@@ -1,8 +1,8 @@
 import { BackendRoute, Favorite } from '../../constants';
 import { adaptFilmToClient } from '../../services/adapter';
-import { AsyncAction } from '../../types/action';
 import { ServerFilm } from '../../types/film';
 import { setMyListButtonDisabled } from '../film/film-actions';
+import { AsyncAction } from '../store';
 import { setFilms, setFilmsLoaded, setPromoFilm, setPromoFilmLoaded, updateFilm } from './data-actions';
 
 const fetchFilms = (): AsyncAction =>
@@ -19,13 +19,11 @@ const fetchFilms = (): AsyncAction =>
   };
 
 const fetchPromoFilm = (): AsyncAction =>
-  async (dispatch, getState, api): Promise<void> => {
+  async (dispatch, _getState, api): Promise<void> => {
     try {
       const { data } = await api.get<ServerFilm>(BackendRoute.PromoFilm);
-      const dataId = data.id.toString();
-      if (getState().data.promoFilmId !== dataId) {
-        dispatch(setPromoFilm(dataId));
-      }
+
+      dispatch(setPromoFilm(adaptFilmToClient(data)));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);

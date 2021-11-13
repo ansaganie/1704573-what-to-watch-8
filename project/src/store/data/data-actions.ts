@@ -13,9 +13,9 @@ const setFilms = (films: Film[]) => ({
   payload: { films },
 } as const);
 
-const setPromoFilm = (promoFilmId: string) => ({
+const setPromoFilm = (promoFilm: Film) => ({
   type: DataActionType.SetPromoFilm,
-  payload: { promoFilmId },
+  payload: { promoFilm },
 } as const);
 
 const setFilmsLoaded = () => ({

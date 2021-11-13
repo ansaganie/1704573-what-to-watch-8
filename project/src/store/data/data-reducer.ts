@@ -1,17 +1,17 @@
-import { Actions } from '../../types/action';
 import { Film } from '../../types/film';
+import { Actions } from '../store';
 import { DataActionType } from './data-actions';
 
 export type DataState = {
   films: Film[];
-  promoFilmId: string;
+  promoFilm: Film | null;
   isFilmsLoading: boolean;
   isPromoFilmLoading: boolean;
 };
 
 const initialState: DataState = {
   films: [],
-  promoFilmId: '',
+  promoFilm: null,
   isFilmsLoading: true,
   isPromoFilmLoading: true,
 };
@@ -26,7 +26,7 @@ export const dataReducer = (state: DataState = initialState, action: Actions): D
     case DataActionType.SetPromoFilm:
       return {
         ...state,
-        promoFilmId: action.payload.promoFilmId,
+        promoFilm: action.payload.promoFilm,
       };
     case DataActionType.SetFilmsLoaded:
       return {

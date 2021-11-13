@@ -1,8 +1,9 @@
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 import { RouteProps } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../constants';
-import { State } from '../../store/root-reducer';
-import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../store/store';
 
 const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,

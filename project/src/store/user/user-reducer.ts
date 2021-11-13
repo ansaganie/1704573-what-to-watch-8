@@ -1,6 +1,6 @@
 import { AuthStatus } from '../../constants';
-import { Actions } from '../../types/action';
 import { User } from '../../types/user';
+import { Actions } from '../store';
 import { UserActionType } from './user-actions';
 
 export type UserState = {

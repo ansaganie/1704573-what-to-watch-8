@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Header from '../../components/header/header';
+import { useLoadFilm } from '../../hooks/use-load-film';
 import { scrollToFilmTitle } from '../../utils/side-effects';
+import Header from '../../components/header/header';
 import ReviewForm from './components/review-form/review-form';
-import { State } from '../../store/root-reducer';
-import { connect, ConnectedProps } from 'react-redux';
 import NotFound from '../not-found/not-found';
 import Spinner from '../../components/spinner/Spinner';
-import { useLoadFilm } from '../../hooks/use-load-film';
 
-const mapStateToProps = (state: State) => ({
-  films: state.data.films,
-});
-
-const connector = connect(mapStateToProps);
-
-type AddReviewProps = ConnectedProps<typeof connector>;
-
-function AddReview(props: AddReviewProps): JSX.Element {
-  const { films } = props;
-  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
+function AddReview(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   useEffect(scrollToFilmTitle);
 
-  const { film } = useLoadFilm(id, films, setIsFilmLoading);
+  const [ film, isFilmLoading ] = useLoadFilm(id);
 
   if (!film && isFilmLoading) {
     return (
@@ -77,5 +65,4 @@ function AddReview(props: AddReviewProps): JSX.Element {
   );
 }
 
-export { AddReview };
-export default connector(AddReview);
+export default AddReview;

@@ -1,9 +1,10 @@
-import { State } from '../root-reducer';
 import { createSelector } from 'reselect';
 import { ALL_GENRE } from '../../constants';
+import { Film } from '../../types/film';
 import { distinctFilter } from '../../utils/film';
+import { State } from '../store';
 
-const getFilms = (state: State) => state.data.films;
+const getFilms = (state: State): Film[] => state.data.films;
 const getGenre = (state: State) => state.app.genre;
 
 const getFilteredFilms = createSelector(
@@ -36,6 +37,7 @@ const getGenres = createSelector(
 );
 
 export {
+  getFilms,
   getFilteredFilms,
   getGenres
 };

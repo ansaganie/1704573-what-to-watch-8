@@ -2,9 +2,9 @@ import { dropToken, setToken } from '../../services/token';
 import { AuthStatus, BackendRoute } from '../../constants';
 import { SignInForm } from '../../types/sign-in-form';
 import { ServerUser } from '../../types/user';
-import { AsyncAction } from '../../types/action';
 import { adaptUserToClient } from '../../services/adapter';
 import { setAuthStatus, setUserData } from './user-actions';
+import { AsyncAction } from '../store';
 
 const login = (signIn: SignInForm): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -20,7 +20,6 @@ const login = (signIn: SignInForm): AsyncAction =>
       // eslint-disable-next-line no-console
       console.error(error);
     }
-
   };
 
 const logout = (): AsyncAction =>
@@ -34,7 +33,6 @@ const logout = (): AsyncAction =>
       // eslint-disable-next-line no-console
       console.error(error);
     }
-
   };
 
 export {

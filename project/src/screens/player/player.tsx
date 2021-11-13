@@ -1,28 +1,17 @@
 import React, { useRef, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { State } from '../../store/root-reducer';
 import { useLoadFilm } from '../../hooks/use-load-film';
 import Spinner from '../../components/spinner/Spinner';
 import { formatTimeElapsed } from '../../utils/date';
 import { AppRoute } from '../../constants';
+import NotFound from '../not-found/not-found';
 
-const mapStateToProps = (state: State) => ({
-  films: state.data.films,
-});
-
-const connector = connect(mapStateToProps);
-
-type PlayerPageProps = ConnectedProps<typeof connector>;
-
-function Player(props: PlayerPageProps): JSX.Element {
-  const { films } = props;
-
+function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
-  const [ isFilmLoading, setIsFilmLoading ] = useState(true);
-  const { film } = useLoadFilm(id, films, setIsFilmLoading);
+
+  const [ film, isFilmLoading ] = useLoadFilm(id);
 
   const [ isPlaying, setIsPlaying ] = useState(false);
   const [ isVideoLoading, setIsVideoLoading ] = useState(true);
@@ -82,58 +71,65 @@ function Player(props: PlayerPageProps): JSX.Element {
     setIsPlaying(false);
   };
 
-  return (
-    <div className="player">
-      { (isFilmLoading || isVideoLoading) && <Spinner centered/>}
+  if (!film && isFilmLoading) {
+    return <Spinner fullScreen/>;
+  }
 
-      {
-        film &&
-        <video
-          ref={videoRef}
-          src={film?.videoLink}
-          className="player__video"
-          poster={film?.backgroundImage}
-          autoPlay
-          onPlay={playHandler}
-          onPause={pauseHandler}
-          onTimeUpdate={timeUpdateHandler}
-          onWaiting={waitingHandler}
-          onPlaying={playingHandler}
-          onLoadedData={loadedDataHandler}
-        />
-      }
+  if (film) {
+    const { videoLink, backgroundImage, name } = film;
 
+    return (
+      <div className="player">
+        { (isFilmLoading || isVideoLoading) && <Spinner centered/>}
+        {
+          film &&
+            <video
+              ref={videoRef}
+              src={videoLink}
+              className="player__video"
+              poster={backgroundImage}
+              autoPlay
+              onPlay={playHandler}
+              onPause={pauseHandler}
+              onTimeUpdate={timeUpdateHandler}
+              onWaiting={waitingHandler}
+              onPlaying={playingHandler}
+              onLoadedData={loadedDataHandler}
+            />
+        }
 
-      <button type="button" className="player__exit" onClick={exitClickHandler}>Exit</button>
+        <button type="button" className="player__exit" onClick={exitClickHandler}>Exit</button>
 
-      <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value={progress} max="100"/>
-            <div className="player__toggler" style={{ left: `${progress}%`}}>Toggler</div>
+        <div className="player__controls">
+          <div className="player__controls-row">
+            <div className="player__time">
+              <progress className="player__progress" value={progress} max="100"/>
+              <div className="player__toggler" style={{ left: `${progress}%`}}>Toggler</div>
+            </div>
+            <div className="player__time-value">{time}</div>
           </div>
-          <div className="player__time-value">{time}</div>
-        </div>
 
-        <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={playButtonClickHandler}>
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              { isPlaying ? <use xlinkHref="#pause"></use> : <use xlinkHref="#play-s"/>}
-            </svg>
-            <span>Play</span>
-          </button>
-          <div className="player__name">{film?.name}</div>
-          <button type="button" className="player__full-screen" onClick={fullScreenClickHandler}>
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"/>
-            </svg>
-            <span>Full screen</span>
-          </button>
+          <div className="player__controls-row">
+            <button type="button" className="player__play" onClick={playButtonClickHandler}>
+              <svg viewBox="0 0 19 19" width="19" height="19">
+                { isPlaying ? <use xlinkHref="#pause"></use> : <use xlinkHref="#play-s"/>}
+              </svg>
+              <span>Play</span>
+            </button>
+            <div className="player__name">{name}</div>
+            <button type="button" className="player__full-screen" onClick={fullScreenClickHandler}>
+              <svg viewBox="0 0 27 27" width="27" height="27">
+                <use xlinkHref="#full-screen"/>
+              </svg>
+              <span>Full screen</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <NotFound/>;
 }
 
-export { Player };
-export default connector(Player);
+export default Player;

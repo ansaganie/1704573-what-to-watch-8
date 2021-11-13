@@ -1,7 +1,7 @@
 import { AuthStatus, BackendRoute } from '../../constants';
 import { adaptUserToClient } from '../../services/adapter';
-import { AsyncAction } from '../../types/action';
 import { ServerUser } from '../../types/user';
+import { AsyncAction } from '../store';
 import { setAuthStatus, setUserData } from '../user/user-actions';
 import { setAppInitialized } from './app-actions';
 

@@ -42,13 +42,21 @@ enum Favorite {
   UNSET = 0,
 }
 
+enum ReducerNameSpace {
+  data = 'data',
+  app = 'app',
+  user = 'user',
+  film = 'film',
+}
+
 export {
   AuthStatus,
   AppRoute,
   BackendRoute,
   HttpCode,
+  Favorite,
+  ReducerNameSpace,
   FILMS_INITIAL_COUNT,
   FILMS_STEP,
-  ALL_GENRE,
-  Favorite
+  ALL_GENRE
 };
