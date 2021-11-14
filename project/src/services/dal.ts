@@ -4,15 +4,9 @@ import { BackendRoute } from '../constants';
 import { adaptFilmToClient, adaptReviewToClient } from './adapter';
 import { api } from '../store/store';
 
-const fetchComments = async (filmId: string): Promise<Review[]> => {
-  const { data } = await api.get<Review[]>(BackendRoute.Comments(filmId));
-
-  return data.map(adaptReviewToClient);
-};
-
 const postComment = async (filmId: string, comment: ReviewForm): Promise<Review | undefined> => {
   try {
-    const { data } = await api.post<Review>(BackendRoute.Comments(filmId), comment);
+    const { data } = await api.post<Review>(BackendRoute.Reviews(filmId), comment);
 
     return adaptReviewToClient(data);
   } catch (error) {
@@ -29,6 +23,5 @@ const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
 
 export {
   fetchRelatedFilms,
-  fetchComments,
   postComment
 };

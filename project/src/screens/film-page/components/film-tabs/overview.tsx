@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, memo } from 'react';
 import { Film } from '../../../../types/film';
 import { formatRating, getFilmRatingDescription } from '../../../../utils/film';
 
@@ -31,4 +31,4 @@ function Overview(props: OverviewProps): JSX.Element {
   );
 }
 
-export default Overview;
+export default memo(Overview);

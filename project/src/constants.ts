@@ -30,7 +30,7 @@ const BackendRoute = {
   Film(filmId: string): string {
     return `${this.Films}/${filmId}`;
   },
-  Comments: (filmId: string): string => `/comments/${filmId}`,
+  Reviews: (filmId: string): string => `/comments/${filmId}`,
 };
 
 enum HttpCode {

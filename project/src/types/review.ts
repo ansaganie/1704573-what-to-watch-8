@@ -13,3 +13,7 @@ export type ReviewUser = {
   id: string,
   name: string,
 }
+
+export type FilmReview = {
+  [filmId: string]:  Review[]
+}

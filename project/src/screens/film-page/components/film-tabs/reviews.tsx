@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import ReviewItem from './review-item';
-import { Review } from '../../../../types/review';
-import { fetchComments } from '../../../../services/dal';
 import Spinner from '../../../../components/spinner/Spinner';
 import Message from '../../../../components/message/message';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsReviewsLoading, getReviewsByFilmId } from '../../../../store/film/film-selectors';
+import { State } from '../../../../store/store';
+import { fetchReviews } from '../../../../store/film/film-thunks';
 
 const NO_REVIEW_MESSAGE = 'No review for this film. Please add some';
 
@@ -13,18 +15,15 @@ type ReviewsProps = {
 
 function Reviews(props: ReviewsProps): JSX.Element {
   const { filmId } = props;
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ reviews, setReviews ] = useState<Review[]>([]);
+  const dispatch = useDispatch();
+  const isReviewsLoading = useSelector(getIsReviewsLoading);
+  const reviews = useSelector((state: State) => getReviewsByFilmId(state, filmId));
 
   useEffect(() => {
-    fetchComments(filmId)
-      .then((data) => {
-        setReviews(data);
-        setIsLoading(false);
-      });
-  }, [filmId]);
+    dispatch(fetchReviews(filmId));
+  }, [filmId, dispatch]);
 
-  if (isLoading) {
+  if (reviews === undefined || isReviewsLoading) {
     return (
       <div className="film-card__reviews film-card__row">
         <Spinner/>
@@ -56,4 +55,4 @@ function Reviews(props: ReviewsProps): JSX.Element {
   );
 }
 
-export default Reviews;
+export default memo(Reviews);

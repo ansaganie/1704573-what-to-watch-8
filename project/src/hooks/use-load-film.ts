@@ -17,11 +17,14 @@ const useLoadFilm = (
   const films = useSelector(getFilms);
 
   useEffect(() => {
-    const result = films.find((item) => item.id === filmId);
-    if (result) {
-      dispatch(setFilmInFocus(result));
-    } else {
-      dispatch(fetchFilm(filmId));
+    if (film?.id !== filmId) {
+      const result = films.find((item) => item.id === filmId);
+
+      if (result) {
+        dispatch(setFilmInFocus(result));
+      } else {
+        dispatch(fetchFilm(filmId));
+      }
     }
   }, [dispatch, film, filmId, films]);
 

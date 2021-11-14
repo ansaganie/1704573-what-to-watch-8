@@ -4,7 +4,8 @@ enum DataActionType {
   SetFilms = 'data/set-films',
   SetPromoFilm = 'data/set-promo-film',
   SetFilmsLoaded = 'data/set-films-loaded',
-  SetPromoFilmLoaded = 'data/set-promo-film-loaded',
+  SetIsPromoFilmLoading = 'data/set-promo-film-is-loading',
+  AddFilm = 'data/add-film',
   UpdateFilm = 'data/update-film',
 }
 
@@ -22,8 +23,14 @@ const setFilmsLoaded = () => ({
   type: DataActionType.SetFilmsLoaded,
 } as const);
 
-const setPromoFilmLoaded = () => ({
-  type: DataActionType.SetPromoFilmLoaded,
+const setIsPromoFilmLoading = (isPromoFilmLoading: boolean) => ({
+  type: DataActionType.SetIsPromoFilmLoading,
+  payload: { isPromoFilmLoading },
+} as const);
+
+const addFilm = (newFilm: Film) => ({
+  type: DataActionType.AddFilm,
+  payload: { newFilm },
 } as const);
 
 const updateFilm = (film: Film) => ({
@@ -35,8 +42,9 @@ export {
   setFilms,
   setFilmsLoaded,
   setPromoFilm,
-  setPromoFilmLoaded,
+  setIsPromoFilmLoading,
   updateFilm,
+  addFilm,
   DataActionType
 };
 
@@ -45,4 +53,5 @@ export type DataActions =
   | ReturnType<typeof setPromoFilm>
   | ReturnType<typeof setFilmsLoaded>
   | ReturnType<typeof updateFilm>
-  | ReturnType<typeof setPromoFilmLoaded>;
+  | ReturnType<typeof addFilm>
+  | ReturnType<typeof setIsPromoFilmLoading>;

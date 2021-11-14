@@ -42,10 +42,8 @@ function Catalog(props: CatalogProps): JSX.Element {
   const [ shownFilmsCount, setShownFilmsCount ] = useState<number>(FILMS_INITIAL_COUNT);
 
   useEffect(() => {
-    if (films.length === 0) {
-      downloadFilms();
-    }
-  }, [ downloadFilms, films ]);
+    downloadFilms();
+  }, [ downloadFilms ]);
 
   useEffect(() => {
     updateGenre(ALL_GENRE);

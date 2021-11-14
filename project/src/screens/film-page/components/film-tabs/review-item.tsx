@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Review } from '../../../../types/review';
 import { formatDate } from '../../../../utils/date';
 import { formatRating } from '../../../../utils/film';
@@ -30,4 +30,4 @@ function ReviewItem(props: ReviewProps): JSX.Element {
   );
 }
 
-export default ReviewItem;
+export default memo(ReviewItem);

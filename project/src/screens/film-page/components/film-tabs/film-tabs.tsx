@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
 import Overview from './overview';
 import Details from './details';
@@ -51,4 +51,4 @@ function FilmTabs(props: FilmTabsProps): JSX.Element {
   );
 }
 
-export default FilmTabs;
+export default memo(FilmTabs);

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, memo } from 'react';
 import { Film } from '../../../../types/film';
 import { formatFilmDuration } from '../../../../utils/date';
 
@@ -42,4 +42,4 @@ function Details(props: DetailsProps):JSX.Element {
   );
 }
 
-export default Details;
+export default memo(Details);

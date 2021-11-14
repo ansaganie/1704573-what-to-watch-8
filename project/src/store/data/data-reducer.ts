@@ -33,10 +33,10 @@ export const dataReducer = (state: DataState = initialState, action: Actions): D
         ...state,
         isFilmsLoading: false,
       };
-    case DataActionType.SetPromoFilmLoaded:
+    case DataActionType.SetIsPromoFilmLoading:
       return {
         ...state,
-        isPromoFilmLoading: false,
+        isPromoFilmLoading: action.payload.isPromoFilmLoading,
       };
     case DataActionType.UpdateFilm:
       // eslint-disable-next-line no-case-declarations
@@ -48,6 +48,14 @@ export const dataReducer = (state: DataState = initialState, action: Actions): D
           ...state.films.slice(0, index),
           action.payload.film,
           ...state.films.slice(index + 1),
+        ],
+      };
+    case DataActionType.AddFilm:
+      return {
+        ...state,
+        films: [
+          ...state.films,
+          action.payload.newFilm,
         ],
       };
     default:
