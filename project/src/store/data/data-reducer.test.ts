@@ -2,20 +2,26 @@ import { getFakeFilm, getFakeFilms } from '../../utils/mock';
 import { unknownAction } from '../unknown';
 import { dataReducer } from './data-reducer';
 import {
+  addFilm,
   setFilms,
   setFilmsLoaded,
-  setPromoFilm,
-  setPromoFilmLoaded,
+  setPromoFilmId,
   updateFilm
 } from './data-actions';
+import { Film } from '../../types/film';
+
+const FILM_INDEX = 5;
+
+const initialState = {
+  films: [],
+  promoFilmId: '',
+  isFilmsLoading: true,
+};
 
 describe('Data reducer', () => {
   it('should return state unchanged with unknown action', () => {
     expect( dataReducer( undefined, unknownAction())).toEqual({
-      films: [],
-      promoFilmId: '',
-      isFilmsLoading: true,
-      isPromoFilmLoading: true,
+      ...initialState,
     });
   });
 
@@ -23,49 +29,63 @@ describe('Data reducer', () => {
     const films = getFakeFilms();
 
     expect( dataReducer( undefined, setFilms(films))).toEqual({
+      ...initialState,
       films: films,
-      promoFilmId: '',
-      isFilmsLoading: true,
-      isPromoFilmLoading: true,
     });
   });
   it('should set films loaded', () => {
     expect( dataReducer( undefined, setFilmsLoaded())).toEqual({
-      films: [],
-      promoFilmId: '',
+      ...initialState,
       isFilmsLoading: false,
-      isPromoFilmLoading: true,
     });
   });
 
-  it('should set promo film', () => {
+  it('should set promo film id', () => {
     const film = getFakeFilm();
 
-    expect( dataReducer( undefined, setPromoFilm(film.id))).toEqual({
-      films: [],
+    expect( dataReducer( undefined, setPromoFilmId(film.id))).toEqual({
+      ...initialState,
       promoFilmId: film.id,
-      isFilmsLoading: true,
-      isPromoFilmLoading: true,
-    });
-  });
-
-  it('should set promo film loaded', () => {
-    expect( dataReducer( undefined, setPromoFilmLoaded())).toEqual({
-      films: [],
-      promoFilmId: '',
-      isFilmsLoading: true,
-      isPromoFilmLoading: false,
     });
   });
 
   it('should update films list', () => {
+    const films = getFakeFilms();
+    const film: Film = {
+      ...films[FILM_INDEX],
+      isFavorite: !films[FILM_INDEX].isFavorite,
+    };
+
+    const state = {
+      ...initialState,
+      films,
+    };
+
+    expect( dataReducer( state, updateFilm(film))).toEqual({
+      ...initialState,
+      films: [
+        ...films.slice(0, FILM_INDEX),
+        film,
+        ...state.films.slice(FILM_INDEX + 1),
+      ],
+    });
+  });
+
+  it('should add a film to films list', () => {
+    const films = getFakeFilms();
     const film = getFakeFilm();
 
-    expect( dataReducer( undefined, updateFilm(film))).toEqual({
-      films: [film],
-      promoFilmId: '',
-      isFilmsLoading: true,
-      isPromoFilmLoading: true,
+    const state = {
+      ...initialState,
+      films,
+    };
+
+    expect( dataReducer( state, addFilm(film))).toEqual({
+      ...initialState,
+      films: [
+        ...films,
+        film,
+      ],
     });
   });
 });
