@@ -1,9 +1,6 @@
 import { createSelector } from 'reselect';
-import { Film } from '../../types/film';
 import { FilmReview } from '../../types/review';
 import { State } from '../store';
-
-const getFilmInFocus = (state: State): Film | null => state.film.filmInFocus;
 
 const getIsFilmLoading = (state: State): boolean => state.film.isFilmLoading;
 
@@ -20,7 +17,6 @@ const getReviewsByFilmId = createSelector(
 );
 
 export {
-  getFilmInFocus,
   getIsFilmLoading,
   getIsReviewsLoading,
   getReviewsByFilmId

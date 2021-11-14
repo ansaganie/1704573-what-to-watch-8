@@ -1,13 +1,12 @@
 import { BackendRoute, Favorite } from '../../constants';
 import { adaptFilmToClient } from '../../services/adapter';
 import { ServerFilm } from '../../types/film';
-import { setMyListButtonDisabled } from '../film/film-actions';
+import { setIsFilmLoading, setMyListButtonDisabled } from '../film/film-actions';
 import { AsyncAction } from '../store';
 import {
   setFilms,
   setFilmsLoaded,
-  setPromoFilm,
-  setIsPromoFilmLoading,
+  setPromoFilmId,
   updateFilm
 } from './data-actions';
 
@@ -26,23 +25,23 @@ const fetchFilms = (): AsyncAction =>
 
 const fetchPromoFilm = (): AsyncAction =>
   async (dispatch, getState, api): Promise<void> => {
-    const previous = getState().data.promoFilm;
+    const previousId = getState().data.promoFilmId;
 
-    if (!previous) {
-      dispatch(setIsPromoFilmLoading(true));
+    if (!previousId) {
+      dispatch(setIsFilmLoading(true));
     }
 
     try {
       const { data } = await api.get<ServerFilm>(BackendRoute.PromoFilm);
-
-      if (data.id.toString() !== previous?.id) {
-        dispatch(setPromoFilm(adaptFilmToClient(data)));
+      const currentId = data.id.toString();
+      if (previousId !== currentId) {
+        dispatch(setPromoFilmId(currentId));
       }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
     } finally {
-      dispatch(setIsPromoFilmLoading(false));
+      dispatch(setIsFilmLoading(false));
     }
   };
 

@@ -4,16 +4,14 @@ import { DataActionType } from './data-actions';
 
 export type DataState = {
   films: Film[];
-  promoFilm: Film | null;
+  promoFilmId: string;
   isFilmsLoading: boolean;
-  isPromoFilmLoading: boolean;
 };
 
 const initialState: DataState = {
   films: [],
-  promoFilm: null,
+  promoFilmId: '',
   isFilmsLoading: true,
-  isPromoFilmLoading: true,
 };
 
 export const dataReducer = (state: DataState = initialState, action: Actions): DataState => {
@@ -23,20 +21,15 @@ export const dataReducer = (state: DataState = initialState, action: Actions): D
         ...state,
         films: action.payload.films,
       };
-    case DataActionType.SetPromoFilm:
+    case DataActionType.SetPromoFilmId:
       return {
         ...state,
-        promoFilm: action.payload.promoFilm,
+        promoFilmId: action.payload.promoFilmId,
       };
     case DataActionType.SetFilmsLoaded:
       return {
         ...state,
         isFilmsLoading: false,
-      };
-    case DataActionType.SetIsPromoFilmLoading:
-      return {
-        ...state,
-        isPromoFilmLoading: action.payload.isPromoFilmLoading,
       };
     case DataActionType.UpdateFilm:
       // eslint-disable-next-line no-case-declarations

@@ -5,7 +5,6 @@ import { Review } from '../../types/review';
 import { addFilm } from '../data/data-actions';
 import { AsyncAction } from '../store';
 import {
-  setFilmInFocus,
   setIsFilmLoading,
   setIsReviewsLoading,
   setReviews
@@ -18,10 +17,7 @@ const fetchFilm = (filmId: string): AsyncAction =>
     try {
       const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
 
-      const film = adaptFilmToClient(data);
-
-      dispatch(setFilmInFocus(film));
-      dispatch(addFilm(film));
+      dispatch(addFilm(adaptFilmToClient(data)));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);

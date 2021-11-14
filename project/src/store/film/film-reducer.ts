@@ -1,4 +1,3 @@
-import { Film } from '../../types/film';
 import { FilmReview } from '../../types/review';
 import { Actions } from '../store';
 import { FilmActionType } from './film-actions';
@@ -6,14 +5,12 @@ import { FilmActionType } from './film-actions';
 export type FilmState = {
   myListButtonDisabled: boolean,
   isFilmLoading: boolean,
-  filmInFocus: Film | null,
   reviews: FilmReview,
   isReviewsLoading: boolean,
 };
 
 const initialState: FilmState = {
   myListButtonDisabled: false,
-  filmInFocus: null,
   isFilmLoading: false,
   reviews: {},
   isReviewsLoading: false,
@@ -25,11 +22,6 @@ export const filmReducer = (state: FilmState = initialState, action: Actions): F
       return {
         ...state,
         myListButtonDisabled: action.payload.status,
-      };
-    case FilmActionType.SetFilmInFocus:
-      return {
-        ...state,
-        filmInFocus: action.payload.filmInFocus,
       };
     case FilmActionType.SetIsFilmLoading:
       return {
