@@ -49,6 +49,17 @@ export const filmReducer = (state: FilmState = initialState, action: Actions): F
         ...state,
         isReviewsLoading: action.payload.isReviewsLoading,
       };
+    case FilmActionType.AddReview:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.payload.filmId]: [
+            ...state.reviews[action.payload.filmId],
+            action.payload.review,
+          ],
+        },
+      };
     default:
       return state;
   }

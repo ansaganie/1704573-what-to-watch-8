@@ -1,8 +1,10 @@
-import React, { useState, Fragment } from 'react';
-import { postComment } from '../../../../services/dal';
+import React, { useState, Fragment, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './review-form.module.css';
 import { AppRoute } from '../../../../constants';
+import { useDispatch } from 'react-redux';
+import { postReview } from '../../../../services/dal';
+import { setReviews } from '../../../../store/film/film-actions';
 
 const RATING_VALUES = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ];
 const COMMENT_MIN_LENGTH = 50;
@@ -15,6 +17,7 @@ type ReviewFormProps = {
 function ReviewForm(props: ReviewFormProps): JSX.Element {
   const { filmId } = props;
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const [ rating, setRating ] = useState(1);
@@ -25,14 +28,49 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
 
   const [ isSubmitting, setSubmitting ] = useState(false);
 
-  const onRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setRating(+evt.target.value);
+  const validateComment = useCallback(() => {
+    if (comment.length < COMMENT_MIN_LENGTH) {
+      setError(`Review must be at least ${COMMENT_MIN_LENGTH} characters.
+      Need ${COMMENT_MIN_LENGTH - comment.length} more`);
+      setIsCommentValid(false);
+
+      return;
+    }
+
+    if (comment.length > COMMENT_MAX_LENGTH) {
+      setError(`Review must not be more than ${COMMENT_MAX_LENGTH} characters`);
+      setIsCommentValid(false);
+
+      return;
+    }
+
+    setError('');
+    setIsCommentValid(true);
+  }, [comment]);
+
+  const validateRating = useCallback(() => {
+    if (rating === 0) {
+      setError('Rating must be at least 1 star');
+      setIsRatingValid(false);
+
+      return;
+    }
+
+    setError('');
+    setIsRatingValid(true);
+  }, [rating]) ;
+
+  const formChangeHandler = () => {
     validateRating();
+    validateComment();
   };
 
-  const onCommentChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const ratingChangeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setRating(+evt.target.value);
+  };
+
+  const commentChangeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
-    validateComment();
   };
 
   const formSubmitHandler = (evt: React.FormEvent) => {
@@ -43,47 +81,21 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
 
     if (isCommentValid && isRatingValid) {
       setSubmitting(true);
-      postComment(filmId, { comment, rating })
-        .then(() => {
+      postReview(filmId, { comment, rating })
+        .then((review) => {
+          review && dispatch(setReviews(filmId, review));
+
           setSubmitting(false);
           history.push(AppRoute.FilmPage.replace(':id', filmId.toString()));
         });
     }
   };
 
-  const validateComment = () => {
-    if (comment.length < COMMENT_MIN_LENGTH) {
-      setError(`Review must be at least ${COMMENT_MIN_LENGTH} characters.
-      Need ${COMMENT_MIN_LENGTH - comment.length} more`);
-      setIsCommentValid(false);
-      return;
-    }
-
-    if (comment.length > COMMENT_MAX_LENGTH) {
-      setError(`Review must not be more than ${COMMENT_MAX_LENGTH} characters`);
-      setIsCommentValid(false);
-      return;
-    }
-
-    setError('');
-    setIsCommentValid(true);
-  };
-
-  const validateRating = () => {
-    if (rating === 0) {
-      setError('Rating must be at least 1 star');
-      setIsRatingValid(false);
-      return;
-    }
-
-    setError('');
-    setIsRatingValid(true);
-  };
-
   return (
     <form
       className="add-review__form"
       onSubmit={formSubmitHandler}
+      onChange={formChangeHandler}
     >
       <div className="rating">
         <div className="rating__stars">
@@ -97,7 +109,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
                   name="rating"
                   value={value}
                   checked={rating === value}
-                  onChange={onRatingChange}
+                  onChange={ratingChangeHandler}
                   disabled={isSubmitting}
                 />
                 <label
@@ -119,7 +131,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
           id="review-text"
           placeholder="Review text"
           value={comment}
-          onChange={onCommentChange}
+          onChange={commentChangeHandler}
         />
         <div className="add-review__submit">
           <button

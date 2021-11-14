@@ -4,24 +4,29 @@ import { BackendRoute } from '../constants';
 import { adaptFilmToClient, adaptReviewToClient } from './adapter';
 import { api } from '../store/store';
 
-const postComment = async (filmId: string, comment: ReviewForm): Promise<Review | undefined> => {
+const postReview = async (filmId: string, comment: ReviewForm): Promise<Review[] | undefined> => {
   try {
-    const { data } = await api.post<Review>(BackendRoute.Reviews(filmId), comment);
+    const { data } = await api.post<Review[]>(BackendRoute.Reviews(filmId), comment);
 
-    return adaptReviewToClient(data);
+    return data.map(adaptReviewToClient);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
   }
 };
 
-const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
-  const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
+const fetchRelatedFilms = async (filmId: string): Promise<Film[] | undefined> => {
+  try {
+    const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
 
-  return data.map(adaptFilmToClient);
+    return data.map(adaptFilmToClient);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
 };
 
 export {
   fetchRelatedFilms,
-  postComment
+  postReview
 };

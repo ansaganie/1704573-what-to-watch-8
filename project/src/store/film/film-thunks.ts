@@ -4,7 +4,12 @@ import { ServerFilm } from '../../types/film';
 import { Review } from '../../types/review';
 import { addFilm } from '../data/data-actions';
 import { AsyncAction } from '../store';
-import { setFilmInFocus, setIsFilmLoading, setIsReviewsLoading, setReviews } from './film-actions';
+import {
+  setFilmInFocus,
+  setIsFilmLoading,
+  setIsReviewsLoading,
+  setReviews
+} from './film-actions';
 
 const fetchFilm = (filmId: string): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
