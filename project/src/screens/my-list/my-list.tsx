@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
-import { Film } from '../../types/film';
-import { fetchFavorites } from '../../services/dal';
 import Message from '../../components/message/message';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsMyListLoading, getMyList } from '../../store/user/user-selectors';
+import { fetchMyList } from '../../store/user/user-thunks';
+import Spinner from '../../components/spinner/Spinner';
 
 const NO_FAVORITE_FILMS = 'Your list of favorite films is empty for now';
 
 function MyList(): JSX.Element {
-  const [myList, setMyList] = useState<Film[]>([]);
+  const dispatch = useDispatch();
+  const myList = useSelector(getMyList);
+  const isMyListLoading = useSelector(getIsMyListLoading);
 
   useEffect(() => {
-    fetchFavorites()
-      .then((films) => setMyList(films));
-  }, []);
+    dispatch(fetchMyList());
+  }, [dispatch]);
 
   return (
     <div className="user-page">
@@ -22,13 +25,17 @@ function MyList(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         {
-          myList.length === 0 &&
-          <Message
-            message={NO_FAVORITE_FILMS}
-            centered
-          />
+          (!isMyListLoading && myList.length === 0) &&
+            <Message
+              message={NO_FAVORITE_FILMS}
+              centered
+            />
         }
-        <FilmsList films={myList}/>
+
+        {
+          (isMyListLoading && myList.length === 0) ? <Spinner/> :
+            <FilmsList films={myList}/>
+        }
       </section>
       <Footer/>
     </div>

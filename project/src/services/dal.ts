@@ -27,15 +27,8 @@ const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
   return data.map(adaptFilmToClient);
 };
 
-const fetchFavorites = async (): Promise<Film[]> => {
-  const { data } = await api.get<ServerFilm[]>(BackendRoute.Favorite);
-
-  return data.map(adaptFilmToClient);
-};
-
 export {
   fetchRelatedFilms,
   fetchComments,
-  fetchFavorites,
   postComment
 };
