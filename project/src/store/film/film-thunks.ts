@@ -1,5 +1,5 @@
 import { BackendRoute } from '../../constants';
-import { adaptFilmToClient } from '../../services/adapter';
+import { adaptFilmToClient, adaptReviewToClient } from '../../services/adapter';
 import { ServerFilm } from '../../types/film';
 import { Review } from '../../types/review';
 import { addFilm } from '../data/data-actions';
@@ -33,7 +33,7 @@ const fetchReviews = (filmId: string): AsyncAction =>
     try {
       const { data } = await api.get<Review[]>(BackendRoute.Reviews(filmId));
 
-      dispatch(setReviews(filmId, data));
+      dispatch(setReviews(filmId, data.map(adaptReviewToClient)));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
