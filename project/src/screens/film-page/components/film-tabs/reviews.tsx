@@ -3,6 +3,9 @@ import ReviewItem from './review-item';
 import { Review } from '../../../../types/review';
 import { fetchComments } from '../../../../services/dal';
 import Spinner from '../../../../components/spinner/Spinner';
+import Message from '../../../../components/message/message';
+
+const NO_REVIEW_MESSAGE = 'No review for this film. Please add some';
 
 type ReviewsProps = {
   filmId: string,
@@ -35,6 +38,14 @@ function Reviews(props: ReviewsProps): JSX.Element {
 
   return (
     <div className="film-card__reviews film-card__row">
+      {
+        reviews.length === 0 &&
+        <Message
+          message={NO_REVIEW_MESSAGE}
+          fontSize={20}
+          lightBackground
+        />
+      }
       <div className="film-card__reviews-col">
         {reviewElements.slice(0, countOfItemsInColumn)}
       </div>
