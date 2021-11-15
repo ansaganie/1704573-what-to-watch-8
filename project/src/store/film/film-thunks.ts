@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { BackendRoute, HttpCode } from '../../constants';
+import { BackendRoute } from '../../constants';
 import { adaptFilmToClient, adaptReviewToClient } from '../../services/adapter';
 import { ServerFilm } from '../../types/film';
 import { Review } from '../../types/review';
@@ -12,7 +12,7 @@ import {
   setReviews
 } from './film-actions';
 
-const FETCH_FILM_ERROR = 'Could not load the film';
+const FILM_NOT_FOUND = 'Could not find the film with id: /id/';
 const FETCH_REVIEWS_ERROR = 'Could not load reviews for this film';
 
 const fetchFilm = (filmId: string): AsyncAction =>
@@ -22,14 +22,10 @@ const fetchFilm = (filmId: string): AsyncAction =>
     try {
       const response = await api.get<ServerFilm>(BackendRoute.Film(filmId));
 
-      if (response.status === HttpCode.NotFound) {
-        dispatch(setFilmNotFound(filmId));
-      } else {
-        dispatch(addFilm(adaptFilmToClient(response.data)));
-      }
-
+      dispatch(addFilm(adaptFilmToClient(response.data)));
     } catch (error) {
-      toast.info(FETCH_FILM_ERROR);
+      toast.error(FILM_NOT_FOUND.replace('/id/', filmId));
+      dispatch(setFilmNotFound(filmId));
     } finally {
       dispatch(setIsFilmLoading(false));
     }

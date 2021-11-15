@@ -56,6 +56,8 @@ function SignIn(props: SignInProps): JSX.Element {
       errors.email = 'Invalid email address';
     } else if (!values.password) {
       errors.password = 'Password required';
+    } else if (!/^.*(?=.{2,})(?=.*\d)(?=.*[a-zA-Z]).*$/i.test(values.password)) {
+      errors.password = 'Password should contain minimum 2 characters, one number and one letter';
     } else if (values.password.includes(' ')) {
       errors.password = 'Password should not contain space';
     }
@@ -73,7 +75,6 @@ function SignIn(props: SignInProps): JSX.Element {
             <span className="logo__letter logo__letter--3">W</span>
           </Link>
         </div>
-
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
@@ -89,7 +90,9 @@ function SignIn(props: SignInProps): JSX.Element {
                   <p>{errors.password}</p>
                   <p>{errors.email}</p>
                 </div>
-                <div className="sign-in__field">
+                <div
+                  className={`sign-in__field ${errors.email && 'sign-in__field--error'}`}
+                >
                   <Field
                     className="sign-in__input"
                     placeholder="Email address"
@@ -98,7 +101,9 @@ function SignIn(props: SignInProps): JSX.Element {
                   />
                   <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
                 </div>
-                <div className="sign-in__field">
+                <div
+                  className={`sign-in__field ${errors.password && 'sign-in__field--error'}`}
+                >
                   <Field
                     className="sign-in__input"
                     type="password"
@@ -113,7 +118,7 @@ function SignIn(props: SignInProps): JSX.Element {
                 <button
                   className="sign-in__btn"
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={ isSubmitting || !!errors.email || !!errors.password }
                 >
                   Sign in
                 </button>

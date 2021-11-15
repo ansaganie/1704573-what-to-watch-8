@@ -56,7 +56,7 @@ describe('Data thunks', () => {
 
     mockApi
       .onDelete(BackendRoute.Logout)
-      .reply(202);
+      .reply(204);
 
     expect(store.getActions()).toEqual([]);
 

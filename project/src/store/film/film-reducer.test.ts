@@ -1,5 +1,5 @@
 import { getFakeFilm, getFakeReview, getFakeReviews } from '../../utils/mock';
-import { unknownAction } from '../unknown';
+import { unknownAction } from '../unknown-action';
 import { addReview, setFilmNotFound, setIsFilmLoading, setIsReviewsLoading, setMyListButtonDisabled, setReviews } from './film-actions';
 import { filmReducer } from './film-reducer';
 

@@ -1,4 +1,4 @@
-import { unknownAction } from '../unknown';
+import { unknownAction } from '../unknown-action';
 import { setAppInitialized, setGenre } from './app-actions';
 import { appReducer } from './app-reducer';
 

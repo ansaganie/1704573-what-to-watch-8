@@ -32,7 +32,7 @@ const getGenres = createSelector(
         genres.push(value);
       });
 
-    return genres;
+    return genres.slice(0, 10);
   },
 );
 

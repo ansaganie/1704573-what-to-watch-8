@@ -6,7 +6,7 @@ import { rootReducer } from './root-reducer';
 import { getToken } from '../services/token';
 import { AuthStatus, HttpCode } from '../constants';
 import { setAuthStatus, UserActions } from './user/user-actions';
-import { unknownAction } from './unknown';
+import { unknownAction } from './unknown-action';
 import { FilmActions } from './film/film-actions';
 import { DataActions } from './data/data-actions';
 import { AppActions } from './app/app-actions';

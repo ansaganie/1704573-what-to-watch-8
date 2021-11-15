@@ -19,7 +19,7 @@ function RelatedFilms(props: RelatedFilmsProps): JSX.Element {
   useEffect(() => {
     fetchRelatedFilms(filmId)
       .then((data) => {
-        data && setFilms(data);
+        data && setFilms(data.filter(({ id }) => id !== filmId));
         setIsLoading(false);
       });
   }, [ filmId ]);

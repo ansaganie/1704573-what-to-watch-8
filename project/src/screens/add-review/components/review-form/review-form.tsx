@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import styles from './review-form.module.css';
+import { useHistory } from 'react-router-dom';
 import { AppRoute } from '../../../../constants';
 import { useDispatch } from 'react-redux';
 import { postReview } from '../../../../services/dal';
@@ -13,16 +13,17 @@ const COMMENT_MAX_LENGTH = 400;
 const POST_SUCCESS = 'Thank you for your review';
 
 type ReviewFormProps = {
+  rating: number,
   filmId: string,
 }
 
 function ReviewForm(props: ReviewFormProps): JSX.Element {
-  const { filmId } = props;
+  const { filmId, rating } = props;
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [ rating, setRating ] = useState(1);
+  const [ userRating, setUserRating ] = useState(Math.trunc(rating));
   const [ comment, setComment ] = useState('');
   const [ isRatingValid, setIsRatingValid ] = useState(false);
   const [ isCommentValid, setIsCommentValid ] = useState(false);
@@ -51,7 +52,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
   }, [comment]);
 
   const validateRating = useCallback(() => {
-    if (rating === 0) {
+    if (userRating === 0) {
       setError('Rating must be at least 1 star');
       setIsRatingValid(false);
 
@@ -60,7 +61,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
 
     setError('');
     setIsRatingValid(true);
-  }, [rating]) ;
+  }, [userRating]) ;
 
   const formChangeHandler = () => {
     validateRating();
@@ -68,7 +69,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
   };
 
   const ratingChangeHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setRating(+evt.target.value);
+    setUserRating(+evt.target.value);
   };
 
   const commentChangeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -83,7 +84,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
 
     if (isCommentValid && isRatingValid) {
       setSubmitting(true);
-      postReview(filmId, { comment, rating })
+      postReview(filmId, { comment, rating: userRating })
         .then((review) => {
           review && dispatch(setReviews(filmId, review));
 
@@ -111,7 +112,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
                   type="radio"
                   name="rating"
                   value={value}
-                  checked={rating === value}
+                  checked={userRating === value}
                   onChange={ratingChangeHandler}
                   disabled={isSubmitting}
                 />
