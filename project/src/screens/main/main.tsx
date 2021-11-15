@@ -1,7 +1,7 @@
 import React from 'react';
-import PromoFilm from '../../components/promo-film/promo-film';
+import PromoFilm from './components/promo-film/promo-film';
 import Footer from '../../components/footer/footer';
-import Catalog from '../../components/catalog/catalog';
+import Catalog from './components/catalog/catalog';
 
 function Main(): JSX.Element {
   return (

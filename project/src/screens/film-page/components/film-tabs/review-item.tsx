@@ -1,7 +1,7 @@
 import React from 'react';
-import { Review } from '../../types/review';
-import { formatDate } from '../../utils/date';
-import { formatRating } from '../../utils/film';
+import { Review } from '../../../../types/review';
+import { formatDate } from '../../../../utils/date';
+import { formatRating } from '../../../../utils/film';
 
 type ReviewProps = {
   review: Review,

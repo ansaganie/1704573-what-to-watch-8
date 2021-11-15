@@ -1,8 +1,8 @@
 import { Review, ReviewForm } from '../types/review';
 import { Film, ServerFilm } from '../types/film';
 import { BackendRoute } from '../constants';
-import { adaptFilmToClient } from './adaptor';
-import { api } from '../index';
+import { adaptFilmToClient, adaptReviewToClient } from './adapter';
+import { api } from '../store/store';
 
 const fetchFilm = async (filmId: string): Promise<Film> => {
   const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
@@ -13,11 +13,18 @@ const fetchFilm = async (filmId: string): Promise<Film> => {
 const fetchComments = async (filmId: string): Promise<Review[]> => {
   const { data } = await api.get<Review[]>(BackendRoute.Comments(filmId));
 
-  return data;
+  return data.map(adaptReviewToClient);
 };
 
-const postComments = async (filmId: string, comment: ReviewForm): Promise<void> => {
-  await api.post<Review[]>(BackendRoute.Comments(filmId), comment);
+const postComment = async (filmId: string, comment: ReviewForm): Promise<Review | undefined> => {
+  try {
+    const { data } = await api.post<Review>(BackendRoute.Comments(filmId), comment);
+
+    return adaptReviewToClient(data);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
 };
 
 const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
@@ -37,5 +44,5 @@ export {
   fetchRelatedFilms,
   fetchComments,
   fetchFavorites,
-  postComments
+  postComment
 };

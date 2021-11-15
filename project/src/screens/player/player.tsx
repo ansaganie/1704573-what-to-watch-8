@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { State } from '../../store/reducer';
+import { State } from '../../store/root-reducer';
 import { useLoadFilm } from '../../hooks/films';
 import Spinner from '../../components/spinner/Spinner';
-import { convertSecondsToHours } from '../../utils/date';
+import { formatTimeElapsed } from '../../utils/date';
 import { AppRoute } from '../../constants';
 
 const mapStateToProps = (state: State) => ({
@@ -44,7 +44,7 @@ function Player(props: PlayerPageProps): JSX.Element {
   const timeUpdateHandler = (evt: React.SyntheticEvent<HTMLVideoElement>) => {
     const { currentTarget } = evt;
     const percentage = currentTarget.currentTime * 100 / currentTarget.duration;
-    const timeElapsed = convertSecondsToHours(currentTarget.duration - currentTarget.currentTime);
+    const timeElapsed = formatTimeElapsed(currentTarget.duration - currentTarget.currentTime);
 
     setTime(timeElapsed);
     setProgress(percentage);

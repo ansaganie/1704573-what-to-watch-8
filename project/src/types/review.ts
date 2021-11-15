@@ -5,11 +5,11 @@ export type ReviewForm = {
 
 export type Review = ReviewForm & {
   id: string,
-  user: User,
+  user: ReviewUser,
   date: Date,
 }
 
-type User = {
+export type ReviewUser = {
   id: string,
   name: string,
 }

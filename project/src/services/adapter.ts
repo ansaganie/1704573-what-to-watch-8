@@ -1,4 +1,5 @@
 import { Film, ServerFilm } from '../types/film';
+import { Review } from '../types/review';
 import { ServerUser, User } from '../types/user';
 
 const adaptFilmToClient = (film: ServerFilm): Film => {
@@ -38,11 +39,20 @@ const adaptUserToClient = (user: ServerUser): User => {
 
   return {
     email: user.email,
-    id: user.id,
+    id: user.id.toString(),
     name: user.name,
     token: user.token,
     avatarUrl,
   };
 };
 
-export { adaptFilmToClient, adaptUserToClient };
+const adaptReviewToClient = (review: Review): Review => ({
+  ...review,
+  date: new Date(review.date),
+});
+
+export {
+  adaptFilmToClient,
+  adaptUserToClient,
+  adaptReviewToClient
+};

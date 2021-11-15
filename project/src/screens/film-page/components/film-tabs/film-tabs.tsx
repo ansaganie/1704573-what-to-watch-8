@@ -3,9 +3,13 @@ import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
 import Overview from './overview';
 import Details from './details';
 import Reviews from './reviews';
-import { FilmProps } from '../../types/film-props';
+import { Film } from '../../../../types/film';
 
-function FilmTabs(props: FilmProps): JSX.Element {
+type FilmTabsProps = {
+  film: Film,
+}
+
+function FilmTabs(props: FilmTabsProps): JSX.Element {
   const [tabIndex, setTabIndex] = useState(0);
   const { film } = props;
 

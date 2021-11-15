@@ -7,6 +7,7 @@ const setGenre = (genre: string) => ({
   type: AppActionType.SetGenre,
   payload: { genre },
 } as const);
+
 const setAppInitialized = () => ({
   type: AppActionType.SetAppInitialized,
 } as const);

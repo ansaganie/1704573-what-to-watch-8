@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
-import { postComments } from '../../services/dal';
+import { postComment } from '../../../../services/dal';
 import { useHistory } from 'react-router-dom';
 import styles from './review-form.module.css';
-import { AppRoute } from '../../constants';
+import { AppRoute } from '../../../../constants';
 
 const RATING_VALUES = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ];
 const COMMENT_MIN_LENGTH = 50;
@@ -43,7 +43,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
 
     if (isCommentValid && isRatingValid) {
       setSubmitting(true);
-      postComments(filmId, { comment, rating })
+      postComment(filmId, { comment, rating })
         .then(() => {
           setSubmitting(false);
           history.push(AppRoute.FilmPage.replace(':id', filmId.toString()));

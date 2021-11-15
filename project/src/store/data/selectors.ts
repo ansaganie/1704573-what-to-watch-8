@@ -1,7 +1,7 @@
-import { State } from '../reducer';
+import { State } from '../root-reducer';
 import { createSelector } from 'reselect';
 import { ALL_GENRE } from '../../constants';
-import { filterUnique } from '../../utils/film';
+import { distinctFilter } from '../../utils/film';
 
 const getFilms = (state: State) => state.data.films;
 const getGenre = (state: State) => state.app.genre;
@@ -26,7 +26,7 @@ const getGenres = createSelector(
 
     films
       .map(({ genre }) => genre)
-      .filter(filterUnique)
+      .filter(distinctFilter)
       .forEach((value) => {
         genres.push(value);
       });

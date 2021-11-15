@@ -1,15 +1,14 @@
-export type User = {
-  avatarUrl: string,
+type AbstractUser = {
   email: string,
-  id: number,
+  id: string,
   name: string,
   token: string,
+}
+
+export type User = AbstractUser & {
+  avatarUrl: string,
 };
 
-export type ServerUser = {
+export type ServerUser = AbstractUser & {
   'avatar_url': string,
-  email: string,
-  id: number,
-  name: string,
-  token: string,
 }
