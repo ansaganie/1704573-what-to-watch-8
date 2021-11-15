@@ -2,20 +2,20 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Film } from '../types/film';
 import { getFilms } from '../store/data/data-selectors';
-import { getIsFilmLoading } from '../store/film/film-selectors';
+import { getFilmNotFound, getIsFilmLoading } from '../store/film/film-selectors';
 import { fetchFilm } from '../store/film/film-thunks';
 import { fetchPromoFilm } from '../store/data/data-thunks';
 
-type UseFilmLoad = [ film: Film | null, isFilmLoading: boolean];
+type UseFilmLoad = [ film: Film | null, loading: boolean];
 
-const useLoadFilm = (
-  filmId: string,
-  isPromoFilm?: boolean,
-): UseFilmLoad => {
-  const dispatch = useDispatch();
+const useLoadFilm = (filmId: string, isPromoFilm?: boolean): UseFilmLoad => {
   const [ film, setFilm ] = useState<Film | null>(null);
+  const [ notFound, setNotFound ] = useState(false);
+
+  const dispatch = useDispatch();
   const isFilmLoading = useSelector(getIsFilmLoading);
   const films = useSelector(getFilms);
+  const notFoundFilmId = useSelector(getFilmNotFound);
 
   useEffect(() => {
     const result = films.find((item) => item.id === filmId);
@@ -35,7 +35,15 @@ const useLoadFilm = (
     }
   }, [film, filmId, dispatch, isPromoFilm]);
 
-  return [ film, isFilmLoading ];
+  useEffect(() => {
+    if (filmId === notFoundFilmId) {
+      setNotFound(true);
+    } else {
+      setNotFound(false);
+    }
+  }, [filmId, notFoundFilmId]);
+
+  return [ film, ((!notFound && !film) || isFilmLoading) ];
 };
 
 export { useLoadFilm };

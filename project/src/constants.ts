@@ -35,6 +35,7 @@ const BackendRoute = {
 
 enum HttpCode {
   Unauthorized = 401,
+  NotFound = 404,
 }
 
 enum Favorite {

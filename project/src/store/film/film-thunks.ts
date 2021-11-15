@@ -1,11 +1,12 @@
 import { toast } from 'react-toastify';
-import { BackendRoute } from '../../constants';
+import { BackendRoute, HttpCode } from '../../constants';
 import { adaptFilmToClient, adaptReviewToClient } from '../../services/adapter';
 import { ServerFilm } from '../../types/film';
 import { Review } from '../../types/review';
 import { addFilm } from '../data/data-actions';
 import { AsyncAction } from '../store';
 import {
+  setFilmNotFound,
   setIsFilmLoading,
   setIsReviewsLoading,
   setReviews
@@ -19,9 +20,14 @@ const fetchFilm = (filmId: string): AsyncAction =>
     dispatch(setIsFilmLoading(true));
 
     try {
-      const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
+      const response = await api.get<ServerFilm>(BackendRoute.Film(filmId));
 
-      dispatch(addFilm(adaptFilmToClient(data)));
+      if (response.status === HttpCode.NotFound) {
+        dispatch(setFilmNotFound(filmId));
+      } else {
+        dispatch(addFilm(adaptFilmToClient(response.data)));
+      }
+
     } catch (error) {
       toast.info(FETCH_FILM_ERROR);
     } finally {

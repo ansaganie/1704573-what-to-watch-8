@@ -18,6 +18,16 @@ function Player(): JSX.Element {
   const [ progress, setProgress ] = useState(0);
   const [ time, setTime ] = useState('00:00');
 
+  if (isFilmLoading) {
+    return (
+      <Spinner fullScreen/>
+    );
+  }
+
+  if (!film) {
+    return <NotFound/>;
+  }
+
   const waitingHandler = () => {
     setIsVideoLoading(true);
   };
@@ -71,16 +81,12 @@ function Player(): JSX.Element {
     setIsPlaying(false);
   };
 
-  if (!film && isFilmLoading) {
-    return <Spinner fullScreen/>;
-  }
-
   if (film) {
     const { videoLink, backgroundImage, name } = film;
 
     return (
       <div className="player">
-        { (isFilmLoading || isVideoLoading) && <Spinner centered/>}
+        { isVideoLoading && <Spinner centered/>}
         {
           film &&
             <video

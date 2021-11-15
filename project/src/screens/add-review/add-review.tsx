@@ -13,7 +13,7 @@ function AddReview(): JSX.Element {
 
   const [ film, isFilmLoading ] = useLoadFilm(id);
 
-  if (!film && isFilmLoading) {
+  if (isFilmLoading) {
     return (
       <Spinner fullScreen/>
     );

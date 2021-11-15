@@ -7,6 +7,7 @@ export type FilmState = {
   isFilmLoading: boolean,
   reviews: FilmReview,
   isReviewsLoading: boolean,
+  notFoundFilmId: string,
 };
 
 const initialState: FilmState = {
@@ -14,6 +15,7 @@ const initialState: FilmState = {
   isFilmLoading: false,
   reviews: {},
   isReviewsLoading: false,
+  notFoundFilmId: '',
 };
 
 export const filmReducer = (state: FilmState = initialState, action: Actions): FilmState => {
@@ -51,6 +53,11 @@ export const filmReducer = (state: FilmState = initialState, action: Actions): F
             action.payload.review,
           ],
         },
+      };
+    case FilmActionType.SetFilmNotFound:
+      return {
+        ...state,
+        notFoundFilmId: action.payload.filmId,
       };
     default:
       return state;

@@ -33,43 +33,46 @@ function FilmPage(props: FilmPageProps): JSX.Element {
 
   useEffect(scrollToFilmTitle, [ id ]);
 
-  if (!film && isFilmLoading) {
+  if (isFilmLoading) {
     return (
       <Spinner fullScreen/>
     );
   }
 
-  if (film) {
-    const {
-      backgroundImage,
-      name,
-      genre,
-      released,
-      posterImage,
-      isFavorite,
-    } = film;
+  if (!film) {
+    return <NotFound/>;
+  }
 
-    return (
-      <React.Fragment>
-        <section className="film-card film-card--full">
-          <div className="film-card__hero">
-            <div className="film-card__bg">
-              <img src={backgroundImage} alt={name}/>
-            </div>
-            <h1 className="visually-hidden">WTW</h1>
-            <Header/>
-            <div className="film-card__wrap">
-              <div className="film-card__desc">
-                <h2 className="film-card__title">{name}</h2>
-                <p className="film-card__meta">
-                  <span className="film-card__genre">{genre}</span>
-                  <span className="film-card__year">{released}</span>
-                </p>
+  const {
+    backgroundImage,
+    name,
+    genre,
+    released,
+    posterImage,
+    isFavorite,
+  } = film;
 
-                <div className="film-card__buttons">
-                  <PlayButton filmId={id}/>
-                  {
-                    isAuthorized &&
+  return (
+    <React.Fragment>
+      <section className="film-card film-card--full">
+        <div className="film-card__hero">
+          <div className="film-card__bg">
+            <img src={backgroundImage} alt={name}/>
+          </div>
+          <h1 className="visually-hidden">WTW</h1>
+          <Header/>
+          <div className="film-card__wrap">
+            <div className="film-card__desc">
+              <h2 className="film-card__title">{name}</h2>
+              <p className="film-card__meta">
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
+              </p>
+
+              <div className="film-card__buttons">
+                <PlayButton filmId={id}/>
+                {
+                  isAuthorized &&
                     <>
                       <MyListButton
                         isFavorite={isFavorite}
@@ -82,37 +85,34 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                         Add review
                       </Link>
                     </>
-                  }
-                </div>
+                }
               </div>
             </div>
           </div>
-          <div className="film-card__wrap film-card__translate-top">
-            <div className="film-card__info">
-              <div className="film-card__poster film-card__poster--big">
-                <img
-                  src={posterImage}
-                  alt={`${name} poster`}
-                  width="218"
-                  height="327"
-                />
-              </div>
-
-              <div className="film-card__desc">
-                <FilmTabs film={film}/>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div className="page-content">
-          <RelatedFilms filmId={id}/>
-          <Footer/>
         </div>
-      </React.Fragment>
-    );
-  }
+        <div className="film-card__wrap film-card__translate-top">
+          <div className="film-card__info">
+            <div className="film-card__poster film-card__poster--big">
+              <img
+                src={posterImage}
+                alt={`${name} poster`}
+                width="218"
+                height="327"
+              />
+            </div>
 
-  return <NotFound/>;
+            <div className="film-card__desc">
+              <FilmTabs film={film}/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="page-content">
+        <RelatedFilms filmId={id}/>
+        <Footer/>
+      </div>
+    </React.Fragment>
+  );
 }
 
 export { FilmPage };

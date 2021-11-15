@@ -6,6 +6,7 @@ enum FilmActionType {
   SetIsReviewsLoading = 'film/set-is-reviews-loading',
   SetReviews = 'film/set-reviews',
   AddReview = 'film/add-review',
+  SetFilmNotFound = 'film/set-film-not-found'
 }
 
 const setMyListButtonDisabled = (status: boolean) => ({
@@ -33,12 +34,18 @@ const setIsReviewsLoading = (isReviewsLoading: boolean) => ({
   payload: { isReviewsLoading },
 } as const);
 
+const setFilmNotFound = (filmId: string) => ({
+  type: FilmActionType.SetFilmNotFound,
+  payload: { filmId },
+} as const);
+
 export {
   setMyListButtonDisabled,
   setIsFilmLoading,
   setReviews,
   addReview,
   setIsReviewsLoading,
+  setFilmNotFound,
   FilmActionType
 };
 
@@ -47,4 +54,5 @@ export type FilmActions =
   | ReturnType<typeof setIsReviewsLoading>
   | ReturnType<typeof setMyListButtonDisabled>
   | ReturnType<typeof setIsFilmLoading>
-  | ReturnType<typeof addReview>;
+  | ReturnType<typeof addReview>
+  | ReturnType<typeof setFilmNotFound>;

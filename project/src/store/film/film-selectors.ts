@@ -8,6 +8,8 @@ const getReviews = (state: State): FilmReview  => state.film.reviews;
 
 const getIsReviewsLoading = (state: State): boolean  => state.film.isReviewsLoading;
 
+const getFilmNotFound = (state: State): string  => state.film.notFoundFilmId;
+
 const getReviewsByFilmId = createSelector(
   [
     getReviews,
@@ -19,5 +21,6 @@ const getReviewsByFilmId = createSelector(
 export {
   getIsFilmLoading,
   getIsReviewsLoading,
+  getFilmNotFound,
   getReviewsByFilmId
 };

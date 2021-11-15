@@ -1,6 +1,6 @@
 import { getFakeFilm, getFakeReview, getFakeReviews } from '../../utils/mock';
 import { unknownAction } from '../unknown';
-import { addReview, setIsFilmLoading, setIsReviewsLoading, setMyListButtonDisabled, setReviews } from './film-actions';
+import { addReview, setFilmNotFound, setIsFilmLoading, setIsReviewsLoading, setMyListButtonDisabled, setReviews } from './film-actions';
 import { filmReducer } from './film-reducer';
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
   isFilmLoading: false,
   reviews: {},
   isReviewsLoading: false,
+  notFoundFilmId: '',
 };
 
 describe('Film reducer', () => {
@@ -79,6 +80,15 @@ describe('Film reducer', () => {
       reviews: {
         [filmId]: [...reviews, review],
       },
+    });
+  });
+
+  it('should set not found film id', () => {
+    const filmId = getFakeFilm().id;
+
+    expect( filmReducer( undefined, setFilmNotFound(filmId))).toEqual({
+      ...initialState,
+      notFoundFilmId: filmId,
     });
   });
 });
