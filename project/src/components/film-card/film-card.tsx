@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import { Film } from '../../types/film';
@@ -6,20 +6,26 @@ import VideoPreview from '../video-preview/video-preview';
 
 type FilmCardProps = {
   film: Film,
-  onMouseOver: (evt: React.MouseEvent) => void,
-  onMouseLeave: (evt: React.MouseEvent) => void,
-  isActive: boolean,
 }
 
-function FilmCard(props: FilmCardProps): JSX.Element {
-  const { previewImage, name, id, previewVideoLink } = props.film;
-  const { onMouseOver, onMouseLeave, isActive } = props;
+function FilmCard({
+  film: { previewImage, name, id, previewVideoLink },
+}: FilmCardProps): JSX.Element {
+  const [ isActive, setIsActive ] = useState(false);
+
+  const mouseOverHandler = () => {
+    setIsActive(true);
+  };
+
+  const mouseLeaveHandler = () => {
+    setIsActive(false);
+  };
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
+      onMouseOver={mouseOverHandler}
+      onMouseLeave={mouseLeaveHandler}
       id={id}
     >
       <div className="small-film-card__image">

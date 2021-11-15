@@ -8,26 +8,24 @@ type VideoPreviewProps = {
 
 const PREVIEW_DELAY = 1000;
 
-function VideoPreview(props: VideoPreviewProps): JSX.Element {
-  const { src, isPlaying, poster } = props;
-
+function VideoPreview({ src, isPlaying, poster }: VideoPreviewProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
-    if (videoRef && videoRef.current) {
-      const player = videoRef.current;
-
-      if (isPlaying) {
-        timeoutId = setTimeout(() => {
-          player.play();
-        }, PREVIEW_DELAY);
-      } else {
-        player.load();
-      }
-    } else {
+    if (!videoRef || !videoRef.current) {
       return;
+    }
+
+    const player = videoRef.current;
+
+    if (isPlaying) {
+      timeoutId = setTimeout(() => {
+        player.play();
+      }, PREVIEW_DELAY);
+    } else {
+      player.load();
     }
 
     return () => {
