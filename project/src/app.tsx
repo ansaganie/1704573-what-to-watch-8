@@ -72,7 +72,6 @@ function App(props: AppProps): JSX.Element | null {
         </Route>
       </Switch>
     </>
-
   );
 }
 

@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { BackendRoute, Favorite } from '../../constants';
 import { adaptFilmToClient } from '../../services/adapter';
 import { ServerFilm } from '../../types/film';
@@ -10,14 +11,17 @@ import {
   updateFilm
 } from './data-actions';
 
+const FETCH_FILMS_ERROR = 'Could not load the films';
+const FETCH_PROMO_FILM_ERROR = 'Could not load the promo film';
+const TOGGLE_FAVORITE_ERROR = 'An error occurred while adding/removing to my list';
+
 const fetchFilms = (): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       const { data } = await api.get<ServerFilm[]>(BackendRoute.Films);
       dispatch(setFilms(data.map(adaptFilmToClient)));
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      toast.info(FETCH_FILMS_ERROR);
     } finally {
       dispatch(setFilmsLoaded());
     }
@@ -38,8 +42,7 @@ const fetchPromoFilm = (): AsyncAction =>
         dispatch(setPromoFilmId(currentId));
       }
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      toast.info(FETCH_PROMO_FILM_ERROR);
     } finally {
       dispatch(setIsFilmLoading(false));
     }
@@ -52,8 +55,7 @@ const postToggleFavorite = (filmId: string, status: Favorite): AsyncAction =>
       const { data } = await api.post<ServerFilm>(BackendRoute.FavoritePost(filmId, status));
       dispatch(updateFilm(adaptFilmToClient(data)));
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      toast.info(TOGGLE_FAVORITE_ERROR);
     } finally {
       dispatch(setMyListButtonDisabled(false));
     }

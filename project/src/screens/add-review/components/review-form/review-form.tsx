@@ -5,10 +5,12 @@ import { AppRoute } from '../../../../constants';
 import { useDispatch } from 'react-redux';
 import { postReview } from '../../../../services/dal';
 import { setReviews } from '../../../../store/film/film-actions';
+import { toast } from 'react-toastify';
 
 const RATING_VALUES = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ];
 const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
+const POST_SUCCESS = 'Thank you for your review';
 
 type ReviewFormProps = {
   filmId: string,
@@ -86,6 +88,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
           review && dispatch(setReviews(filmId, review));
 
           setSubmitting(false);
+          toast.success(POST_SUCCESS);
           history.push(AppRoute.FilmPage.replace(':id', filmId.toString()));
         });
     }

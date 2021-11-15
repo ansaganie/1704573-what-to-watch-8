@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { BackendRoute } from '../../constants';
 import { adaptFilmToClient, adaptReviewToClient } from '../../services/adapter';
 import { ServerFilm } from '../../types/film';
@@ -10,6 +11,9 @@ import {
   setReviews
 } from './film-actions';
 
+const FETCH_FILM_ERROR = 'Could not load the film';
+const FETCH_REVIEWS_ERROR = 'Could not load reviews for this film';
+
 const fetchFilm = (filmId: string): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setIsFilmLoading(true));
@@ -19,8 +23,7 @@ const fetchFilm = (filmId: string): AsyncAction =>
 
       dispatch(addFilm(adaptFilmToClient(data)));
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      toast.info(FETCH_FILM_ERROR);
     } finally {
       dispatch(setIsFilmLoading(false));
     }
@@ -35,8 +38,7 @@ const fetchReviews = (filmId: string): AsyncAction =>
 
       dispatch(setReviews(filmId, data.map(adaptReviewToClient)));
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      toast.info(FETCH_REVIEWS_ERROR);
     } finally {
       dispatch(setIsReviewsLoading(false));
     }
