@@ -14,9 +14,11 @@ import NotFound from './screens/not-found/not-found';
 import PrivateRoute from './components/private-route/private-route';
 import Sprite from './components/sprite/sprite';
 import Spinner from './components/spinner/Spinner';
+import ServerNotWorking from './screens/server-not-working/server-not-working';
 
 const mapStateToProps = (state: State) => ({
   appInitialized: state.app.appInitialized,
+  serverNotWorking: state.app.serverNotWorking,
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
@@ -31,11 +33,19 @@ type AppProps = ConnectedProps<typeof connector>;
 
 
 function App(props: AppProps): JSX.Element | null {
-  const { appInitialized, initialize } = props;
+  const {
+    appInitialized,
+    serverNotWorking,
+    initialize,
+  } = props;
 
   useEffect(() => {
     initialize();
   }, [ initialize ]);
+
+  if (serverNotWorking) {
+    return <ServerNotWorking/>;
+  }
 
   if (!appInitialized) {
     return <Spinner fullScreen/>;

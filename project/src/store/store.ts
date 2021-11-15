@@ -4,13 +4,18 @@ import { applyMiddleware, createStore, ThunkAction, ThunkDispatch } from '@redux
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { rootReducer } from './root-reducer';
 import { getToken } from '../services/token';
-import { AuthStatus, HttpCode } from '../constants';
+import { AuthStatus } from '../constants';
 import { setAuthStatus, UserActions } from './user/user-actions';
 import { unknownAction } from './unknown-action';
 import { FilmActions } from './film/film-actions';
 import { DataActions } from './data/data-actions';
 import { AppActions } from './app/app-actions';
 
+enum HttpCode {
+  Unauthorized = 401,
+  MinServerError = 500,
+  MaxServerError = 599,
+}
 const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 

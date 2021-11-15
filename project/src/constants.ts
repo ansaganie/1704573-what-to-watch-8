@@ -33,11 +33,6 @@ const BackendRoute = {
   Reviews: (filmId: string): string => `/comments/${filmId}`,
 };
 
-enum HttpCode {
-  Unauthorized = 401,
-  NotFound = 404,
-}
-
 enum Favorite {
   SET = 1,
   UNSET = 0,
@@ -54,7 +49,6 @@ export {
   AuthStatus,
   AppRoute,
   BackendRoute,
-  HttpCode,
   Favorite,
   ReducerNameSpace,
   FILMS_INITIAL_COUNT,
