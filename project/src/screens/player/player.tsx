@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useLoadFilm } from '../../hooks/use-load-film';
-import Spinner from '../../components/spinner/Spinner';
+import Spinner from '../../UI/spinner/Spinner';
 import { formatTimeElapsed } from '../../utils/date';
 import { AppRoute } from '../../constants';
 import NotFound from '../not-found/not-found';

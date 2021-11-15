@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../../constants';
-import { Film } from '../../../types/film';
+import { AppRoute } from '../../constants';
+import { Film } from '../../types/film';
 import VideoPreview from '../video-preview/video-preview';
 
 type FilmCardProps = {

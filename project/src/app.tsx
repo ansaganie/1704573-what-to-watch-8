@@ -12,8 +12,8 @@ import AddReview from './screens/add-review/add-review';
 import Player from './screens/player/player';
 import NotFound from './screens/not-found/not-found';
 import PrivateRoute from './components/private-route/private-route';
-import Sprite from './components/sprite/sprite';
-import Spinner from './components/spinner/Spinner';
+import Sprite from './UI/sprite/sprite';
+import Spinner from './UI/spinner/Spinner';
 import ServerNotWorking from './screens/server-not-working/server-not-working';
 
 const mapStateToProps = (state: State) => ({

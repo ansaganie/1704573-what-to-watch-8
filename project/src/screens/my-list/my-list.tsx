@@ -6,7 +6,7 @@ import Message from '../../components/message/message';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsMyListLoading, getMyList } from '../../store/user/user-selectors';
 import { fetchMyList } from '../../store/user/user-thunks';
-import Spinner from '../../components/spinner/Spinner';
+import Spinner from '../../UI/spinner/Spinner';
 
 const NO_FAVORITE_FILMS = 'Your list of favorite films is empty for now';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { AppRoute } from '../../../constants';
+import { AppRoute } from '../../constants';
 import { connect, ConnectedProps } from 'react-redux';
-import { logout } from '../../../store/user/user-thunks';
-import { AsyncDispatch, State } from '../../../store/store';
+import { logout } from '../../store/user/user-thunks';
+import { AsyncDispatch, State } from '../../store/store';
 
 const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,

@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from 'react';
 import ReviewItem from './review-item';
-import Spinner from '../../../../components/spinner/Spinner';
+import Spinner from '../../../../UI/spinner/Spinner';
 import Message from '../../../../components/message/message';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsReviewsLoading, getReviewsByFilmId } from '../../../../store/film/film-selectors';

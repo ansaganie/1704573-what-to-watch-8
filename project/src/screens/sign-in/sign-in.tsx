@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import {
   Formik,
@@ -12,6 +12,7 @@ import { SignInForm } from '../../types/sign-in-form';
 import { login } from '../../store/user/user-thunks';
 import { AppRoute, AuthStatus } from '../../constants';
 import { AsyncDispatch, State } from '../../store/store';
+import Logo from '../../components/logo/logo';
 
 const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,
@@ -68,13 +69,7 @@ function SignIn(props: SignInProps): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to="/" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+        <Logo />
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">

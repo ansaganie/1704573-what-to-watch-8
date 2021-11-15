@@ -6,7 +6,7 @@ import { getFilteredFilms, getGenres } from '../../../../store/data/data-selecto
 import { setGenre } from '../../../../store/app/app-actions';
 import Genres from '../genres/genres';
 import FilmsList from '../../../../components/films-list/films-list';
-import Spinner from '../../../../components/spinner/Spinner';
+import Spinner from '../../../../UI/spinner/Spinner';
 import { AsyncDispatch, State } from '../../../../store/store';
 
 const mapStateToProps = (state: State) => ({

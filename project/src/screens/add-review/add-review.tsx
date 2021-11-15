@@ -5,7 +5,7 @@ import { useLoadFilm } from '../../hooks/use-load-film';
 import Header from '../../components/header/header';
 import ReviewForm from './components/review-form/review-form';
 import NotFound from '../not-found/not-found';
-import Spinner from '../../components/spinner/Spinner';
+import Spinner from '../../UI/spinner/Spinner';
 
 function AddReview(): JSX.Element {
   const { id } = useParams<{ id: string }>();

@@ -10,7 +10,7 @@ import Footer from '../../components/footer/footer';
 import FilmTabs from './components/film-tabs/film-tabs';
 import NotFound from '../not-found/not-found';
 import RelatedFilms from './components/related-films/related-films';
-import Spinner from '../../components/spinner/Spinner';
+import Spinner from '../../UI/spinner/Spinner';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
 

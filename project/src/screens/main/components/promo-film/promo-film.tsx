@@ -5,7 +5,7 @@ import { State } from '../../../../store/store';
 import { AsyncDispatch } from '../../../../store/store';
 import { AuthStatus } from '../../../../constants';
 import Header from '../../../../components/header/header';
-import Spinner from '../../../../components/spinner/Spinner';
+import Spinner from '../../../../UI/spinner/Spinner';
 import PlayButton from '../../../../components/play-button/play-button';
 import MyListButton from '../../../../components/my-list-button/my-list-button';
 import { useLoadFilm } from '../../../../hooks/use-load-film';
