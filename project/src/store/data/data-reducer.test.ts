@@ -1,5 +1,5 @@
 import { getFakeFilm, getFakeFilms } from '../../utils/mock';
-import { unknownAction } from '../unknown-action';
+import { unknownAction } from '../../setupTests';
 import { dataReducer } from './data-reducer';
 import {
   addFilm,

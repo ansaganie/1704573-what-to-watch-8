@@ -1,4 +1,4 @@
-import { unknownAction } from '../unknown-action';
+import { unknownAction } from '../../setupTests';
 import { setAppInitialized, setGenre, setServerNotWorking } from './app-actions';
 import { appReducer } from './app-reducer';
 

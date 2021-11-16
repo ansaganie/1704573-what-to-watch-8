@@ -6,7 +6,6 @@ import { rootReducer } from './root-reducer';
 import { getToken } from '../services/token';
 import { AuthStatus } from '../constants';
 import { setAuthStatus, UserActions } from './user/user-actions';
-import { unknownAction } from './unknown-action';
 import { FilmActions } from './film/film-actions';
 import { DataActions } from './data/data-actions';
 import { AppActions } from './app/app-actions';
@@ -55,7 +54,6 @@ export type State = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 export type Actions =
-  | ReturnType<typeof unknownAction>
   | FilmActions
   | DataActions
   | UserActions

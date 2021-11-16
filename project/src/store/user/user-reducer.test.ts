@@ -1,6 +1,6 @@
 import { AuthStatus } from '../../constants';
 import { getFakeFilms, getFakeUser } from '../../utils/mock';
-import { unknownAction } from '../unknown-action';
+import { unknownAction } from '../../setupTests';
 import { setAuthStatus, setIsMyListLoading, setMyList, setUserData } from './user-actions';
 import { userReducer } from './user-reducer';
 
