@@ -23,9 +23,9 @@ type MyListButtonProps = ConnectedProps<typeof connector> & {
 
 function MyListButton(props: MyListButtonProps): JSX.Element {
   const {
+    filmId,
     isFavorite,
     myListButtonDisabled,
-    filmId,
     toggleFavorite,
   } = props;
 
