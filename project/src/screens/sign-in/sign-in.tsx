@@ -7,12 +7,12 @@ import {
   Form,
   Field
 } from 'formik';
-import Footer from '../../components/footer/footer';
 import { SignInForm } from '../../types/sign-in-form';
 import { login } from '../../store/user/user-thunks';
 import { AppRoute, AuthStatus } from '../../constants';
 import { AsyncDispatch, State } from '../../store/store';
-import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 
 const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,
@@ -68,10 +68,9 @@ function SignIn(props: SignInProps): JSX.Element {
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <Logo />
+      <Header userPage>
         <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      </Header>
       <div className="sign-in user-page__content">
         <Formik
           initialValues={initialValues}

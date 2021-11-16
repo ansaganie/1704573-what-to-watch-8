@@ -25,30 +25,25 @@ function AddReview(): JSX.Element {
 
   const { posterImage, backgroundImage, name, rating } = film;
 
-  const breadcrumbsElement = (
-    <nav className="breadcrumbs">
-      <ul className="breadcrumbs__list">
-        <li className="breadcrumbs__item">
-          <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
-        </li>
-        <li className="breadcrumbs__item">
-          <span className="breadcrumbs__link">Add review</span>
-        </li>
-      </ul>
-    </nav>
-  );
-
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
           <img src={backgroundImage} alt="The Grand Budapest Hotel"/>
         </div>
-
         <h1 className="visually-hidden">WTW</h1>
-
-        <Header breadcrumbs={breadcrumbsElement}/>
-
+        <Header filmCard>
+          <nav className="breadcrumbs">
+            <ul className="breadcrumbs__list">
+              <li className="breadcrumbs__item">
+                <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
+              </li>
+              <li className="breadcrumbs__item">
+                <span className="breadcrumbs__link">Add review</span>
+              </li>
+            </ul>
+          </nav>
+        </Header>
         <div className="film-card__poster film-card__poster--small">
           <img
             src={posterImage}
@@ -58,7 +53,6 @@ function AddReview(): JSX.Element {
           />
         </div>
       </div>
-
       <div className="add-review">
         <ReviewForm rating={rating} filmId={id}/>
       </div>

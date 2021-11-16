@@ -14,7 +14,8 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
           <FilmCard
             film={film}
             key={film.id}
-          />))
+          />
+        ))
       }
     </div>
   );

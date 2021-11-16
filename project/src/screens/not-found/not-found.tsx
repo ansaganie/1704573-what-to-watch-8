@@ -8,7 +8,9 @@ function NotFound():JSX.Element {
     <div className="user-page">
 
       <h1 className="visually-hidden">WTW</h1>
-      <Header title={'Not Found'}/>
+      <Header userPage>
+        <h1 className="page-title user-page__title">Not Found</h1>
+      </Header>
       <section className="catalog">
         <div className={styles.wrapper}>
           <h2 className={styles.title}>404</h2>

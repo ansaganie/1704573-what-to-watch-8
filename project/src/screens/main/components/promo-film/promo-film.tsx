@@ -93,12 +93,12 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
     >
       {background}
       <h1 className="visually-hidden">WTW</h1>
-      <Header/>
+      <Header filmCard/>
       { isFilmLoading && <Spinner/> }
       {promoCard}
     </section>
   );
 }
 
-export { PromoFilm as FilmCard };
+export { PromoFilm };
 export default connector(PromoFilm);

@@ -60,7 +60,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
             <img src={backgroundImage} alt={name}/>
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <Header/>
+          <Header filmCard/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{name}</h2>
