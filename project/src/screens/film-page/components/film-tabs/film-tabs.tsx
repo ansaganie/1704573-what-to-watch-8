@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 import { TabList, Tabs, Tab, TabPanel } from 'react-tabs';
-import Overview from './overview';
-import Details from './details';
-import Reviews from './reviews';
+import Overview from '../overview/overview';
+import Details from '../details/details';
+import Reviews from '../reviews/reviews';
 import { Film } from '../../../../types/film';
 
 type FilmTabsProps = {
