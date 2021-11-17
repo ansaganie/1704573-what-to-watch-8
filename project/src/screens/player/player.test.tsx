@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { getFakeFilm } from '../../utils/mock';
 import * as hooks from '../../hooks/use-load-film';
-import * as header from '../../components/header/header';
+import * as Header from '../../components/header/header';
 import Player from './player';
 
 const mockStore = configureMockStore();
@@ -34,7 +34,7 @@ describe('Screen: Player', () => {
   it('should render correctly when film is null', () => {
     jest.spyOn(hooks, 'useLoadFilm')
       .mockImplementation(() => [null, false]);
-    jest.spyOn(header, 'default')
+    jest.spyOn(Header, 'default')
       .mockImplementation(() => (<div/>));
 
     const history = createMemoryHistory();

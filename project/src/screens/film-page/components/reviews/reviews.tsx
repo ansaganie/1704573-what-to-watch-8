@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import ReviewItem from '../film-tabs/review-item';
+import ReviewItem from '../review-item/review-item';
 import Spinner from '../../../../UI/spinner/Spinner';
 import Message from '../../../../components/message/message';
 import { useDispatch, useSelector } from 'react-redux';

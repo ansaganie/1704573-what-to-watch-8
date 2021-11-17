@@ -6,7 +6,7 @@ import { Route, Router } from 'react-router';
 import { AppRoute, AuthStatus } from '../../constants';
 import { getFakeUser } from '../../utils/mock';
 import { SignIn } from './sign-in';
-import * as header from '../../components/header/header';
+import * as Header from '../../components/header/header';
 
 
 const mockStore = configureMockStore();
@@ -21,7 +21,7 @@ describe('Screen: Sign In', () => {
   it('should render correctly when "NoAuth"', () => {
     const signInText = 'Sign in';
     const history = createMemoryHistory();
-    jest.spyOn(header, 'default')
+    jest.spyOn(Header, 'default')
       .mockImplementation(() => (<div/>));
 
     render(

@@ -24,7 +24,6 @@ function ReviewItem(props: ReviewProps): JSX.Element {
           </time>
         </footer>
       </blockquote>
-
       <div className="review__rating">{formatRating(rating)}</div>
     </div>
   );

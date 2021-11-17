@@ -68,7 +68,6 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-
               <div className="film-card__buttons">
                 <PlayButton filmId={id}/>
                 {
@@ -100,7 +99,6 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                 height="327"
               />
             </div>
-
             <div className="film-card__desc">
               <FilmTabs film={film}/>
             </div>
