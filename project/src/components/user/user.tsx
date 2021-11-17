@@ -12,7 +12,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   signOut() {
-    return dispatch(logout());
+    dispatch(logout());
   },
 });
 

@@ -20,7 +20,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
   signIn(data: SignInForm) {
-    return dispatch(login(data));
+    dispatch(login(data));
   },
 });
 
@@ -42,9 +42,9 @@ function SignIn(props: SignInProps): JSX.Element {
     password: '',
   };
 
-  const formSubmitHandler = async (values: SignInForm, { setSubmitting }: FormikHelpers<SignInForm>) => {
+  const formSubmitHandler = (values: SignInForm, { setSubmitting }: FormikHelpers<SignInForm>) => {
     setSubmitting(true);
-    await signIn(values);
+    signIn(values);
   };
 
   const validate = (values: SignInForm) => {

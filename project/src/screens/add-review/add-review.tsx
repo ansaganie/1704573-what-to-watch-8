@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { scrollToFilmTitle } from '../../utils/side-effects';
 import { useLoadFilm } from '../../hooks/use-load-film';
+import { AppRoute } from '../../constants';
 import Header from '../../components/header/header';
 import ReviewForm from './components/review-form/review-form';
 import NotFound from '../not-found/not-found';
@@ -29,14 +30,14 @@ function AddReview(): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={backgroundImage} alt="The Grand Budapest Hotel"/>
+          <img src={backgroundImage} alt={name}/>
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <Header filmCard>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
+                <Link to={AppRoute.FilmPage.replace(':id', id)} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link">Add review</span>

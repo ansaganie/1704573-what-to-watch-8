@@ -1,5 +1,6 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Route, Router, Switch } from 'react-router';
@@ -40,7 +41,7 @@ describe('Component: Header', () => {
 
     expect(screen.getByText(messageHeader)).toBeInTheDocument();
 
-    links[0].click();
+    userEvent.click(links[0]);
     expect(screen.getByText(messageHomePage)).toBeInTheDocument();
   });
 });

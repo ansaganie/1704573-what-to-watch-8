@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useLoadFilm } from '../../hooks/use-load-film';
-import Spinner from '../../UI/spinner/Spinner';
 import { formatTimeElapsed } from '../../utils/date';
 import { AppRoute } from '../../constants';
+import Spinner from '../../UI/spinner/Spinner';
 import NotFound from '../not-found/not-found';
 
 function Player(): JSX.Element {

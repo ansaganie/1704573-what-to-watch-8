@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Route, Router, Switch } from 'react-router';
 import { AppRoute } from '../../constants';
@@ -25,7 +26,8 @@ describe('Component. Film Card', () => {
 
     expect(titleElement).toBeInTheDocument();
     expect(titleElement.tagName).toBe('A');
-    titleElement.click();
+
+    userEvent.click(titleElement);
 
     const headerElement = screen.getByText(message);
 

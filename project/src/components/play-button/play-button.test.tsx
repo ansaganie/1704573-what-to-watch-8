@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Route, Router, Switch } from 'react-router-dom';
 import { AppRoute } from '../../constants';
@@ -26,7 +27,7 @@ describe('Component: Play Button', () => {
     const button = screen.getByText(text);
     expect(button).toBeInTheDocument();
 
-    button.parentElement?.click();
+    userEvent.click(button);
     expect(screen.getByText(message)).toBeInTheDocument();
   });
 });

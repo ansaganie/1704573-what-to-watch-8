@@ -1,5 +1,6 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Route, Router, Switch } from 'react-router';
@@ -55,8 +56,7 @@ describe('Component: User', () => {
     const link = screen.getByText(signInText);
     expect(link).toBeInTheDocument();
 
-    link.click();
-
+    userEvent.click(link);
     expect(screen.getByText(messageSignInPage)).toBeInTheDocument();
   });
 });

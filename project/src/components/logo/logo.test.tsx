@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Route, Router, Switch } from 'react-router';
 import { AppRoute } from '../../constants';
@@ -28,7 +29,7 @@ describe('Component: Logo', () => {
 
     expect(homePageLink).toBeInTheDocument();
 
-    homePageLink.click();
+    userEvent.click(homePageLink);
 
     expect(screen.getByText(message)).toBeInTheDocument();
   });

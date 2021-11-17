@@ -33,10 +33,10 @@ function MyList(): JSX.Element {
               centered
             />
         }
-
         {
-          (isMyListLoading && myList.length === 0) ? <Spinner/> :
-            <FilmsList films={myList}/>
+          (isMyListLoading && myList.length === 0)
+            ? <Spinner/>
+            : <FilmsList films={myList}/>
         }
       </section>
       <Footer/>

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Link, Route, Router, Switch } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../constants';
@@ -33,7 +34,7 @@ describe('Component: Private Route', () => {
     const link = screen.getByText(text);
     expect(link).toBeInTheDocument();
 
-    link.parentElement?.click();
+    userEvent.click(link);
     expect(screen.getByText(signInPage)).toBeInTheDocument();
     expect(screen.queryByText(privatePage)).not.toBeInTheDocument();
   });
