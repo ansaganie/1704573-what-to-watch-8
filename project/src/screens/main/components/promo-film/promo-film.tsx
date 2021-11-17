@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { fetchPromoFilm } from '../../../../store/data/data-thunks';
 import { State } from '../../../../store/store';
-import { AsyncDispatch } from '../../../../store/store';
 import { AuthStatus } from '../../../../constants';
 import Header from '../../../../components/header/header';
 import Spinner from '../../../../UI/spinner/Spinner';
@@ -15,13 +13,7 @@ const mapStateToProps = (state: State) => ({
   authStatus: state.user.authStatus,
 });
 
-const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
-  loadPromoFilm() {
-    dispatch(fetchPromoFilm());
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 type PromoFilmProps = ConnectedProps<typeof connector>;
 
@@ -33,8 +25,8 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
 
   const [ film, isFilmLoading ] = useLoadFilm(promoFilmId, true);
   const isAuthorized = authStatus === AuthStatus.Auth;
-  let background: JSX.Element = <> </>;
-  let promoCard: JSX.Element = <> </>;
+  let background: JSX.Element | null = null;
+  let promoCard: JSX.Element | null = null;
 
   if (film) {
     const {
