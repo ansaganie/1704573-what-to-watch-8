@@ -26,5 +26,6 @@ export {
   play,
   load,
   pause,
+  scrollTo,
   unknownAction
 };

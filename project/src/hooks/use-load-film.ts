@@ -46,4 +46,4 @@ const useLoadFilm = (filmId: string, isPromoFilm?: boolean): UseFilmLoad => {
   return [ film, ((!notFound && !film) || isFilmLoading) ];
 };
 
-export { useLoadFilm };
+export default useLoadFilm;

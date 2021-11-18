@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../store/store';
-import { scrollToFilmTitle } from '../../utils/side-effects';
 import { AppRoute, AuthStatus } from '../../constants';
-import { useLoadFilm } from '../../hooks/use-load-film';
+import useLoadFilm from '../../hooks/use-load-film';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmTabs from './components/film-tabs/film-tabs';
@@ -13,6 +12,7 @@ import RelatedFilms from './components/related-films/related-films';
 import Spinner from '../../UI/spinner/Spinner';
 import PlayButton from '../../components/play-button/play-button';
 import MyListButton from '../../components/my-list-button/my-list-button';
+import useScrollToTitle from '../../hooks/use-scroll-to-title';
 
 
 const mapStateToProps = (state: State) => ({
@@ -29,9 +29,9 @@ function FilmPage(props: FilmPageProps): JSX.Element {
 
   const { id } = useParams<{ id: string }>();
 
-  const [ film, isFilmLoading ] = useLoadFilm(id);
+  useScrollToTitle(id);
 
-  useEffect(scrollToFilmTitle, [ id ]);
+  const [ film, isFilmLoading ] = useLoadFilm(id);
 
   if (isFilmLoading) {
     return (

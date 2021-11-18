@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { scrollToFilmTitle } from '../../utils/side-effects';
-import { useLoadFilm } from '../../hooks/use-load-film';
 import { AppRoute } from '../../constants';
+import useLoadFilm from '../../hooks/use-load-film';
+import useScrollToTitle from '../../hooks/use-scroll-to-title';
 import Header from '../../components/header/header';
 import ReviewForm from './components/review-form/review-form';
 import NotFound from '../not-found/not-found';
@@ -10,7 +10,7 @@ import Spinner from '../../UI/spinner/Spinner';
 
 function AddReview(): JSX.Element {
   const { id } = useParams<{ id: string }>();
-  useEffect(scrollToFilmTitle);
+  useScrollToTitle(id);
 
   const [ film, isFilmLoading ] = useLoadFilm(id);
 

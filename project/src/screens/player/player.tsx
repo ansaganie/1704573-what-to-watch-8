@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useLoadFilm } from '../../hooks/use-load-film';
+import useLoadFilm from '../../hooks/use-load-film';
 import { formatTimeElapsed } from '../../utils/date';
 import { AppRoute } from '../../constants';
 import Spinner from '../../UI/spinner/Spinner';
