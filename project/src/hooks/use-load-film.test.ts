@@ -3,7 +3,7 @@ import * as redux from 'react-redux';
 import { getFilms } from '../store/data/data-selectors';
 import { getNotFoundFilmId, getIsFilmLoading } from '../store/film/film-selectors';
 import { getFakeFilms } from '../utils/mock';
-import { useLoadFilm } from './use-load-film';
+import useLoadFilm from './use-load-film';
 
 const TEST_FILM_ID = 5;
 

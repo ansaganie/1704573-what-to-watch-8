@@ -4,17 +4,17 @@ import { Route, Switch } from 'react-router-dom';
 import { AppRoute } from './constants';
 import { initializeApp } from './store/app/app-thunks';
 import { AsyncDispatch, State } from './store/store';
-import Main from './screens/main/main';
-import SignIn from './screens/sign-in/sign-in';
-import MyList from './screens/my-list/my-list';
-import FilmPage from './screens/film-page/film-page';
-import AddReview from './screens/add-review/add-review';
-import Player from './screens/player/player';
-import NotFound from './screens/not-found/not-found';
+import Main from './components/main/main';
+import SignIn from './components/sign-in/sign-in';
+import MyList from './components/my-list/my-list';
+import FilmPage from './components/film-page/film-page';
+import AddReview from './components/add-review/add-review';
+import Player from './components/player/player';
+import NotFound from './components/not-found/not-found';
 import PrivateRoute from './components/private-route/private-route';
-import Sprite from './UI/sprite/sprite';
-import Spinner from './UI/spinner/Spinner';
-import ServerNotWorking from './screens/server-not-working/server-not-working';
+import Sprite from './components/sprite/sprite';
+import Spinner from './components/spinner/Spinner';
+import ServerNotWorking from './components/server-not-working/server-not-working';
 
 const mapStateToProps = (state: State) => ({
   appInitialized: state.app.appInitialized,

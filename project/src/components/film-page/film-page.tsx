@@ -1,0 +1,117 @@
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../store/store';
+import { AppRoute, AuthStatus } from '../../constants';
+import useLoadFilm from '../../hooks/use-load-film';
+import Header from '../header/header';
+import Footer from '../footer/footer';
+import FilmTabs from '../film-tabs/film-tabs';
+import NotFound from '../not-found/not-found';
+import RelatedFilms from '../related-films/related-films';
+import Spinner from '../spinner/Spinner';
+import PlayButton from '../play-button/play-button';
+import MyListButton from '../my-list-button/my-list-button';
+import useScrollToTitle from '../../hooks/use-scroll-to-title';
+
+
+const mapStateToProps = (state: State) => ({
+  authStatus: state.user.authStatus,
+});
+
+const connector = connect(mapStateToProps);
+
+type FilmPageProps = ConnectedProps<typeof connector>;
+
+function FilmPage(props: FilmPageProps): JSX.Element {
+  const { authStatus } = props;
+  const isAuthorized = authStatus === AuthStatus.Auth;
+
+  const { id } = useParams<{ id: string }>();
+
+  useScrollToTitle(id);
+
+  const [ film, isFilmLoading ] = useLoadFilm(id);
+
+  if (isFilmLoading) {
+    return (
+      <Spinner fullScreen/>
+    );
+  }
+
+  if (!film) {
+    return <NotFound/>;
+  }
+
+  const {
+    backgroundImage,
+    name,
+    genre,
+    released,
+    posterImage,
+    isFavorite,
+  } = film;
+
+  return (
+    <React.Fragment>
+      <section className="film-card film-card--full">
+        <div className="film-card__hero">
+          <div className="film-card__bg">
+            <img src={backgroundImage} alt={name}/>
+          </div>
+          <h1 className="visually-hidden">WTW</h1>
+          <Header filmCard/>
+          <div className="film-card__wrap">
+            <div className="film-card__desc">
+              <h2 className="film-card__title">{name}</h2>
+              <p className="film-card__meta">
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
+              </p>
+              <div className="film-card__buttons">
+                <PlayButton filmId={id}/>
+                {
+                  isAuthorized &&
+                    <>
+                      <MyListButton
+                        isFavorite={isFavorite}
+                        filmId={id}
+                      />
+                      <Link
+                        to={AppRoute.AddReview.replace(':id', id)}
+                        className="btn film-card__button"
+                      >
+                        Add review
+                      </Link>
+                    </>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="film-card__wrap film-card__translate-top">
+          <div className="film-card__info">
+            <div className="film-card__poster film-card__poster--big">
+              <img
+                src={posterImage}
+                alt={`${name} poster`}
+                width="218"
+                height="327"
+              />
+            </div>
+            <div className="film-card__desc">
+              <FilmTabs film={film}/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="page-content">
+        <RelatedFilms filmId={id}/>
+        <Footer/>
+      </div>
+    </React.Fragment>
+  );
+}
+
+export { FilmPage };
+export default connector(FilmPage);
