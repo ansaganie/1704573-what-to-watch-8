@@ -1,3 +1,4 @@
+import { ALL_GENRE } from '../../constants';
 import { Actions } from '../store';
 import { AppActionType } from './app-actions';
 
@@ -8,7 +9,7 @@ export type AppState = {
 };
 
 const initialState: AppState = {
-  genre: 'All genres',
+  genre: ALL_GENRE,
   appInitialized: false,
   serverNotWorking: false,
 };

@@ -10,7 +10,7 @@ const RELATED_FILMS_ERROR = 'Could not post your review, please try later';
 
 const postReview = async (filmId: string, comment: ReviewForm): Promise<Review[] | undefined> => {
   try {
-    const { data } = await api.post<Review[]>(BackendRoute.Reviews(filmId), comment);
+    const { data } = await api.post<Review[]>(BackendRoute.getReviewsLink(filmId), comment);
 
     return data.map(adaptReviewToClient);
   } catch (error) {
@@ -20,7 +20,7 @@ const postReview = async (filmId: string, comment: ReviewForm): Promise<Review[]
 
 const fetchRelatedFilms = async (filmId: string): Promise<Film[] | undefined> => {
   try {
-    const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
+    const { data } = await api.get<ServerFilm[]>(BackendRoute.getRelatedFilmsLink(filmId));
 
     return data.map(adaptFilmToClient);
   } catch (error) {

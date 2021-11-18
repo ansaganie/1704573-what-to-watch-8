@@ -1,9 +1,10 @@
+import { ALL_GENRE } from '../../constants';
 import { unknownAction } from '../../setupTests';
 import { setAppInitialized, setGenre, setServerNotWorking } from './app-actions';
 import { appReducer } from './app-reducer';
 
 const initialState = {
-  genre: 'All genres',
+  genre: ALL_GENRE,
   appInitialized: false,
   serverNotWorking: false,
 };

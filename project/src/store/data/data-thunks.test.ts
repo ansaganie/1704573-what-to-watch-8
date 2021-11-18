@@ -65,7 +65,7 @@ describe('Data thunks', () => {
         films: films.map(adaptFilmToClient),
       },
     });
-    mockApi.onPost(BackendRoute.FavoritePost(film.id, status)).reply(200, {
+    mockApi.onPost(BackendRoute.getFavoriteLink(film.id, status)).reply(200, {
       ...film,
       'is_favorite': changedStatus,
     });

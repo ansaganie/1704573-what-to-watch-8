@@ -24,7 +24,7 @@ describe('Data thunks', () => {
     const film = getFakeServerFilm();
     const store = mockStore();
     mockApi
-      .onGet(BackendRoute.Film(film.id))
+      .onGet(BackendRoute.getFilmsLink(film.id))
       .reply(200, { ...film });
 
     expect(store.getActions()).toEqual([]);
@@ -48,7 +48,7 @@ describe('Data thunks', () => {
     });
 
     mockApi
-      .onGet(BackendRoute.Reviews(film.id))
+      .onGet(BackendRoute.getReviewsLink(film.id))
       .reply(200, reviews);
 
     expect(store.getActions()).toEqual([]);

@@ -90,7 +90,7 @@ function ReviewForm(props: ReviewFormProps): JSX.Element {
 
           setSubmitting(false);
           toast.success(POST_SUCCESS);
-          history.push(AppRoute.FilmPage.replace(':id', filmId.toString()));
+          history.push(AppRoute.getFilmsLink(filmId));
         });
     }
   };

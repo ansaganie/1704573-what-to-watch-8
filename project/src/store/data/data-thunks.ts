@@ -52,7 +52,7 @@ const postToggleFavorite = (filmId: string, status: Favorite): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       dispatch(setMyListButtonDisabled(true));
-      const { data } = await api.post<ServerFilm>(BackendRoute.FavoritePost(filmId, status));
+      const { data } = await api.post<ServerFilm>(BackendRoute.getFavoriteLink(filmId, status));
       dispatch(updateFilm(adaptFilmToClient(data)));
     } catch (error) {
       toast.info(TOGGLE_FAVORITE_ERROR);

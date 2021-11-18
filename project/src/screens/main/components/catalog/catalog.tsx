@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { ALL_GENRE, FILMS_INITIAL_COUNT, FILMS_STEP } from '../../../../constants';
+import { ALL_GENRE } from '../../../../constants';
 import { fetchFilms } from '../../../../store/data/data-thunks';
 import { getFilteredFilms, getGenres } from '../../../../store/data/data-selectors';
 import { setGenre } from '../../../../store/app/app-actions';
@@ -8,6 +8,9 @@ import Genres from '../genres/genres';
 import FilmsList from '../../../../components/films-list/films-list';
 import Spinner from '../../../../UI/spinner/Spinner';
 import { AsyncDispatch, State } from '../../../../store/store';
+
+const FILMS_INITIAL_COUNT = 8;
+const FILMS_STEP = 8;
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),

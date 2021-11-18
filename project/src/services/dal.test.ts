@@ -28,7 +28,7 @@ describe('Data access layer', () => {
     const expected = films.map(adaptFilmToClient);
 
     mockApi
-      .onGet(BackendRoute.Similar(film.id))
+      .onGet(BackendRoute.getRelatedFilmsLink(film.id))
       .reply(200, films);
 
     const response = await fetchRelatedFilms(film.id);
@@ -47,7 +47,7 @@ describe('Data access layer', () => {
     const expected = [...reviews, { ...review }] ;
 
     mockApi
-      .onPost(BackendRoute.Reviews(film.id))
+      .onPost(BackendRoute.getReviewsLink(film.id))
       .reply(201, [...reviews, review]);
 
     const response = await postReview(film.id, reviewForm);

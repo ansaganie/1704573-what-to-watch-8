@@ -70,7 +70,7 @@ function Player(): JSX.Element {
   };
 
   const exitClickHandler = () => {
-    history.push(AppRoute.FilmPage.replace(':id', id));
+    history.push(AppRoute.getFilmsLink(id));
   };
 
   const playHandler = () => {

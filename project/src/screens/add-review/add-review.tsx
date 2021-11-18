@@ -37,7 +37,7 @@ function AddReview(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={AppRoute.FilmPage.replace(':id', id)} className="breadcrumbs__link">{name}</Link>
+                <Link to={AppRoute.getFilmsLink(id)} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link">Add review</span>

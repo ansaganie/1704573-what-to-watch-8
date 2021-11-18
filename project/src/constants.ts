@@ -1,5 +1,5 @@
-const FILMS_INITIAL_COUNT = 8;
-const FILMS_STEP = 8;
+const getFilmsLink = (filmId: string): string => `/films/${filmId}`;
+
 const ALL_GENRE = 'All genres';
 
 enum AuthStatus {
@@ -8,29 +8,26 @@ enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-enum AppRoute {
-  Main = '/',
-  SignIn = '/login',
-  MyList = '/mylist',
-  FilmPage = '/films/:id',
-  AddReview = '/films/:id/review',
-  Player = '/player/:id',
-}
+const AppRoute = {
+  Main: '/',
+  SignIn: '/login',
+  MyList: '/mylist',
+  FilmPage: '/films/:id',
+  AddReview: '/films/:id/review',
+  Player: '/player/:id',
+  getFilmsLink,
+};
 
 const BackendRoute = {
   Films: '/films',
   PromoFilm: '/promo',
   Favorite: '/favorite',
-  FavoritePost: (filmId: string, status: Favorite): string => `/favorite/${filmId}/${status}`,
   Login: '/login',
   Logout: '/logout',
-  Similar(filmId: string): string {
-    return `${this.Films}/${filmId}/similar`;
-  },
-  Film(filmId: string): string {
-    return `${this.Films}/${filmId}`;
-  },
-  Reviews: (filmId: string): string => `/comments/${filmId}`,
+  getFavoriteLink: (filmId: string, status: Favorite): string => `/favorite/${filmId}/${status}`,
+  getRelatedFilmsLink: (filmId: string): string => `/films/${filmId}/similar`,
+  getReviewsLink: (filmId: string): string => `/comments/${filmId}`,
+  getFilmsLink,
 };
 
 enum Favorite {
@@ -51,7 +48,5 @@ export {
   BackendRoute,
   Favorite,
   ReducerNameSpace,
-  FILMS_INITIAL_COUNT,
-  FILMS_STEP,
   ALL_GENRE
 };

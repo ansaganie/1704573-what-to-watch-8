@@ -20,7 +20,7 @@ const fetchFilm = (filmId: string): AsyncAction =>
     dispatch(setIsFilmLoading(true));
 
     try {
-      const response = await api.get<ServerFilm>(BackendRoute.Film(filmId));
+      const response = await api.get<ServerFilm>(BackendRoute.getFilmsLink(filmId));
 
       dispatch(addFilm(adaptFilmToClient(response.data)));
     } catch (error) {
@@ -36,7 +36,7 @@ const fetchReviews = (filmId: string): AsyncAction =>
     dispatch(setIsReviewsLoading(true));
 
     try {
-      const { data } = await api.get<Review[]>(BackendRoute.Reviews(filmId));
+      const { data } = await api.get<Review[]>(BackendRoute.getReviewsLink(filmId));
 
       dispatch(setReviews(filmId, data.map(adaptReviewToClient)));
     } catch (error) {

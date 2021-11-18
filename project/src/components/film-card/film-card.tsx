@@ -37,7 +37,7 @@ function FilmCard({
       </div>
       <h3 className="small-film-card__title">
         <Link
-          to={AppRoute.FilmPage.replace(':id', id)}
+          to={AppRoute.getFilmsLink(id)}
           className="small-film-card__link"
         >
           {name}

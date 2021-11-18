@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
-import { AppRoute, AuthStatus } from './constants';
+import { ALL_GENRE, AppRoute, AuthStatus } from './constants';
 import { App } from './app';
 import { getFakeFilms, getFakeReviews, getFakeUser } from './utils/mock';
 import { Actions, api, State } from './store/store';
@@ -23,7 +23,7 @@ const state: State = {
     isMyListLoading: false,
   },
   app: {
-    genre: 'All genres',
+    genre: ALL_GENRE,
     appInitialized: true,
     serverNotWorking: false,
   },
@@ -96,7 +96,7 @@ describe('Component App', () => {
   });
 
   it('should show FilmPage Screen', () => {
-    history.push(AppRoute.FilmPage.replace(':id', fakePromoFilm.id));
+    history.push(AppRoute.getFilmsLink(fakePromoFilm.id));
 
     act(() => {
       render(fakeApp);
