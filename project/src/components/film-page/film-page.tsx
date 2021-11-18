@@ -13,10 +13,11 @@ import Spinner from '../spinner/Spinner';
 import PlayButton from '../play-button/play-button';
 import MyListButton from '../my-list-button/my-list-button';
 import useScrollToTitle from '../../hooks/use-scroll-to-title';
+import { getAuthStatus } from '../../store/user/user-selectors';
 
 
 const mapStateToProps = (state: State) => ({
-  authStatus: state.user.authStatus,
+  authStatus: getAuthStatus(state),
 });
 
 const connector = connect(mapStateToProps);

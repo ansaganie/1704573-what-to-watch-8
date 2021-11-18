@@ -4,9 +4,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import { RouteProps } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../constants';
 import { State } from '../../store/store';
+import { getAuthStatus } from '../../store/user/user-selectors';
 
 const mapStateToProps = (state: State) => ({
-  authStatus: state.user.authStatus,
+  authStatus: getAuthStatus(state),
 });
 
 const connector = connect(mapStateToProps);

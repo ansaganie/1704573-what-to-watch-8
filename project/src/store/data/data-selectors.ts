@@ -2,10 +2,12 @@ import { createSelector } from 'reselect';
 import { ALL_GENRE } from '../../constants';
 import { Film } from '../../types/film';
 import { distinctFilter } from '../../utils/film';
+import { getGenre } from '../app/app-selector';
 import { State } from '../store';
 
 const getFilms = (state: State): Film[] => state.data.films;
-const getGenre = (state: State) => state.app.genre;
+const getPromoFilmId = (state: State): string => state.data.promoFilmId;
+const getIsFilmsLoading = (state: State): boolean => state.data.isFilmsLoading;
 
 const getFilteredFilms = createSelector(
   [ getFilms, getGenre ],
@@ -38,6 +40,8 @@ const getGenres = createSelector(
 
 export {
   getFilms,
+  getPromoFilmId,
+  getIsFilmsLoading,
   getFilteredFilms,
   getGenres
 };

@@ -2,10 +2,11 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Favorite } from '../../constants';
 import { postToggleFavorite } from '../../store/data/data-thunks';
+import { getMyListButtonDisabled } from '../../store/film/film-selectors';
 import { AsyncDispatch, State } from '../../store/store';
 
 const mapStateToProps = (state: State) => ({
-  myListButtonDisabled: state.film.myListButtonDisabled,
+  myListButtonDisabled: getMyListButtonDisabled(state),
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({

@@ -11,11 +11,12 @@ import { SignInForm } from '../../types/sign-in-form';
 import { login } from '../../store/user/user-thunks';
 import { AppRoute, AuthStatus } from '../../constants';
 import { AsyncDispatch, State } from '../../store/store';
+import { getAuthStatus } from '../../store/user/user-selectors';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 const mapStateToProps = (state: State) => ({
-  authStatus: state.user.authStatus,
+  authStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({

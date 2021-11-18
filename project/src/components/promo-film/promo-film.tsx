@@ -2,6 +2,8 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../store/store';
 import { AuthStatus } from '../../constants';
+import { getPromoFilmId } from '../../store/data/data-selectors';
+import { getAuthStatus } from '../../store/user/user-selectors';
 import useLoadFilm from '../../hooks/use-load-film';
 import Header from '../header/header';
 import Spinner from '../spinner/Spinner';
@@ -9,8 +11,8 @@ import PlayButton from '../play-button/play-button';
 import MyListButton from '../my-list-button/my-list-button';
 
 const mapStateToProps = (state: State) => ({
-  promoFilmId: state.data.promoFilmId,
-  authStatus: state.user.authStatus,
+  promoFilmId: getPromoFilmId(state),
+  authStatus: getAuthStatus(state),
 });
 
 const connector = connect(mapStateToProps);

@@ -2,21 +2,22 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { ALL_GENRE } from '../../constants';
 import { fetchFilms } from '../../store/data/data-thunks';
-import { getFilteredFilms, getGenres } from '../../store/data/data-selectors';
+import { getFilteredFilms, getGenres, getIsFilmsLoading } from '../../store/data/data-selectors';
 import { setGenre } from '../../store/app/app-actions';
 import Genres from '../genres/genres';
 import FilmsList from '../films-list/films-list';
 import Spinner from '../spinner/Spinner';
 import { AsyncDispatch, State } from '../../store/store';
+import { getGenre } from '../../store/app/app-selector';
 
 const FILMS_INITIAL_COUNT = 8;
 const FILMS_STEP = 8;
 
 const mapStateToProps = (state: State) => ({
   films: getFilteredFilms(state),
-  isFilmsLoading: state.data.isFilmsLoading,
+  isFilmsLoading: getIsFilmsLoading(state),
   genres: getGenres(state),
-  activeGenre: state.app.genre,
+  activeGenre: getGenre(state),
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({

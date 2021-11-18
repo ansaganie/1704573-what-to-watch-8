@@ -4,10 +4,11 @@ import { AppRoute, AuthStatus } from '../../constants';
 import { connect, ConnectedProps } from 'react-redux';
 import { logout } from '../../store/user/user-thunks';
 import { AsyncDispatch, State } from '../../store/store';
+import { getAuthStatus, getUser } from '../../store/user/user-selectors';
 
 const mapStateToProps = (state: State) => ({
-  authStatus: state.user.authStatus,
-  user: state.user.user,
+  authStatus: getAuthStatus(state),
+  user: getUser(state),
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({

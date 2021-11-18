@@ -15,10 +15,11 @@ import PrivateRoute from './components/private-route/private-route';
 import Sprite from './components/sprite/sprite';
 import Spinner from './components/spinner/Spinner';
 import ServerNotWorking from './components/server-not-working/server-not-working';
+import { getAppInitialized, getServerNotWorking } from './store/app/app-selector';
 
 const mapStateToProps = (state: State) => ({
-  appInitialized: state.app.appInitialized,
-  serverNotWorking: state.app.serverNotWorking,
+  appInitialized: getAppInitialized(state),
+  serverNotWorking: getServerNotWorking(state),
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
