@@ -1,10 +1,10 @@
-import { Film } from '../../types/film';
+import { Film, FilmId } from '../../types/film';
 import { Actions } from '../store';
 import { DataActionType } from './data-actions';
 
 export type DataState = {
   films: Film[];
-  promoFilmId: string;
+  promoFilmId: FilmId;
   isFilmsLoading: boolean;
 };
 

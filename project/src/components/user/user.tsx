@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { AppRoute, AuthStatus } from '../../constants';
 import { connect, ConnectedProps } from 'react-redux';
+import { AppRoute, AuthStatus } from '../../constants';
 import { logout } from '../../store/user/user-thunks';
 import { AsyncDispatch, State } from '../../store/store';
 import { getAuthStatus, getUser } from '../../store/user/user-selectors';
@@ -23,7 +23,6 @@ type UserProps = ConnectedProps<typeof connector>;
 
 function User(props: UserProps): JSX.Element {
   const { authStatus, user, signOut } = props;
-
   const history = useHistory();
 
   const signOutClickHandler = () => {

@@ -23,7 +23,10 @@ function Genres(props: GenreProps): JSX.Element {
       {genres.map((value) => (
         <li
           key={value}
-          className={`catalog__genres-item ${value === activeGenre ? 'catalog__genres-item--active' : ''} `}
+          className={`
+            catalog__genres-item
+            ${value === activeGenre && 'catalog__genres-item--active'}
+          `}
         >
           <a
             href={'/'}

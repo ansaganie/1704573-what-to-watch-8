@@ -109,7 +109,7 @@ describe('Component App', () => {
   it('should show Player Screen', () => {
     const playButtonLabel = 'Play';
 
-    history.push(AppRoute.Player.replace(':id', fakePromoFilm.id));
+    history.push(AppRoute.getPlayerLink(fakePromoFilm.id));
 
     act(() => {
       render(fakeApp);
@@ -119,7 +119,7 @@ describe('Component App', () => {
   });
 
   it('should show Add Review Screen', () => {
-    history.push(AppRoute.AddReview.replace(':id', fakePromoFilm.id));
+    history.push(AppRoute.getAddReviewLink(fakePromoFilm.id));
 
     act(() => {
       render(fakeApp);

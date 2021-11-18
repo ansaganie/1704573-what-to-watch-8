@@ -1,3 +1,4 @@
+import { FilmId } from '../../types/film';
 import { FilmReview } from '../../types/review';
 import { Actions } from '../store';
 import { FilmActionType } from './film-actions';
@@ -7,7 +8,7 @@ export type FilmState = {
   isFilmLoading: boolean,
   reviews: FilmReview,
   isReviewsLoading: boolean,
-  notFoundFilmId: string,
+  notFoundFilmId: FilmId,
 };
 
 const initialState: FilmState = {

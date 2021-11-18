@@ -1,17 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import useLoadFilm from '../../hooks/use-load-film';
 import { formatTimeElapsed } from '../../utils/date';
 import { AppRoute } from '../../constants';
+import { FilmId } from '../../types/film';
+import useLoadFilm from '../../hooks/use-load-film';
 import Spinner from '../spinner/Spinner';
 import NotFound from '../not-found/not-found';
 
 function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const history = useHistory();
-  const { id } = useParams<{ id: string }>();
+  const { id: filmId } = useParams<{ id: FilmId }>();
 
-  const [ film, isFilmLoading ] = useLoadFilm(id);
+  const [ film, isFilmLoading ] = useLoadFilm(filmId);
 
   const [ isPlaying, setIsPlaying ] = useState(false);
   const [ isVideoLoading, setIsVideoLoading ] = useState(true);
@@ -70,7 +71,7 @@ function Player(): JSX.Element {
   };
 
   const exitClickHandler = () => {
-    history.push(AppRoute.getFilmsLink(id));
+    history.push(AppRoute.getFilmsLink(filmId));
   };
 
   const playHandler = () => {
@@ -103,9 +104,13 @@ function Player(): JSX.Element {
               onLoadedData={loadedDataHandler}
             />
         }
-
-        <button type="button" className="player__exit" onClick={exitClickHandler}>Exit</button>
-
+        <button
+          type="button"
+          className="player__exit"
+          onClick={exitClickHandler}
+        >
+          Exit
+        </button>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">

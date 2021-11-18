@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import FilmsList from '../films-list/films-list';
-import { Film } from '../../types/film';
-import Spinner from '../spinner/Spinner';
+import { Film, FilmId } from '../../types/film';
 import { fetchRelatedFilms } from '../../services/dal';
+import FilmsList from '../films-list/films-list';
+import Spinner from '../spinner/Spinner';
 
 const MAX_RELATED_FILMS_COUNT = 4;
 
 type RelatedFilmsProps = {
-  filmId: string,
+  filmId: FilmId,
 }
 
 function RelatedFilms(props: RelatedFilmsProps): JSX.Element | null {

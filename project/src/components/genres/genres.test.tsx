@@ -9,6 +9,7 @@ describe('Screen: Main. Component: Genres', () => {
     const genres = getFakeFilms()
       .map(({ genre }) => genre)
       .filter(distinctFilter);
+    const activeGenreIndex = 0;
 
     const onGenreClick = jest.fn();
 
@@ -16,7 +17,7 @@ describe('Screen: Main. Component: Genres', () => {
       render(
         <Genres
           genres={genres}
-          activeGenre={genres[0]}
+          activeGenre={genres[activeGenreIndex]}
           onGenreClick={onGenreClick}
         />,
       );

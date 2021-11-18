@@ -19,7 +19,11 @@ function Details(props: DetailsProps):JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {starring.map((star) => <Fragment key={star}>{star}<br /></Fragment>)}
+            {
+              starring.map((star) => (
+                <Fragment key={star}>{star}<br/></Fragment>
+              ))
+            }
           </span>
         </p>
       </div>
@@ -27,7 +31,9 @@ function Details(props: DetailsProps):JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{formatFilmDuration(runTime)}</span>
+          <span className="film-card__details-value">
+            {formatFilmDuration(runTime)}
+          </span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

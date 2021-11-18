@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import * as hooks from '../../hooks/use-load-film';
 import * as Header from '../header/header';
-import * as sideEffects from '../../hooks/use-scroll-to-title';
+import * as useScrollToTitle from '../../hooks/use-scroll-to-title';
 import AddReview from './add-review';
 
 const mockStore = configureMockStore();
@@ -18,13 +18,12 @@ describe('Screen: Add review', () => {
       .mockImplementation(() => [film, false]);
     jest.spyOn(Header, 'default')
       .mockImplementation(() => (<div/>));
-    jest.spyOn(sideEffects, 'default')
+    jest.spyOn(useScrollToTitle, 'default')
       .mockImplementation(jest.fn());
 
-    const history = createMemoryHistory();
     render(
       <Provider store={mockStore(mockStore())}>
-        <Router history={history}>
+        <Router history={createMemoryHistory()}>
           <AddReview/>
         </Router>
       </Provider>,
@@ -38,13 +37,12 @@ describe('Screen: Add review', () => {
       .mockImplementation(() => [null, false]);
     jest.spyOn(Header, 'default')
       .mockImplementation(() => (<div/>));
-    jest.spyOn(sideEffects, 'default')
+    jest.spyOn(useScrollToTitle, 'default')
       .mockImplementation(jest.fn());
 
-    const history = createMemoryHistory();
     render(
       <Provider store={mockStore()}>
-        <Router history={history}>
+        <Router history={createMemoryHistory()}>
           <AddReview/>
         </Router>
       </Provider>,

@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../store/store';
 import { AppRoute, AuthStatus } from '../../constants';
+import { getAuthStatus } from '../../store/user/user-selectors';
+import { FilmId } from '../../types/film';
 import useLoadFilm from '../../hooks/use-load-film';
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -13,7 +15,7 @@ import Spinner from '../spinner/Spinner';
 import PlayButton from '../play-button/play-button';
 import MyListButton from '../my-list-button/my-list-button';
 import useScrollToTitle from '../../hooks/use-scroll-to-title';
-import { getAuthStatus } from '../../store/user/user-selectors';
+import BackgroundImage from '../background-image/background-image';
 
 
 const mapStateToProps = (state: State) => ({
@@ -24,15 +26,12 @@ const connector = connect(mapStateToProps);
 
 type FilmPageProps = ConnectedProps<typeof connector>;
 
-function FilmPage(props: FilmPageProps): JSX.Element {
-  const { authStatus } = props;
+function FilmPage({ authStatus }: FilmPageProps): JSX.Element {
   const isAuthorized = authStatus === AuthStatus.Auth;
+  const { id: filmId } = useParams<{ id: FilmId }>();
+  const [ film, isFilmLoading ] = useLoadFilm(filmId);
 
-  const { id } = useParams<{ id: string }>();
-
-  useScrollToTitle(id);
-
-  const [ film, isFilmLoading ] = useLoadFilm(id);
+  useScrollToTitle(filmId);
 
   if (isFilmLoading) {
     return (
@@ -57,9 +56,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
     <React.Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src={backgroundImage} alt={name}/>
-          </div>
+          <BackgroundImage backgroundImage={backgroundImage} alt={name}/>
           <h1 className="visually-hidden">WTW</h1>
           <Header filmCard/>
           <div className="film-card__wrap">
@@ -70,21 +67,22 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton filmId={id}/>
+                <PlayButton filmId={filmId}/>
                 {
-                  isAuthorized &&
+                  isAuthorized && (
                     <>
                       <MyListButton
                         isFavorite={isFavorite}
-                        filmId={id}
+                        filmId={filmId}
                       />
                       <Link
-                        to={AppRoute.AddReview.replace(':id', id)}
+                        to={AppRoute.getAddReviewLink(filmId)}
                         className="btn film-card__button"
                       >
                         Add review
                       </Link>
                     </>
+                  )
                 }
               </div>
             </div>
@@ -100,14 +98,12 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                 height="327"
               />
             </div>
-            <div className="film-card__desc">
-              <FilmTabs film={film}/>
-            </div>
+            <FilmTabs film={film}/>
           </div>
         </div>
       </section>
       <div className="page-content">
-        <RelatedFilms filmId={id}/>
+        <RelatedFilms filmId={filmId}/>
         <Footer/>
       </div>
     </React.Fragment>

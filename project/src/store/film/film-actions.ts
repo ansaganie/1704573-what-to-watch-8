@@ -1,3 +1,4 @@
+import { FilmId } from '../../types/film';
 import { Review } from '../../types/review';
 
 enum FilmActionType {
@@ -19,12 +20,12 @@ const setIsFilmLoading = (isFilmLoading: boolean) => ({
   payload: { isFilmLoading },
 } as const);
 
-const setReviews = (filmId: string, reviews: Review[]) => ({
+const setReviews = (filmId: FilmId, reviews: Review[]) => ({
   type: FilmActionType.SetReviews,
   payload: { filmId, reviews },
 } as const);
 
-const addReview = (filmId: string, review: Review) => ({
+const addReview = (filmId: FilmId, review: Review) => ({
   type: FilmActionType.AddReview,
   payload: { filmId, review },
 } as const);
@@ -34,7 +35,7 @@ const setIsReviewsLoading = (isReviewsLoading: boolean) => ({
   payload: { isReviewsLoading },
 } as const);
 
-const setFilmNotFound = (filmId: string) => ({
+const setFilmNotFound = (filmId: FilmId) => ({
   type: FilmActionType.SetFilmNotFound,
   payload: { filmId },
 } as const);

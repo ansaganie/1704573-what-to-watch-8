@@ -9,6 +9,7 @@ import Header from '../header/header';
 import Spinner from '../spinner/Spinner';
 import PlayButton from '../play-button/play-button';
 import MyListButton from '../my-list-button/my-list-button';
+import BackgroundImage from '../background-image/background-image';
 
 const mapStateToProps = (state: State) => ({
   promoFilmId: getPromoFilmId(state),
@@ -27,25 +28,17 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
 
   const [ film, isFilmLoading ] = useLoadFilm(promoFilmId, true);
   const isAuthorized = authStatus === AuthStatus.Auth;
-  let background: JSX.Element | null = null;
   let promoCard: JSX.Element | null = null;
 
   if (film) {
     const {
       posterImage,
-      backgroundImage,
       name,
       released,
       genre,
       id,
       isFavorite,
     } = film;
-
-    background = (
-      <div className="film-card__bg">
-        <img src={backgroundImage} alt={name}/>
-      </div>
-    );
 
     promoCard = (
       <div className="film-card__wrap">
@@ -85,7 +78,10 @@ function PromoFilm(props: PromoFilmProps): JSX.Element {
       className="film-card"
       style={{backgroundImage: 'linear-gradient(-180deg, #180202 100%, #000000 0%)'}}
     >
-      {background}
+      <BackgroundImage
+        backgroundImage={film?.backgroundImage}
+        alt={film?.name}
+      />
       <h1 className="visually-hidden">WTW</h1>
       <Header filmCard/>
       { isFilmLoading && <Spinner/> }

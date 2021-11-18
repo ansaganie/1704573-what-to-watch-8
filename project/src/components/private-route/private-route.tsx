@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
-import { RouteProps } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../constants';
 import { State } from '../../store/store';
 import { getAuthStatus } from '../../store/user/user-selectors';

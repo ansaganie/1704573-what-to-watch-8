@@ -4,13 +4,14 @@ import { Favorite } from '../../constants';
 import { postToggleFavorite } from '../../store/data/data-thunks';
 import { getMyListButtonDisabled } from '../../store/film/film-selectors';
 import { AsyncDispatch, State } from '../../store/store';
+import { FilmId } from '../../types/film';
 
 const mapStateToProps = (state: State) => ({
   myListButtonDisabled: getMyListButtonDisabled(state),
 });
 
 const mapDispatchToProps = (dispatch: AsyncDispatch) => ({
-  toggleFavorite(filmId: string, status: Favorite) {
+  toggleFavorite(filmId: FilmId, status: Favorite) {
     dispatch(postToggleFavorite(filmId, status));
   },
 });
@@ -19,7 +20,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type MyListButtonProps = ConnectedProps<typeof connector> & {
   isFavorite: boolean,
-  filmId: string,
+  filmId: FilmId,
 };
 
 function MyListButton(props: MyListButtonProps): JSX.Element {
@@ -43,7 +44,9 @@ function MyListButton(props: MyListButtonProps): JSX.Element {
     >
       <svg viewBox="0 0 19 20" width="19" height="20">
         {
-          isFavorite ? <use xlinkHref="#in-list"/> : <use xlinkHref="#add"/>
+          isFavorite
+            ? <use xlinkHref="#in-list"/>
+            : <use xlinkHref="#add"/>
         }
       </svg>
       <span>My list</span>

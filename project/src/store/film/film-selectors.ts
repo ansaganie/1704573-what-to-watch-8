@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { FilmId } from '../../types/film';
 import { FilmReview } from '../../types/review';
 import { State } from '../store';
 
@@ -11,7 +12,7 @@ const getNotFoundFilmId = (state: State): string  => state.film.notFoundFilmId;
 const getReviewsByFilmId = createSelector(
   [
     getReviews,
-    (state: State, filmId: string) => filmId,
+    (state: State, filmId: FilmId) => filmId,
   ],
   (reviews, filmId) => reviews[filmId],
 );

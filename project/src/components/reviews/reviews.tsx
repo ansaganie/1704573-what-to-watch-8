@@ -1,6 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../store/store';
+import { FilmId } from '../../types/film';
 import { fetchReviews } from '../../store/film/film-thunks';
 import { getIsReviewsLoading, getReviewsByFilmId } from '../../store/film/film-selectors';
 import ReviewItem from '../review-item/review-item';
@@ -10,7 +11,7 @@ import Message from '../message/message';
 const NO_REVIEW_MESSAGE = 'No review for this film. Please add some';
 
 type ReviewsProps = {
-  filmId: string,
+  filmId: FilmId,
 }
 
 function Reviews(props: ReviewsProps): JSX.Element {
@@ -32,18 +33,19 @@ function Reviews(props: ReviewsProps): JSX.Element {
   }
 
   const reviewElements = reviews
-    .map((review) => <ReviewItem key={review.date.toLocaleString()} review={review}/>);
+    .map((review) => (<ReviewItem key={review.id} review={review}/>));
   const countOfItemsInColumn = Math.ceil(reviewElements.length / 2);
 
   return (
     <div className="film-card__reviews film-card__row">
       {
-        reviews.length === 0 &&
-        <Message
-          message={NO_REVIEW_MESSAGE}
-          fontSize={20}
-          lightBackground
-        />
+        reviews.length === 0 && (
+          <Message
+            message={NO_REVIEW_MESSAGE}
+            fontSize={20}
+            lightBackground
+          />
+        )
       }
       <div className="film-card__reviews-col">
         {reviewElements.slice(0, countOfItemsInColumn)}

@@ -1,4 +1,6 @@
-const getFilmsLink = (filmId: string): string => `/films/${filmId}`;
+import { FilmId } from './types/film';
+
+const getFilmsLink = (filmId: FilmId): string => `/films/${filmId}`;
 
 const ALL_GENRE = 'All genres';
 
@@ -15,6 +17,10 @@ const AppRoute = {
   FilmPage: '/films/:id',
   AddReview: '/films/:id/review',
   Player: '/player/:id',
+  getPlayerLink: (filmId: FilmId):string =>
+    `/player/${filmId}`,
+  getAddReviewLink: (filmId: FilmId):string =>
+    `/films/${filmId}/review`,
   getFilmsLink,
 };
 
@@ -24,9 +30,14 @@ const BackendRoute = {
   Favorite: '/favorite',
   Login: '/login',
   Logout: '/logout',
-  getFavoriteLink: (filmId: string, status: Favorite): string => `/favorite/${filmId}/${status}`,
-  getRelatedFilmsLink: (filmId: string): string => `/films/${filmId}/similar`,
-  getReviewsLink: (filmId: string): string => `/comments/${filmId}`,
+  getFavoriteLink: (
+    filmId: FilmId,
+    status: Favorite,
+  ): string => `/favorite/${filmId}/${status}`,
+  getRelatedFilmsLink: (filmId: FilmId): string =>
+    `/films/${filmId}/similar`,
+  getReviewsLink: (filmId: FilmId): string =>
+    `/comments/${filmId}`,
   getFilmsLink,
 };
 

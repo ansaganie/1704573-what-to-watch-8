@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { BackendRoute, Favorite } from '../../constants';
 import { adaptFilmToClient } from '../../services/adapter';
-import { ServerFilm } from '../../types/film';
+import { FilmId, ServerFilm } from '../../types/film';
 import { setIsFilmLoading, setMyListButtonDisabled } from '../film/film-actions';
 import { AsyncAction } from '../store';
 import {
@@ -48,7 +48,7 @@ const fetchPromoFilm = (): AsyncAction =>
     }
   };
 
-const postToggleFavorite = (filmId: string, status: Favorite): AsyncAction =>
+const postToggleFavorite = (filmId: FilmId, status: Favorite): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       dispatch(setMyListButtonDisabled(true));

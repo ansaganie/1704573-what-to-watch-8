@@ -1,4 +1,4 @@
-import { Film } from '../../types/film';
+import { Film, FilmId } from '../../types/film';
 
 enum DataActionType {
   SetFilms = 'data/set-films',
@@ -14,7 +14,7 @@ const setFilms = (films: Film[]) => ({
   payload: { films },
 } as const);
 
-const setPromoFilmId = (promoFilmId: string) => ({
+const setPromoFilmId = (promoFilmId: FilmId) => ({
   type: DataActionType.SetPromoFilmId,
   payload: { promoFilmId },
 } as const);

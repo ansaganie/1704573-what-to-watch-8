@@ -1,7 +1,10 @@
+export type Genre = string;
+export type FilmId = string;
+
 type Common = {
-  id: string,
+  id: FilmId,
   name: string,
-  genre: string,
+  genre: Genre,
   released: number,
   rating: number,
   description: string[],

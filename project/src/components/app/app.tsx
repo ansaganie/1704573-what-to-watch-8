@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import { initializeApp } from '../../store/app/app-thunks';
 import { AsyncDispatch, State } from '../../store/store';
+import { getAppInitialized, getServerNotWorking } from '../../store/app/app-selector';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -15,7 +16,6 @@ import PrivateRoute from '../private-route/private-route';
 import Sprite from '../sprite/sprite';
 import Spinner from '../spinner/Spinner';
 import ServerNotWorking from '../server-not-working/server-not-working';
-import { getAppInitialized, getServerNotWorking } from '../../store/app/app-selector';
 
 const mapStateToProps = (state: State) => ({
   appInitialized: getAppInitialized(state),

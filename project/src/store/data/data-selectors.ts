@@ -1,12 +1,14 @@
 import { createSelector } from 'reselect';
 import { ALL_GENRE } from '../../constants';
-import { Film } from '../../types/film';
+import { Film, FilmId } from '../../types/film';
 import { distinctFilter } from '../../utils/film';
 import { getGenre } from '../app/app-selector';
 import { State } from '../store';
 
+const MAX_GENRES_COUNT = 9;
+
 const getFilms = (state: State): Film[] => state.data.films;
-const getPromoFilmId = (state: State): string => state.data.promoFilmId;
+const getPromoFilmId = (state: State): FilmId => state.data.promoFilmId;
 const getIsFilmsLoading = (state: State): boolean => state.data.isFilmsLoading;
 
 const getFilteredFilms = createSelector(
@@ -34,7 +36,7 @@ const getGenres = createSelector(
         genres.push(value);
       });
 
-    return genres.slice(0, 10);
+    return genres.slice(0, MAX_GENRES_COUNT + 1);
   },
 );
 

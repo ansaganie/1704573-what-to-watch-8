@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { BackendRoute } from '../../constants';
 import { adaptFilmToClient, adaptReviewToClient } from '../../services/adapter';
-import { ServerFilm } from '../../types/film';
+import { FilmId, ServerFilm } from '../../types/film';
 import { Review } from '../../types/review';
 import { addFilm } from '../data/data-actions';
 import { AsyncAction } from '../store';
@@ -15,7 +15,7 @@ import {
 const FILM_NOT_FOUND = 'Could not find the film with id: /id/';
 const FETCH_REVIEWS_ERROR = 'Could not load reviews for this film';
 
-const fetchFilm = (filmId: string): AsyncAction =>
+const fetchFilm = (filmId: FilmId): AsyncAction =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setIsFilmLoading(true));
 
@@ -31,9 +31,11 @@ const fetchFilm = (filmId: string): AsyncAction =>
     }
   };
 
-const fetchReviews = (filmId: string): AsyncAction =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setIsReviewsLoading(true));
+const fetchReviews = (filmId: FilmId): AsyncAction =>
+  async (dispatch, getState, api): Promise<void> => {
+    if (!getState().film.reviews[filmId]) {
+      dispatch(setIsReviewsLoading(true));
+    }
 
     try {
       const { data } = await api.get<Review[]>(BackendRoute.getReviewsLink(filmId));

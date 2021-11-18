@@ -15,6 +15,11 @@ import { getAuthStatus } from '../../store/user/user-selectors';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
+const INITIAL_VALUES: SignInForm = {
+  email: '',
+  password: '',
+};
+
 const mapStateToProps = (state: State) => ({
   authStatus: getAuthStatus(state),
 });
@@ -38,12 +43,7 @@ function SignIn(props: SignInProps): JSX.Element {
     );
   }
 
-  const initialValues: SignInForm = {
-    email: '',
-    password: '',
-  };
-
-  const formSubmitHandler = (values: SignInForm, { setSubmitting }: FormikHelpers<SignInForm>) => {
+  const onFormSubmit = (values: SignInForm, { setSubmitting }: FormikHelpers<SignInForm>) => {
     setSubmitting(true);
     signIn(values);
   };
@@ -74,8 +74,8 @@ function SignIn(props: SignInProps): JSX.Element {
       </Header>
       <div className="sign-in user-page__content">
         <Formik
-          initialValues={initialValues}
-          onSubmit={formSubmitHandler}
+          initialValues={INITIAL_VALUES}
+          onSubmit={onFormSubmit}
           validate={validate}
         >
           {({ isSubmitting, errors }) => (
@@ -94,7 +94,12 @@ function SignIn(props: SignInProps): JSX.Element {
                     name="email"
                     id="email"
                   />
-                  <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+                  <label
+                    className="sign-in__label visually-hidden"
+                    htmlFor="user-email"
+                  >
+                    Email address
+                  </label>
                 </div>
                 <div
                   className={`sign-in__field ${errors.password && 'sign-in__field--error'}`}
@@ -106,7 +111,12 @@ function SignIn(props: SignInProps): JSX.Element {
                     name="password"
                     id="password"
                   />
-                  <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+                  <label
+                    className="sign-in__label visually-hidden"
+                    htmlFor="user-password"
+                  >
+                    Password
+                  </label>
                 </div>
               </div>
               <div className="sign-in__submit">

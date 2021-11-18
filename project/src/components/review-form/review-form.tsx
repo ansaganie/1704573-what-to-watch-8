@@ -1,11 +1,12 @@
 import React, { useState, Fragment, useCallback } from 'react';
-import styles from './review-form.module.css';
 import { useHistory } from 'react-router-dom';
-import { AppRoute } from '../../constants';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { FilmId } from '../../types/film';
+import { AppRoute } from '../../constants';
 import { postReview } from '../../services/dal';
 import { setReviews } from '../../store/film/film-actions';
-import { toast } from 'react-toastify';
+import styles from './review-form.module.css';
 
 const RATING_VALUES = [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ];
 const COMMENT_MIN_LENGTH = 50;
@@ -14,7 +15,7 @@ const POST_SUCCESS = 'Thank you for your review';
 
 type ReviewFormProps = {
   rating: number,
-  filmId: string,
+  filmId: FilmId,
 }
 
 function ReviewForm(props: ReviewFormProps): JSX.Element {

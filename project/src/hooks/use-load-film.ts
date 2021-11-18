@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Film } from '../types/film';
+import { Film, FilmId } from '../types/film';
 import { getFilms } from '../store/data/data-selectors';
 import { getNotFoundFilmId, getIsFilmLoading } from '../store/film/film-selectors';
 import { fetchFilm } from '../store/film/film-thunks';
@@ -8,7 +8,7 @@ import { fetchPromoFilm } from '../store/data/data-thunks';
 
 type UseFilmLoad = [ film: Film | null, loading: boolean];
 
-const useLoadFilm = (filmId: string, isPromoFilm?: boolean): UseFilmLoad => {
+const useLoadFilm = (filmId: FilmId, isPromoFilm?: boolean): UseFilmLoad => {
   const [ film, setFilm ] = useState<Film | null>(null);
   const [ notFound, setNotFound ] = useState(false);
 

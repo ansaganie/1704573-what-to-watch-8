@@ -1,3 +1,5 @@
+import { FilmId } from './film';
+
 export type ReviewForm = {
   rating: number,
   comment: string,
@@ -15,5 +17,5 @@ export type ReviewUser = {
 }
 
 export type FilmReview = {
-  [filmId: string]:  Review[]
+  [filmId: FilmId]:  Review[]
 }

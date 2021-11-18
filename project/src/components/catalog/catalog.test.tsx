@@ -5,16 +5,19 @@ import { Catalog } from './catalog';
 import { getFakeFilms } from '../../utils/mock';
 import { distinctFilter } from '../../utils/film';
 
+const MAX_FILM_COUNT = 8;
+
 describe('Screen: Main. Component: Catalog', () => {
   it('should render correctly', () => {
     const films = getFakeFilms();
-    const expectedFilmsLength = films.length > 8 ? 8 : films.length;
+    const expectedFilmsLength = films.length > MAX_FILM_COUNT ? MAX_FILM_COUNT : films.length;
     const genres = films
       .map(({ genre }) => genre)
       .filter(distinctFilter);
-    const expectedLinksCount = expectedFilmsLength + genres.length;
+
     const downloadFilms = jest.fn();
     const updateGenre = jest.fn();
+    const expectedLinksCount = expectedFilmsLength + genres.length;
 
     act(() => {
       render(

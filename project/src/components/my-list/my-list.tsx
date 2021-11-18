@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsMyListLoading, getMyList } from '../../store/user/user-selectors';
+import { fetchMyList } from '../../store/user/user-thunks';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import FilmsList from '../films-list/films-list';
 import Message from '../message/message';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIsMyListLoading, getMyList } from '../../store/user/user-selectors';
-import { fetchMyList } from '../../store/user/user-thunks';
 import Spinner from '../spinner/Spinner';
 
 const NO_FAVORITE_FILMS = 'Your list of favorite films is empty for now';
@@ -27,11 +27,12 @@ function MyList(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         {
-          (!isMyListLoading && myList.length === 0) &&
+          (!isMyListLoading && myList.length === 0) &&(
             <Message
               message={NO_FAVORITE_FILMS}
               centered
             />
+          )
         }
         {
           (isMyListLoading && myList.length === 0)

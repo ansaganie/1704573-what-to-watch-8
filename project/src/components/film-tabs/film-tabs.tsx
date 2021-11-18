@@ -20,34 +20,36 @@ function FilmTabs(props: FilmTabsProps): JSX.Element {
   };
 
   return (
-    <Tabs
-      selectedTabClassName={'film-nav__item--active'}
-      selectedIndex={tabIndex}
-      onSelect={onTabSelect}
-    >
-      <nav className="film-card__nav">
-        <TabList className="film-nav__list">
-          <Tab className=" film-nav__item">
-            <span className="film-nav__link">Overview</span>
-          </Tab>
-          <Tab className="film-nav__item">
-            <span className="film-nav__link">Details</span>
-          </Tab>
-          <Tab className="film-nav__item">
-            <span className="film-nav__link">Reviews</span>
-          </Tab>
-        </TabList>
-      </nav>
-      <TabPanel>
-        <Overview film={film}/>
-      </TabPanel>
-      <TabPanel>
-        <Details film={film}/>
-      </TabPanel>
-      <TabPanel>
-        <Reviews filmId={film.id}/>
-      </TabPanel>
-    </Tabs>
+    <div className="film-card__desc">
+      <Tabs
+        selectedTabClassName={'film-nav__item--active'}
+        selectedIndex={tabIndex}
+        onSelect={onTabSelect}
+      >
+        <nav className="film-card__nav">
+          <TabList className="film-nav__list">
+            <Tab className=" film-nav__item">
+              <span className="film-nav__link">Overview</span>
+            </Tab>
+            <Tab className="film-nav__item">
+              <span className="film-nav__link">Details</span>
+            </Tab>
+            <Tab className="film-nav__item">
+              <span className="film-nav__link">Reviews</span>
+            </Tab>
+          </TabList>
+        </nav>
+        <TabPanel>
+          <Overview film={film}/>
+        </TabPanel>
+        <TabPanel>
+          <Details film={film}/>
+        </TabPanel>
+        <TabPanel>
+          <Reviews filmId={film.id}/>
+        </TabPanel>
+      </Tabs>
+    </div>
   );
 }
 
