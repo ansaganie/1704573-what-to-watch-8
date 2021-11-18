@@ -4,10 +4,10 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
-import { ALL_GENRE, AppRoute, AuthStatus } from './constants';
-import { App } from './app';
-import { getFakeFilms, getFakeReviews, getFakeUser } from './utils/mock';
-import { Actions, api, State } from './store/store';
+import { ALL_GENRE, AppRoute, AuthStatus } from '../../constants';
+import { App } from '../../components/app/app';
+import { getFakeFilms, getFakeReviews, getFakeUser } from '../../utils/mock';
+import { Actions, api, State } from '../../store/store';
 
 const fakeFilms = getFakeFilms();
 const fakeReviews = getFakeReviews();
