@@ -19,7 +19,10 @@ function Spinner(props: SpinnerProps):JSX.Element {
   }
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      data-testid="spinner"
+    >
       <div className={styles.spinner}>
         <div/>
         <div/>
