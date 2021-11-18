@@ -32,7 +32,6 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type AppProps = ConnectedProps<typeof connector>;
 
-
 function App(props: AppProps): JSX.Element | null {
   const {
     appInitialized,

@@ -15,7 +15,7 @@ function FilmTabs(props: FilmTabsProps): JSX.Element {
 
   useEffect(() => setTabIndex(0), [props.film]);
 
-  const onSelect = (index: number) => {
+  const onTabSelect = (index: number) => {
     setTabIndex(index);
   };
 
@@ -23,7 +23,7 @@ function FilmTabs(props: FilmTabsProps): JSX.Element {
     <Tabs
       selectedTabClassName={'film-nav__item--active'}
       selectedIndex={tabIndex}
-      onSelect={onSelect}
+      onSelect={onTabSelect}
     >
       <nav className="film-card__nav">
         <TabList className="film-nav__list">

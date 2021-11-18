@@ -10,14 +10,14 @@ describe('Screen: Main. Component: Genres', () => {
       .map(({ genre }) => genre)
       .filter(distinctFilter);
 
-    const genreClickHandler = jest.fn();
+    const onGenreClick = jest.fn();
 
     act(() => {
       render(
         <Genres
           genres={genres}
           activeGenre={genres[0]}
-          onGenreClick={genreClickHandler}
+          onGenreClick={onGenreClick}
         />,
       );
     });

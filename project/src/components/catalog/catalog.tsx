@@ -59,7 +59,7 @@ function Catalog(props: CatalogProps): JSX.Element {
     setShownFilmsCount((count) => FILMS_STEP + count);
   };
 
-  const onGenreClick = useCallback((genre) => {
+  const handleGenreClick = useCallback((genre) => {
     updateGenre(genre);
     setShownFilmsCount(FILMS_INITIAL_COUNT);
   }, [updateGenre]);
@@ -73,7 +73,7 @@ function Catalog(props: CatalogProps): JSX.Element {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <Genres activeGenre={activeGenre} genres={genres} onGenreClick={onGenreClick}/>
+      <Genres activeGenre={activeGenre} genres={genres} onGenreClick={handleGenreClick}/>
       <FilmsList films={shownFilms}/>
       {
         shownFilmsCount <= shownFilms.length &&

@@ -45,7 +45,6 @@ function FilmCard({
       className="small-film-card catalog__films-card"
       onMouseOver={mouseOverHandler}
       onMouseLeave={mouseLeaveHandler}
-      id={id}
     >
       <div className="small-film-card__image">
         {
