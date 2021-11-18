@@ -1,8 +1,10 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import { Film } from '../../types/film';
 import VideoPreview from '../video-preview/video-preview';
+
+const PREVIEW_DELAY = 1000;
 
 type FilmCardProps = {
   film: Film,
@@ -12,6 +14,23 @@ function FilmCard({
   film: { previewImage, name, id, previewVideoLink },
 }: FilmCardProps): JSX.Element {
   const [ isActive, setIsActive ] = useState(false);
+  const [ isPlaying, setIsPlaying ] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    if (isActive) {
+      timeoutId = setTimeout(() => {
+        setIsPlaying(true);
+      }, PREVIEW_DELAY);
+    } else {
+      setIsPlaying(false);
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isActive]);
 
   const mouseOverHandler = () => {
     setIsActive(true);
@@ -29,11 +48,23 @@ function FilmCard({
       id={id}
     >
       <div className="small-film-card__image">
-        <VideoPreview
-          poster={previewImage}
-          src={previewVideoLink}
-          isPlaying={isActive}
-        />
+        {
+          isPlaying
+            ? (
+              <VideoPreview
+                poster={previewImage}
+                src={previewVideoLink}
+              />
+            )
+            : (
+              <img
+                src={previewImage}
+                alt={name}
+                width="280"
+                height="175"
+              />
+            )
+        }
       </div>
       <h3 className="small-film-card__title">
         <Link

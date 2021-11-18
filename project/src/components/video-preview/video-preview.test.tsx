@@ -1,23 +1,20 @@
-import { render } from '@testing-library/react';
-import { play } from '../../setupTests';
+import { act, render, screen } from '@testing-library/react';
 import { getFakeFilm } from '../../utils/mock';
 import VideoPreview from './video-preview';
 
 describe('Component: Video preview', () => {
   it('should render correctly', () => {
-    const PREVIEW_DELAY = 1000;
+    const VIDEO_PREVIEW_TEST_ID = 'video-preview';
     const { previewVideoLink, backgroundImage } = getFakeFilm();
+    act(() => {
+      render(
+        <VideoPreview
+          src={previewVideoLink}
+          poster={backgroundImage}
+        />,
+      );
+    });
 
-    render(
-      <VideoPreview
-        src={previewVideoLink}
-        poster={backgroundImage}
-        isPlaying
-      />,
-    );
-
-    setTimeout(() => {
-      expect(play).toBeCalled();
-    }, PREVIEW_DELAY);
+    expect(screen.getByTestId(VIDEO_PREVIEW_TEST_ID)).toBeInTheDocument();
   });
 });

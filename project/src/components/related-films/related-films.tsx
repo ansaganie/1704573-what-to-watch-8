@@ -10,7 +10,7 @@ type RelatedFilmsProps = {
   filmId: string,
 }
 
-function RelatedFilms(props: RelatedFilmsProps): JSX.Element {
+function RelatedFilms(props: RelatedFilmsProps): JSX.Element | null {
   const { filmId } = props;
 
   const [ films, setFilms ] = useState<Film[]>([]);
@@ -23,6 +23,10 @@ function RelatedFilms(props: RelatedFilmsProps): JSX.Element {
         setIsLoading(false);
       });
   }, [ filmId ]);
+
+  if (!isLoading && (!films || films.length === 0)) {
+    return null;
+  }
 
   return (
     <section className="catalog catalog--like-this">
