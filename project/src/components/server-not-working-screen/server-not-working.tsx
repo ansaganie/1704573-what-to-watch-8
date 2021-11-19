@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from '../../components/message/message';
+import Message from '../message/message';
 
 const  SERVER_NOT_WORKING_MESSAGE = 'Sorry for inconvenience. We are working to fix it';
 

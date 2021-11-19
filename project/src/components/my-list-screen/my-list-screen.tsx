@@ -10,7 +10,7 @@ import Spinner from '../spinner/Spinner';
 
 const NO_FAVORITE_FILMS = 'Your list of favorite films is empty for now';
 
-function MyList(): JSX.Element {
+function MyListScreen(): JSX.Element {
   const dispatch = useDispatch();
   const myList = useSelector(getMyList);
   const isMyListLoading = useSelector(getIsMyListLoading);
@@ -45,4 +45,4 @@ function MyList(): JSX.Element {
   );
 }
 
-export default MyList;
+export default MyListScreen;

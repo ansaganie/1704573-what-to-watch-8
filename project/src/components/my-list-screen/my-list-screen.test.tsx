@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { getFakeFilms } from '../../utils/mock';
 import * as redux from 'react-redux';
-import MyList from './my-list';
+import MyListScreen from './my-list-screen';
 
 const mockStore = configureMockStore();
 const state = {
@@ -24,7 +24,7 @@ describe('Screen: My List', () => {
     render(
       <Provider store={mockStore(state)}>
         <Router history={createMemoryHistory()}>
-          <MyList/>
+          <MyListScreen/>
         </Router>
       </Provider>,
     );

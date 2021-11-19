@@ -6,7 +6,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { getFakeFilm } from '../../utils/mock';
 import * as hooks from '../../hooks/use-load-film';
 import * as Header from '../header/header';
-import Player from './player';
+import Player from './player-screen';
 
 const mockStore = configureMockStore();
 
