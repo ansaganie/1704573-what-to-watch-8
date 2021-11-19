@@ -2,7 +2,10 @@ import React from 'react';
 
 function Sprite(): JSX.Element {
   return (
-    <div className="visually-hidden">
+    <div
+      className="visually-hidden"
+      data-testid="sprite"
+    >
       <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <symbol id="add" viewBox="0 0 19 20">
           <title>+</title>

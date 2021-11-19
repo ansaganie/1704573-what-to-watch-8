@@ -1,10 +1,11 @@
-import { Film } from '../../types/film';
+import { Film, FilmId } from '../../types/film';
 
 enum DataActionType {
   SetFilms = 'data/set-films',
-  SetPromoFilm = 'data/set-promo-film',
+  SetPromoFilmId = 'data/set-promo-film-id',
   SetFilmsLoaded = 'data/set-films-loaded',
-  SetPromoFilmLoaded = 'data/set-promo-film-loaded',
+  SetIsPromoFilmLoading = 'data/set-promo-film-is-loading',
+  AddFilm = 'data/add-film',
   UpdateFilm = 'data/update-film',
 }
 
@@ -13,8 +14,8 @@ const setFilms = (films: Film[]) => ({
   payload: { films },
 } as const);
 
-const setPromoFilm = (promoFilmId: string) => ({
-  type: DataActionType.SetPromoFilm,
+const setPromoFilmId = (promoFilmId: FilmId) => ({
+  type: DataActionType.SetPromoFilmId,
   payload: { promoFilmId },
 } as const);
 
@@ -22,8 +23,14 @@ const setFilmsLoaded = () => ({
   type: DataActionType.SetFilmsLoaded,
 } as const);
 
-const setPromoFilmLoaded = () => ({
-  type: DataActionType.SetPromoFilmLoaded,
+const setIsPromoFilmLoading = (isPromoFilmLoading: boolean) => ({
+  type: DataActionType.SetIsPromoFilmLoading,
+  payload: { isPromoFilmLoading },
+} as const);
+
+const addFilm = (newFilm: Film) => ({
+  type: DataActionType.AddFilm,
+  payload: { newFilm },
 } as const);
 
 const updateFilm = (film: Film) => ({
@@ -34,15 +41,17 @@ const updateFilm = (film: Film) => ({
 export {
   setFilms,
   setFilmsLoaded,
-  setPromoFilm,
-  setPromoFilmLoaded,
+  setPromoFilmId,
+  setIsPromoFilmLoading,
   updateFilm,
+  addFilm,
   DataActionType
 };
 
 export type DataActions =
   | ReturnType<typeof setFilms>
-  | ReturnType<typeof setPromoFilm>
+  | ReturnType<typeof setPromoFilmId>
   | ReturnType<typeof setFilmsLoaded>
   | ReturnType<typeof updateFilm>
-  | ReturnType<typeof setPromoFilmLoaded>;
+  | ReturnType<typeof addFilm>
+  | ReturnType<typeof setIsPromoFilmLoading>;

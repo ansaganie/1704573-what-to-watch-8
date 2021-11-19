@@ -1,21 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import { ReducerNameSpace } from '../constants';
 import { appReducer } from './app/app-reducer';
 import { dataReducer } from './data/data-reducer';
 import { filmReducer } from './film/film-reducer';
 import { userReducer } from './user/user-reducer';
 
-export enum NameSpace {
-  data = 'data',
-  app = 'app',
-  user = 'user',
-  film = 'film',
-}
-
 export const rootReducer = combineReducers({
-  [NameSpace.data]: dataReducer,
-  [NameSpace.app]: appReducer,
-  [NameSpace.user]: userReducer,
-  [NameSpace.film]: filmReducer,
+  [ReducerNameSpace.data]: dataReducer,
+  [ReducerNameSpace.app]: appReducer,
+  [ReducerNameSpace.user]: userReducer,
+  [ReducerNameSpace.film]: filmReducer,
 });
-
-export type State = ReturnType<typeof rootReducer>;

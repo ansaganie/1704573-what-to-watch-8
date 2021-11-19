@@ -1,15 +1,14 @@
 import MockAdapter from 'axios-mock-adapter';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { api } from '../../store/store';
-import { State } from '../root-reducer';
+import { api, State } from '../../store/store';
 import { Action } from 'redux';
 import { BackendRoute } from '../../constants';
 import { getFakeServerFilm, getFakeServerFilms } from '../../utils/mock';
 import { adaptFilmToClient } from '../../services/adapter';
 import { fetchFilms, fetchPromoFilm, postToggleFavorite } from './data-thunks';
-import { setFilms, setFilmsLoaded, setPromoFilm, setPromoFilmLoaded, updateFilm } from './data-actions';
-import { setMyListButtonDisabled } from '../film/film-actions';
+import { setFilms, setFilmsLoaded, setPromoFilmId, updateFilm } from './data-actions';
+import { setIsFilmLoading, setMyListButtonDisabled } from '../film/film-actions';
 
 
 describe('Data thunks', () => {
@@ -50,8 +49,9 @@ describe('Data thunks', () => {
     await store.dispatch(fetchPromoFilm());
 
     expect(store.getActions()).toEqual([
-      setPromoFilm(film.id.toString()),
-      setPromoFilmLoaded(),
+      setIsFilmLoading(true),
+      setPromoFilmId(film.id.toString()),
+      setIsFilmLoading(false),
     ]);
   });
 
@@ -65,7 +65,7 @@ describe('Data thunks', () => {
         films: films.map(adaptFilmToClient),
       },
     });
-    mockApi.onPost(BackendRoute.FavoritePost(film.id, status)).reply(200, {
+    mockApi.onPost(BackendRoute.getFavoriteLink(film.id, status)).reply(200, {
       ...film,
       'is_favorite': changedStatus,
     });

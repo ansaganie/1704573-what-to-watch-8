@@ -1,48 +1,34 @@
 import { Review, ReviewForm } from '../types/review';
-import { Film, ServerFilm } from '../types/film';
+import { Film, FilmId, ServerFilm } from '../types/film';
 import { BackendRoute } from '../constants';
 import { adaptFilmToClient, adaptReviewToClient } from './adapter';
 import { api } from '../store/store';
+import { toast } from 'react-toastify';
 
-const fetchFilm = async (filmId: string): Promise<Film> => {
-  const { data } = await api.get<ServerFilm>(BackendRoute.Film(filmId));
+const POST_REVIEW_ERROR = 'Could not post your review, please try later';
+const RELATED_FILMS_ERROR = 'Could not post your review, please try later';
 
-  return adaptFilmToClient(data);
-};
-
-const fetchComments = async (filmId: string): Promise<Review[]> => {
-  const { data } = await api.get<Review[]>(BackendRoute.Comments(filmId));
-
-  return data.map(adaptReviewToClient);
-};
-
-const postComment = async (filmId: string, comment: ReviewForm): Promise<Review | undefined> => {
+const postReview = async (filmId: FilmId, comment: ReviewForm): Promise<Review[] | undefined> => {
   try {
-    const { data } = await api.post<Review>(BackendRoute.Comments(filmId), comment);
+    const { data } = await api.post<Review[]>(BackendRoute.getReviewsLink(filmId), comment);
 
-    return adaptReviewToClient(data);
+    return data.map(adaptReviewToClient);
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    toast.info(POST_REVIEW_ERROR);
   }
 };
 
-const fetchRelatedFilms = async (filmId: string): Promise<Film[]> => {
-  const { data } = await api.get<ServerFilm[]>(BackendRoute.Similar(filmId));
+const fetchRelatedFilms = async (filmId: FilmId): Promise<Film[] | undefined> => {
+  try {
+    const { data } = await api.get<ServerFilm[]>(BackendRoute.getRelatedFilmsLink(filmId));
 
-  return data.map(adaptFilmToClient);
-};
-
-const fetchFavorites = async (): Promise<Film[]> => {
-  const { data } = await api.get<ServerFilm[]>(BackendRoute.Favorite);
-
-  return data.map(adaptFilmToClient);
+    return data.map(adaptFilmToClient);
+  } catch (error) {
+    toast.info(RELATED_FILMS_ERROR);
+  }
 };
 
 export {
-  fetchFilm,
   fetchRelatedFilms,
-  fetchComments,
-  fetchFavorites,
-  postComment
+  postReview
 };

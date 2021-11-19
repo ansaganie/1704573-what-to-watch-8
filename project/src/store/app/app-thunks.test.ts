@@ -1,8 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { api } from '../../store/store';
-import { State } from '../root-reducer';
+import { api, State } from '../../store/store';
 import { Action } from 'redux';
 import { AuthStatus, BackendRoute } from '../../constants';
 import { getFakeServerUser } from '../../utils/mock';
