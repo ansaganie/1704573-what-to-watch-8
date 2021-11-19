@@ -6,7 +6,7 @@ import { Route, Router } from 'react-router';
 import { AppRoute, AuthStatus } from '../../constants';
 import { getFakeUser } from '../../utils/mock';
 import { SignIn } from './sign-in';
-import * as Header from '../../components/header/header';
+import * as Header from '../header/header';
 
 
 const mockStore = configureMockStore();

@@ -12,8 +12,8 @@ import { login } from '../../store/user/user-thunks';
 import { AppRoute, AuthStatus } from '../../constants';
 import { AsyncDispatch, State } from '../../store/store';
 import { getAuthStatus } from '../../store/user/user-selectors';
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
+import Footer from '../footer/footer';
+import Header from '../header/header';
 
 const INITIAL_VALUES: SignInForm = {
   email: '',

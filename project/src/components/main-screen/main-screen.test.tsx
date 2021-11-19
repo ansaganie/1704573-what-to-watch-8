@@ -8,7 +8,7 @@ import * as useLoadFilm from '../../hooks/use-load-film';
 import * as Header from '../header/header';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
-import Main from './main';
+import MainScreen from './main-screen';
 import { AuthStatus } from '../../constants';
 import { Actions, api, State } from '../../store/store';
 import { ThunkDispatch } from '@reduxjs/toolkit';
@@ -51,7 +51,7 @@ describe('Screen: Main', () => {
       render(
         <Provider store={mockStore(state)}>
           <Router history={createMemoryHistory()}>
-            <Main/>
+            <MainScreen/>
           </Router>
         </Provider>,
       );

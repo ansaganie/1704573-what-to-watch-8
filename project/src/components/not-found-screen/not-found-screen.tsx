@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import styles from './not-found.module.css';
+import styles from './not-found-screen.module.css';
 
 function NotFound():JSX.Element {
   return (

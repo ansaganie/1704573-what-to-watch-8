@@ -6,11 +6,11 @@ import useLoadFilm from '../../hooks/use-load-film';
 import useScrollToTitle from '../../hooks/use-scroll-to-title';
 import Header from '../header/header';
 import ReviewForm from '../review-form/review-form';
-import NotFound from '../not-found/not-found';
+import NotFound from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/Spinner';
 import BackgroundImage from '../background-image/background-image';
 
-function AddReview(): JSX.Element {
+function AddReviewScreen(): JSX.Element {
   const { id: filmId } = useParams<{ id: FilmId }>();
   const [ film, isFilmLoading ] = useLoadFilm(filmId);
   useScrollToTitle(filmId);
@@ -65,4 +65,4 @@ function AddReview(): JSX.Element {
   );
 }
 
-export default AddReview;
+export default AddReviewScreen;

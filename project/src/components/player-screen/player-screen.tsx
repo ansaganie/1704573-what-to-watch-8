@@ -5,7 +5,7 @@ import { AppRoute } from '../../constants';
 import { FilmId } from '../../types/film';
 import useLoadFilm from '../../hooks/use-load-film';
 import Spinner from '../spinner/Spinner';
-import NotFound from '../not-found/not-found';
+import NotFound from '../not-found-screen/not-found-screen';
 
 function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);

@@ -5,17 +5,17 @@ import { AppRoute } from '../../constants';
 import { initializeApp } from '../../store/app/app-thunks';
 import { AsyncDispatch, State } from '../../store/store';
 import { getAppInitialized, getServerNotWorking } from '../../store/app/app-selector';
-import Main from '../main/main';
-import SignIn from '../sign-in/sign-in';
-import MyList from '../my-list/my-list';
+import MainScreen from '../main-screen/main-screen';
+import SignIn from '../sign-in-screen/sign-in';
+import MyListScreen from '../my-list-screen/my-list-screen';
 import FilmPage from '../film-page/film-page';
-import AddReview from '../add-review/add-review';
-import Player from '../player/player';
-import NotFound from '../not-found/not-found';
+import AddReviewScreen from '../add-review-screen/add-review-screen';
+import Player from '../player-screen/player-screen';
+import NotFound from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Sprite from '../sprite/sprite';
 import Spinner from '../spinner/Spinner';
-import ServerNotWorking from '../server-not-working/server-not-working';
+import ServerNotWorking from '../server-not-working-screen/server-not-working';
 
 const mapStateToProps = (state: State) => ({
   appInitialized: getAppInitialized(state),
@@ -56,7 +56,7 @@ function App(props: AppProps): JSX.Element | null {
       <Sprite/>
       <Switch>
         <Route path={AppRoute.Main} exact>
-          <Main/>
+          <MainScreen/>
         </Route>
         <Route path={AppRoute.SignIn} exact>
           <SignIn/>
@@ -70,12 +70,12 @@ function App(props: AppProps): JSX.Element | null {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          render={() => <MyList/>}
+          render={() => <MyListScreen/>}
         />
         <PrivateRoute
           exact
           path={AppRoute.AddReview}
-          render={() => <AddReview/>}
+          render={() => <AddReviewScreen/>}
         />
         <Route>
           <NotFound/>

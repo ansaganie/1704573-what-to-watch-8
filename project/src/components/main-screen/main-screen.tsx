@@ -3,7 +3,7 @@ import PromoFilm from '../promo-film/promo-film';
 import Footer from '../footer/footer';
 import Catalog from '../catalog/catalog';
 
-function Main(): JSX.Element {
+function MainScreen(): JSX.Element {
   return (
     <React.Fragment>
       <PromoFilm/>
@@ -15,4 +15,4 @@ function Main(): JSX.Element {
   );
 }
 
-export default Main;
+export default MainScreen;

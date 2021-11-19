@@ -7,7 +7,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import * as hooks from '../../hooks/use-load-film';
 import * as Header from '../header/header';
 import * as useScrollToTitle from '../../hooks/use-scroll-to-title';
-import AddReview from './add-review';
+import AddReviewScreen from './add-review-screen';
 
 const mockStore = configureMockStore();
 
@@ -24,7 +24,7 @@ describe('Screen: Add review', () => {
     render(
       <Provider store={mockStore(mockStore())}>
         <Router history={createMemoryHistory()}>
-          <AddReview/>
+          <AddReviewScreen/>
         </Router>
       </Provider>,
     );
@@ -43,7 +43,7 @@ describe('Screen: Add review', () => {
     render(
       <Provider store={mockStore()}>
         <Router history={createMemoryHistory()}>
-          <AddReview/>
+          <AddReviewScreen/>
         </Router>
       </Provider>,
     );
