@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router';
 import * as Header from '../header/header';
-import NotFound from './not-found-screen';
+import NotFoundScreen from './not-found-screen';
 
 describe('Screen: Not Found 404', () => {
   it('should render correctly', () => {
@@ -12,7 +12,7 @@ describe('Screen: Not Found 404', () => {
 
     render(
       <Router history={createMemoryHistory()}>
-        <NotFound/>
+        <NotFoundScreen/>
       </Router>,
     );
 

@@ -3,7 +3,7 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import styles from './not-found-screen.module.css';
 
-function NotFound():JSX.Element {
+function NotFoundScreen():JSX.Element {
   return (
     <div className="user-page">
 
@@ -22,4 +22,4 @@ function NotFound():JSX.Element {
   );
 }
 
-export default NotFound;
+export default NotFoundScreen;

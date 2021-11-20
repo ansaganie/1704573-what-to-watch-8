@@ -11,7 +11,7 @@ import MyListScreen from '../my-list-screen/my-list-screen';
 import FilmPage from '../film-page/film-page';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
 import Player from '../player-screen/player-screen';
-import NotFound from '../not-found-screen/not-found-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import Sprite from '../sprite/sprite';
 import Spinner from '../spinner/Spinner';
@@ -78,7 +78,7 @@ function App(props: AppProps): JSX.Element | null {
           render={() => <AddReviewScreen/>}
         />
         <Route>
-          <NotFound/>
+          <NotFoundScreen/>
         </Route>
       </Switch>
     </>

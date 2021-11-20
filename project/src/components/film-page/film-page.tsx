@@ -9,7 +9,7 @@ import useLoadFilm from '../../hooks/use-load-film';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import FilmTabs from '../film-tabs/film-tabs';
-import NotFound from '../not-found-screen/not-found-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import RelatedFilms from '../related-films/related-films';
 import Spinner from '../spinner/Spinner';
 import PlayButton from '../play-button/play-button';
@@ -40,7 +40,7 @@ function FilmPage({ authStatus }: FilmPageProps): JSX.Element {
   }
 
   if (!film) {
-    return <NotFound/>;
+    return <NotFoundScreen/>;
   }
 
   const {

@@ -6,7 +6,7 @@ import useLoadFilm from '../../hooks/use-load-film';
 import useScrollToTitle from '../../hooks/use-scroll-to-title';
 import Header from '../header/header';
 import ReviewForm from '../review-form/review-form';
-import NotFound from '../not-found-screen/not-found-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/Spinner';
 import BackgroundImage from '../background-image/background-image';
 
@@ -22,7 +22,7 @@ function AddReviewScreen(): JSX.Element {
   }
 
   if (!film) {
-    return <NotFound/>;
+    return <NotFoundScreen/>;
   }
 
   const { posterImage, backgroundImage, name, rating } = film;

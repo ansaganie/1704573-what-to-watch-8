@@ -5,7 +5,7 @@ import { AppRoute } from '../../constants';
 import { FilmId } from '../../types/film';
 import useLoadFilm from '../../hooks/use-load-film';
 import Spinner from '../spinner/Spinner';
-import NotFound from '../not-found-screen/not-found-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -26,7 +26,7 @@ function Player(): JSX.Element {
   }
 
   if (!film) {
-    return <NotFound/>;
+    return <NotFoundScreen/>;
   }
 
   const waitingHandler = () => {
@@ -140,7 +140,7 @@ function Player(): JSX.Element {
     );
   }
 
-  return <NotFound/>;
+  return <NotFoundScreen/>;
 }
 
 export default Player;
